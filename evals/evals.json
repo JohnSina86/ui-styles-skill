@@ -61,7 +61,9 @@
         "Writes no rule whose selector is a bare html, body, * or element name, including inside media queries",
         "Gives every button an explicit type, and uses a real link for Download",
         "Quotes a contrast ratio only for a pair that is in the ledger on that surface, or one it recomputed, and does not reuse a ledger ratio for the same colour on a different surface",
-        "Says it did not render the result and leaves the render-only checklist items open, instead of writing rendered or checked in a browser"
+        "Says it did not render the result and leaves the render-only checklist items open, instead of writing rendered or checked in a browser",
+        "Shows both relative luminances beside any ratio it computes, and lists the result of searching its own files for http(s):// before it states its dependencies or fonts",
+        "Applies the same scoping rule to any demo page it builds, including the inline style block"
       ]
     }
   ]

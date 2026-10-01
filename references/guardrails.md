@@ -71,7 +71,7 @@ A theme must not restyle the page that hosts it. Everything stays under `.theme-
 /* Standalone page you create: theme class on <html>, so this can never match a host page. */
 .theme-swiss body { margin: 0; min-height: 100vh; background: var(--ui-bg); color: var(--ui-text); font-family: var(--ui-font-body); }
 ```
-In a drop-in task (an existing app, a snippet, one component) the host keeps its `body`, margins and base font, so write no page-level rules at all. A bare selector inside a media query counts too.
+In a drop-in task (an existing app, a snippet, one component) the host keeps its `body`, margins and base font, so write no page-level rules at all. A bare selector inside a media query counts too, and so does one in the inline `<style>` of a demo or preview page you build around the component: write it as `.theme-<id> body` or put it on a wrapper class.
 
 ## Fonts
 - All fonts named here are on Google Fonts under open licences, mostly the SIL OFL. Check the licence file you download.
