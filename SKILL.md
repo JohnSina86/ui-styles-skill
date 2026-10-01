@@ -3,7 +3,7 @@ name: ui-styles
 description: >-
   Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # UI Styles (v1.2)
@@ -78,7 +78,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - **Dark mode:** redefine the same roles under a selector and re-run the contrast check. Dark-only styles stay dark-only.
 
 ## 6. Workflow
-1. Do section 0, then choose with sections 1 and 2.
+1. Do section 0, then choose with sections 1 and 2. If the user only asks you to pick, recommend or explain a style, answer with the recommendation, the reasons and the risk, and don't write CSS or token files unless they ask.
 2. Read `references/tokens-<name>.md` and paste the style's block into the global stylesheet. Add the Tailwind mapping if needed, and the guardrails once.
 3. Build components from roles. For Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and Wabi-Sabi use [styles-catalog.md](references/styles-catalog.md). For any other style, use this pattern, **scoped to the theme** (if the project already has card, button or input components, map the roles into *those* selectors instead):
    ```css
@@ -95,7 +95,8 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 ## 7. Pre-delivery checklist
 - [ ] Existing design system respected (section 0).
 - [ ] Style chosen from the index or product-fit table, with the risk and `Requires` rule applied.
-- [ ] Only `--ui-*` roles used; no hard-coded colours outside decorative uses.
+- [ ] Only `--ui-*` roles used; no hard-coded colours outside decorative uses. A badge or tag colour that isn't in the ledger is decorative only, and its text uses a ledger on-colour.
+- [ ] Headings follow a logical order with no skipped levels, whatever the display font.
 - [ ] Every text, control and focus pair is in the ledger (or was recomputed).
 - [ ] Visible focus on every interactive element, and no clipped focusable element.
 - [ ] Reduced motion, reduced transparency and forced colours handled.

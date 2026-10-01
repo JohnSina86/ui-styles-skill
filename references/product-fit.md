@@ -19,7 +19,7 @@ Hand-written guidance, **not data**: it records judgement about which styles ten
 | Developer tool or CLI landing page | `cybercore` | `minimalism` | `scrapbook`, `victorian` | Paragraphs set entirely in monospace. |
 | Fintech or banking | `swiss` | `minimalism` | `maximalism`, `synthwave`, `cyberpunk` | Neon or playful gradients erode trust. |
 | Crypto or web3 dashboard | `cyberpunk` | `glassmorphism` | `scrapbook` | Glow on small numbers; unreadable glass over charts. |
-| Healthcare or clinic | `minimalism` | `bento-grid` | `maximalism`, `cyberpunk` | Alarming colour use; small low-contrast text. |
+| Healthcare or clinic | `minimalism` | `swiss` | `maximalism`, `cyberpunk` | Alarming colour use; small low-contrast text; card-grid layouts for sequential flows such as refills, intake or dosage. |
 | Wellness or meditation | `ethereal` | `wabi-sabi` | `maximalism`, `cyberpunk` | Auto-playing motion; thin type below weight 400. |
 | Luxury or jewellery | `luxury` | `editorial` | `maximalism`, `y2k` | Gold on cream as text; cramped tracking on long lines. |
 | Fashion or editorial storytelling | `editorial` | `surrealism` | `pixel-art` | Text over busy imagery without a solid panel. |
@@ -33,7 +33,7 @@ Hand-written guidance, **not data**: it records judgement about which styles ten
 | Heritage brand, archive or distillery | `victorian` | `editorial` | `neo-brutalism` | Ornament that costs space on mobile. |
 | Smart-home or hardware controls | `neumorphism` | `glassmorphism` | `maximalism` | Raised and pressed states that differ only in shadow. |
 | Festival, event or campaign drop | `maximalism` | `scrapbook` | `neumorphism` | Patterns directly behind text. |
-| General e-commerce | `minimalism` | `bento-grid` | `surrealism` | Hidden affordances; icon-only buttons. |
+| General e-commerce | `minimalism` | `bento-grid` | `surrealism` | Hidden affordances; icon-only buttons. Use `bento-grid` for homepage highlights only, never for checkout. |
 | Prototyping or planning tool | `sketch` | `scrapbook` | `luxury` | Hand-drawn look on a payment step. |
 | Streetwear or youth brand | `y2k` | `neo-brutalism` | `swiss` | Gloss gradients behind small text. |
 | News or long-form reading | `editorial` | `minimalism` | `maximalism` | Multi-column text on narrow screens. |
