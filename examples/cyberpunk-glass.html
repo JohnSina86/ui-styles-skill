@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ui-styles demo: Cyberpunk, Glass, scoped tokens</title>
+<!-- Self-contained: no remote fonts, so every stack falls back to its generic family (SKILL.md §5.4). -->
+<style>
+/* ---- token blocks copied from SKILL.md §4 ---- */
+.theme-cyberpunk {
+  --ui-bg: #0c0c0e; --ui-surface: #0d0d11; --ui-text: #fcee09; --ui-text-muted: #c9c9d1;
+  --ui-accent: #fcee09; --ui-on-accent: #000000; --ui-border: #fcee09; --ui-focus: #00f0ff;
+  --ui-radius: 0; --ui-shadow: none;
+  --ui-font-display: "Rajdhani", ui-sans-serif, system-ui, sans-serif;
+  --ui-font-body: "Chakra Petch", ui-sans-serif, system-ui, sans-serif;
+}
+.theme-glassmorphism {
+  --ui-bg: #0f172a; --ui-surface: rgba(15, 23, 42, 0.75); --ui-text: #ffffff; --ui-text-muted: #cbd5e1;
+  --ui-accent: #38bdf8; --ui-on-accent: #0f172a; --ui-border: #94a3b8; --ui-focus: #7dd3fc;
+  --ui-radius: 20px; --ui-shadow: 0 8px 32px rgba(15, 23, 42, 0.25);
+  --ui-font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --ui-font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --ui-blur: 16px;
+}
+.theme-bento-grid {
+  --ui-bg: #fafafa; --ui-surface: #ffffff; --ui-text: #18181b; --ui-text-muted: #52525b;
+  --ui-accent: #4f46e5; --ui-on-accent: #ffffff; --ui-border: #71717a; --ui-focus: #4f46e5;
+  --ui-radius: 20px; --ui-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --ui-font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --ui-font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+/* scoped override (proof 4b): same roles, redefined for a dark section */
+.theme-bento-grid .dark {
+  --ui-bg: #18181b; --ui-surface: #27272a; --ui-text: #fafafa; --ui-text-muted: #a1a1aa; --ui-border: #a1a1aa; --ui-focus: #a5b4fc;
+}
+
+/* ---- guardrails, SKILL.md §5 ---- */
+:where([class*="theme-"]) :focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  :where([class*="theme-"]) *, :where([class*="theme-"]) *::before, :where([class*="theme-"]) *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .ui-glass { background: var(--ui-bg); } }
+@media (prefers-reduced-transparency: reduce) { .ui-glass { background: var(--ui-bg) !important; backdrop-filter: none !important; } }
+
+/* ---- page ---- */
+body { margin: 0; font-family: system-ui, sans-serif; }
+section { padding: 40px 24px; }
+h2 { margin: 0 0 16px; font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+
+/* ---- Cyberpunk recipe, catalog §4 ---- */
+.theme-cyberpunk { background: var(--ui-bg); color: var(--ui-text); }
+.cyber-card, .cyber-btn { position: relative; isolation: isolate; background: none; filter: drop-shadow(0 0 8px rgba(252, 238, 9, 0.35)); }
+.cyber-card::before, .cyber-card::after, .cyber-btn::before {
+  content: ""; position: absolute; z-index: -1; --cut: 16px;
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+}
+.cyber-card { color: var(--ui-text); padding: 24px; max-width: 22rem; font-family: var(--ui-font-body); }
+.cyber-card::before { inset: 0; background: var(--ui-border); }
+.cyber-card::after { inset: 1px; background: var(--ui-surface); }
+.cyber-btn { color: var(--ui-on-accent); border: 0; font: 700 1rem/1 var(--ui-font-display); text-transform: uppercase; letter-spacing: .1em; min-height: 44px; padding: 12px 28px; cursor: pointer; }
+.cyber-btn::before { inset: 0; --cut: 10px; background: var(--ui-accent); transition: background .2s ease; }
+.cyber-btn:hover::before { background: #00f0ff; }
+.cyber-btn:focus-visible { outline: 2px solid var(--ui-focus); outline-offset: 4px; }
+
+/* ---- Glass recipe, catalog §2 — deliberately placed over PURE WHITE (worst case) ---- */
+.white-stage { background: #ffffff; }
+.glass-card { background: var(--ui-surface); backdrop-filter: blur(var(--ui-blur)); -webkit-backdrop-filter: blur(var(--ui-blur));
+  border: 1px solid rgba(255, 255, 255, .25); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); color: var(--ui-text); padding: 24px; max-width: 22rem; }
+.glass-card p { color: var(--ui-text-muted); }
+.glass-button { background: rgba(255, 255, 255, .12); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: 9999px; min-height: 44px; padding: 10px 20px; font-weight: 500; cursor: pointer; }
+.glass-button:hover { background: rgba(255, 255, 255, .20); }
+
+/* ---- role pattern, SKILL.md §6 ---- */
+.theme-bento-grid { background: var(--ui-bg); color: var(--ui-text); }
+.ui-section { background: var(--ui-bg); color: var(--ui-text); padding: 24px; border-radius: 12px; }
+.ui-card { background: var(--ui-surface); color: var(--ui-text); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: 24px; border: 1px solid var(--ui-border); }
+.ui-card p { color: var(--ui-text-muted); }
+</style>
+</head>
+<body>
+
+<section class="theme-cyberpunk">
+  <h2>Cyberpunk: cut corners, glow, unclipped focus</h2>
+  <div class="row">
+    <div class="cyber-card" id="cyber-card">
+      <strong>System status</strong>
+      <p style="color: var(--ui-text-muted)">The glow and the 1px border follow the cut corners.</p>
+      <button class="cyber-btn" id="cyber-btn">Engage</button>
+    </div>
+  </div>
+</section>
+
+<section class="theme-glassmorphism white-stage">
+  <h2 style="color:#0f172a">Glass over pure white (worst case)</h2>
+  <div class="row">
+    <div class="glass-card ui-glass" id="glass-card">
+      <strong>Frosted panel</strong>
+      <p>White text stays above 4.5:1 even on a white backdrop.</p>
+      <button class="glass-button" id="glass-btn">Discover more</button>
+    </div>
+  </div>
+</section>
+
+<section class="theme-bento-grid">
+  <h2>Scoped token override</h2>
+  <div class="row">
+    <div class="ui-section"><div class="ui-card" id="light-card"><strong>Light</strong><p>Root tokens.</p></div></div>
+    <div class="ui-section dark"><div class="ui-card" id="dark-card"><strong>Dark</strong><p>Same roles, overridden in <code>.dark</code>.</p></div></div>
+  </div>
+</section>
+
+</body>
+</html>
