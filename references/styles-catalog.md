@@ -230,7 +230,7 @@ Contrast: the card's yellow text on `#0d0d11` is 16.04:1. The black label is 17.
   clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
 }
 /* Card: yellow outer layer = border, dark inner layer = fill */
-.cyber-card { color: var(--ui-text); padding: 24px; }
+.cyber-card { color: var(--ui-text); font-family: var(--ui-font-body); padding: 24px; }
 .cyber-card::before { inset: 0;   background: var(--ui-border); }
 .cyber-card::after  { inset: 1px; background: var(--ui-surface); }
 

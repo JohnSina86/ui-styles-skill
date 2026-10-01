@@ -765,17 +765,22 @@ The tokens are a single theme per style. To add dark mode, redefine the same rol
 
 1. Do §0.
 2. **Apply tokens.** Paste the style's token block into the global stylesheet. Add the Tailwind mapping from §2 if the project uses Tailwind. Add the guardrails from §5 once.
-3. **Build components from roles.** For the six styles in the catalog, use those recipes. For the rest, use this pattern:
+3. **Build components from roles.** For the six styles in the catalog, use those recipes. For the rest, use the pattern below.
+   - It is **scoped to the theme container**, so it never affects components outside the theme.
+   - If the project already has card, button or input components, map the `--ui-*` roles into *those* selectors instead of adding these classes.
    ```css
-   .ui-card   { background: var(--ui-surface); color: var(--ui-text); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: 24px; }
-   .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius);
+   :where([class*="theme-"]) { font-family: var(--ui-font-body); }
+   :where([class*="theme-"]) :is(h1, h2, h3, h4) { font-family: var(--ui-font-display); }
+   :where([class*="theme-"]) .ui-card   { background: var(--ui-surface); color: var(--ui-text); font-family: var(--ui-font-body);
+                border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: 24px; }
+   :where([class*="theme-"]) .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius);
                 font-family: var(--ui-font-display); min-height: 44px; padding: 10px 20px; cursor: pointer; }
-   .ui-input  { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius);
+   :where([class*="theme-"]) .ui-input  { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius);
                 min-height: 44px; padding: 8px 12px; font-family: var(--ui-font-body); }
    ```
 4. **Verify:**
    - Contrast: recompute any changed pair (§3).
    - Focus is visible on every interactive element (§5.1).
    - Reduced motion and reduced transparency are honoured.
-   - Target size: at least 24×24 CSS px, or the WCAG 2.2 AA 2.5.8 spacing exception. Aim for 44×44 on touch-first surfaces.
+   - Target size: aim for 44×44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24×24 CSS px, check the spacing test **and** the exceptions: inline in text, an equivalent control elsewhere, a user-agent default control, or an essential presentation. The `ux-laws` skill §6 gives the full procedure.
    - For a UX review of the result, use the `ux-laws` skill. That skill grades structure, not the chosen aesthetic.
