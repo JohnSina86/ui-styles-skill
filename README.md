@@ -30,7 +30,7 @@ Each style in [`SKILL.md`](SKILL.md) §4 lists its visual DNA, tokens, decorativ
 
 Install a tagged release, so you get a reviewed version and not whatever the default branch holds later.
 
-> **Release status: pending.** The `v1.1.0` tag doesn't exist yet, so the commands below will fail until it's published. **Don't** install from the default branch instead: it still holds v1.0.0, without these fixes. Once the tag is published, the commands work as written, and `git -C <install dir> describe --tags` should print `v1.1.0`.
+> **Current release: `v1.1.0`.** To confirm an install, run `git -C <install dir> describe --tags`, which should print `v1.1.0`.
 
 ### Claude Code
 User level, so the skill is available in every project:
