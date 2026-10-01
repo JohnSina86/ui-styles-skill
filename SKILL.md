@@ -3,7 +3,7 @@ name: ui-styles
 description: >-
   Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
 ---
 
 # UI Styles (v1.2)
@@ -67,14 +67,14 @@ Every style defines the same roles, so components never hard-code colours. A blo
 Some styles add optional properties (`--ui-border-width`, `--ui-blur`, `--ui-backdrop`, `--ui-tilt`, `--ui-chrome`, `--ui-pattern`, `--ui-tracking`, `--ui-leading`). Components consume them.
 
 ## 4. Contrast contract
-Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** A ledger row covers only the exact foreground, background and state it names. The same hex on another surface is a new pair, so recompute it and never quote the row's ratio for it. Don't judge contrast by eye.
+Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** A ledger row covers only the exact foreground, background and state it names. The same hex on another surface is a new pair, so recompute it and never quote the row's ratio for it. When you compute a ratio yourself, write both relative luminances next to it (`L1 0.36, L2 1.00 -> 2.56:1`). A ratio with no luminances shown is a claim, not a recomputation, so don't call it "recomputed". Don't judge contrast by eye.
 
 ## 5. Guardrails (full CSS in [guardrails.md](references/guardrails.md))
 - **Focus:** a visible `:focus-visible` outline on every interactive element. Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element.
 - **Motion:** honour `prefers-reduced-motion`. Mark decorative transforms with `data-ui-motion`.
 - **Transparency:** provide an `@supports` fallback and honour `prefers-reduced-transparency`. Glass is used only over a dark or saturated backdrop, and the surface tint must not be lowered.
 - **Forced colours:** controls drawn only with backgrounds or pseudo-elements need a real border in `@media (forced-colors: active)`.
-- **Scoping:** keep every rule under the theme container or a class you own. In a drop-in task (an existing app, a snippet, one component) never write a rule whose selector is a bare `html`, `body`, `*` or element name. In a page you create from scratch, put the theme class on `<html>` and write page-level rules as `.theme-<id> body`.
+- **Scoping:** keep every rule under the theme container or a class you own. A demo or preview page you build around a component follows the same rule, including its inline `<style>` block. In a drop-in task (an existing app, a snippet, one component) never write a rule whose selector is a bare `html`, `body`, `*` or element name. In a page you create from scratch, put the theme class on `<html>` and write page-level rules as `.theme-<id> body`.
 - **Fonts:** self-host by default, end every stack in a generic family, and quote family names exactly once (`"Press Start 2P"`).
 - **Dark mode:** redefine the same roles under a selector and re-run the contrast check. Dark-only styles stay dark-only.
 
@@ -103,7 +103,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] No bare `html`, `body`, `*` or element selectors (section 5, Scoping), and every `<button>` has an explicit `type` (`button` unless it submits a form).
 - [ ] Reduced motion, reduced transparency and forced colours handled.
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
-- [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks.
+- [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
 - [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References

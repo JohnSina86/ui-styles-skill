@@ -73,6 +73,8 @@ When designing or building UI components, follow .agents/skills/ui-styles/SKILL.
 
 ## Changelog
 
+- **v1.2.2 (unreleased)**
+  - A ratio you compute must show both luminances, or it isn't called "recomputed". Before claiming "no remote fonts" or "dependencies: none", search every delivered file for `http(s)://`. The scoping rule now covers the inline `<style>` of a demo page. Found by a third blind comparison, where one reply misquoted a border ratio and another claimed no remote fonts while loading Google Fonts.
 - **v1.2.1**
   - Healthcare product-fit row now suggests `swiss` as the secondary style, not `bento-grid`. Advisory requests (pick, recommend, explain) get a recommendation without CSS files. The checklist adds a heading-order line and a rule for badge and tag colours. Found by a blind head-to-head comparison against another design skill.
   - Adds a Scoping guardrail (no bare `html`, `body`, `*` or element selectors in drop-in work), a rule that a ledger ratio applies only to the surface it names, a rule that every `<button>` has an explicit `type`, and a rule that "rendered" is claimed only after a real render. Found by a second blind comparison, run against the combined skill set.

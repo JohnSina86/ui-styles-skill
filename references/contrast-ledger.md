@@ -69,7 +69,8 @@ Recipes in [styles-catalog.md](styles-catalog.md) cite these IDs. Glass pairs ar
 4. For a translucent colour, composite first: `result = alpha * top + (1 - alpha) * under`, per channel, over the lightest backdrop it can sit on, then take the ratio.
 5. Worked example (`D-glass-card-text`): `rgba(15,23,42,.75)` over `#fff` gives `rgb(75, 81, 95)` per channel (`0.75*15+0.25*255 = 75`, and so on). Linearised, that is (0.0704, 0.0823, 0.1144), so L = 0.2126*0.0704 + 0.7152*0.0823 + 0.0722*0.1144 = 0.0821. White has L = 1, so the ratio is 1.05 / 0.1321 = **7.95**.
 
-6. A row is valid only for the foreground, background and state it names. When a colour is reused on another surface (a border moved from a glass input to a white dialog, say), that is a new pair: compute it with steps 1 to 3 and cite your own number, not the row's.
+6. Show your work. When you quote a ratio you computed, print both luminances (`L1`, `L2`) beside it so a reader can redo steps 3 and 4. A ratio with no luminances shown must not be called "recomputed".
+7. A row is valid only for the foreground, background and state it names. When a colour is reused on another surface (a border moved from a glass input to a white dialog, say), that is a new pair: compute it with steps 1 to 3 and cite your own number, not the row's.
 
 ## Freshness rule
 Re-verify the affected rows when **any** of these changes: a token value, a recipe colour or alpha (CSS `rgba()` or a Tailwind utility such as `bg-white/12`) in `styles-catalog.md`, or the compositing assumption (the backdrop). Otherwise re-verify at least once a year. Update the "Verified on" date when you do.
