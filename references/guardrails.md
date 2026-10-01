@@ -7,6 +7,7 @@ Apply these to **every** style. The rules are summarised in SKILL.md; this file 
 - [Motion](#motion)
 - [Transparency and blur](#transparency-and-blur)
 - [Forced colours (Windows High Contrast)](#forced-colours-windows-high-contrast)
+- [Scoping](#scoping)
 - [Fonts](#fonts)
 - [Dark mode](#dark-mode)
 
@@ -61,6 +62,16 @@ Forced-colours mode replaces author backgrounds, so a control whose only visible
 }
 ```
 The generic `.ui-button` role pattern (SKILL.md, Workflow) already has a `2px solid transparent` border, and forced-colours mode paints that border visibly. Don't remove it.
+
+## Scoping
+A theme must not restyle the page that hosts it. Everything stays under `.theme-<id>` (or a class you own), and the guardrail selectors above already use `:where([class*="theme-"])`.
+```css
+/* Do not write: body { ... }  html { ... }  * { box-sizing: border-box }  button { ... }  h2 { ... } */
+:where([class*="theme-"]), :where([class*="theme-"]) *, :where([class*="theme-"]) *::before, :where([class*="theme-"]) *::after { box-sizing: border-box; }
+/* Standalone page you create: theme class on <html>, so this can never match a host page. */
+.theme-swiss body { margin: 0; min-height: 100vh; background: var(--ui-bg); color: var(--ui-text); font-family: var(--ui-font-body); }
+```
+In a drop-in task (an existing app, a snippet, one component) the host keeps its `body`, margins and base font, so write no page-level rules at all. A bare selector inside a media query counts too.
 
 ## Fonts
 - All fonts named here are on Google Fonts under open licences, mostly the SIL OFL. Check the licence file you download.

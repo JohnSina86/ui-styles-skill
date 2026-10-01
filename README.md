@@ -75,6 +75,7 @@ When designing or building UI components, follow .agents/skills/ui-styles/SKILL.
 
 - **v1.2.1 (unreleased)**
   - Healthcare product-fit row now suggests `swiss` as the secondary style, not `bento-grid`. Advisory requests (pick, recommend, explain) get a recommendation without CSS files. The checklist adds a heading-order line and a rule for badge and tag colours. Found by a blind head-to-head comparison against another design skill.
+  - Adds a Scoping guardrail (no bare `html`, `body`, `*` or element selectors in drop-in work), a rule that a ledger ratio applies only to the surface it names, a rule that every `<button>` has an explicit `type`, and a rule that "rendered" is claimed only after a real render. Found by a second blind comparison, run against the combined skill set.
 - **v1.2.0**
   - `SKILL.md` is now a short routing file. The token blocks moved to `references/tokens-*.md`, and the guardrail CSS and Tailwind mappings moved to their own references.
   - Added a style index, a product-fit table, a "no verified match" contract, a pre-delivery checklist and a contrast ledger that includes derived component pairs.

@@ -51,6 +51,18 @@
         "If it creates a Memphis token block anyway, it labels it unverified, keeps it out of the catalog, and does not claim contrast was verified for it",
         "If it proceeds to build anything, it takes colours from an indexed style's tokens or recomputes contrast and says so"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Add a Minimalism-style invoice summary card with a Pay button and a Download link to our existing dashboard page. The app already styles its own body, headings and buttons, so don't touch those. You can't open a browser here.",
+      "expected_output": "A scoped card (no page-level rules), controls with explicit types, contrast pairs taken from the ledger or recomputed for the surface actually used, and an honest statement that nothing was rendered.",
+      "files": [],
+      "expectations": [
+        "Writes no rule whose selector is a bare html, body, * or element name, including inside media queries",
+        "Gives every button an explicit type, and uses a real link for Download",
+        "Quotes a contrast ratio only for a pair that is in the ledger on that surface, or one it recomputed, and does not reuse a ledger ratio for the same colour on a different surface",
+        "Says it did not render the result and leaves the render-only checklist items open, instead of writing rendered or checked in a browser"
+      ]
     }
   ]
 }
