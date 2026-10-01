@@ -1,0 +1,82 @@
+[
+ {
+  "query": "build a hero section and pricing card in neo-brutalism style with tailwind",
+  "should_trigger": true
+ },
+ {
+  "query": "audit this checkout page against UX laws like Hick's and Fitts's",
+  "should_trigger": false
+ },
+ {
+  "query": "give my landing page a glassmorphism look, frosted cards over a gradient",
+  "should_trigger": true
+ },
+ {
+  "query": "is my site WCAG 2.2 AA compliant? check contrast and keyboard access",
+  "should_trigger": false
+ },
+ {
+  "query": "I want a bento grid layout for the feature section, apple/linear style",
+  "should_trigger": true
+ },
+ {
+  "query": "our app uses Material UI; add a settings page that matches the existing theme",
+  "should_trigger": false
+ },
+ {
+  "query": "restyle this login page to look synthwave, neon magenta and cyan",
+  "should_trigger": true
+ },
+ {
+  "query": "set up Tailwind v4 in this Vite project and add a dark-mode toggle to the existing theme",
+  "should_trigger": false
+ },
+ {
+  "query": "which UI style would suit a meditation app, something soft and calming?",
+  "should_trigger": true
+ },
+ {
+  "query": "make the button blue and increase the padding a little",
+  "should_trigger": false
+ },
+ {
+  "query": "make the dashboard look cyberpunk with angular cut corners",
+  "should_trigger": true
+ },
+ {
+  "query": "convert this figma design to react components exactly as drawn",
+  "should_trigger": false
+ },
+ {
+  "query": "create an artisan coffee shop homepage in a boho wabi-sabi vibe",
+  "should_trigger": true
+ },
+ {
+  "query": "write a blog post about the history of brutalist architecture",
+  "should_trigger": false
+ },
+ {
+  "query": "give me a swiss international style poster-like layout for our agency site",
+  "should_trigger": true
+ },
+ {
+  "query": "add a settings page that reuses our existing component library and tokens",
+  "should_trigger": false
+ },
+ {
+  "query": "design tokens for a claymorphism onboarding flow for kids",
+  "should_trigger": true
+ },
+ {
+  "query": "set up a design system with our brand colours and a token pipeline in Style Dictionary",
+  "should_trigger": false
+ },
+ {
+  "query": "pixel art retro game landing page with a press start font",
+  "should_trigger": true
+ },
+ {
+  "query": "critique the usability of this signup flow and tell me what to change",
+  "should_trigger": false
+ }
+]

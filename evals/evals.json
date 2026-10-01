@@ -1,0 +1,55 @@
+{
+  "skill_name": "ui-styles",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a pricing card and a primary button in the Neo-Brutalism style using Tailwind v4. The project has no existing design system.",
+      "expected_output": "A pricing card and button that use the neo-brutalism token block through the --ui-* roles and the @theme inline mapping, with a visible focus ring and no hard-coded colours.",
+      "files": [],
+      "expectations": [
+        "Uses the neo-brutalism token block via the .theme-neo-brutalism class and --ui-* roles instead of hard-coded hex values",
+        "Uses `@theme inline` (not a plain `@theme` and not a JS theme.extend) for the Tailwind v4 mapping",
+        "Includes a visible :focus-visible style and does not clip the focusable element",
+        "Handles prefers-reduced-motion for the press-offset hover effect",
+        "Does not claim a contrast ratio it did not take from the ledger or recompute"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our app already has a design system with CSS variables --brand-bg, --brand-card and --brand-ink. Add a glassmorphism control bar to the dashboard header.",
+      "expected_output": "A glass control bar mapped onto the existing variables, without replacing the existing design system, with the glass backdrop requirements and fallbacks.",
+      "files": [],
+      "expectations": [
+        "Maps the --ui-* roles onto the existing --brand-* variables (or uses them directly) and does not replace the existing design system",
+        "States or ensures the glass surface sits over a dark or saturated backdrop, and keeps the tint so white text stays legible over a light backdrop",
+        "Provides an @supports fallback for missing backdrop-filter and handles prefers-reduced-transparency",
+        "Uses a focus ring that is visible on both light and dark backdrops (two-tone or equivalent)",
+        "Does not add global .ui-card / .ui-button rules that would affect existing components"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm launching an online pharmacy. Pick a visual style for the site and explain why.",
+      "expected_output": "A reasoned proposal of a primary and secondary style for a healthcare-adjacent product, avoiding styles the product-fit table lists as wrong for it.",
+      "files": [],
+      "expectations": [
+        "Proposes a primary and a secondary style with one reason each, using Best for and Avoid when guidance",
+        "Does not propose maximalism, cyberpunk or another style the table lists under Avoid for healthcare",
+        "Says the table has no exact online-pharmacy row and that it is working from the nearest analogue (the Healthcare or clinic row, or general e-commerce), instead of presenting its answer as an exact catalog match",
+        "Mentions at least one relevant risk or requirement from the style index (for example inputs needing the --ui-border)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Make my site look like a Memphis-design 1980s postmodern poster with confetti shapes and zigzags.",
+      "expected_output": "An honest statement that no indexed style matches Memphis design, with the two closest styles clearly labelled as unverified, not presented as catalog guidance.",
+      "files": [],
+      "expectations": [
+        "States that there is no verified match in the catalog for this style",
+        "Labels the two closest styles (for example maximalism and y2k or scrapbook) as unverified suggestions",
+        "If it creates a Memphis token block anyway, it labels it unverified, keeps it out of the catalog, and does not claim contrast was verified for it",
+        "If it proceeds to build anything, it takes colours from an indexed style's tokens or recomputes contrast and says so"
+      ]
+    }
+  ]
+}
