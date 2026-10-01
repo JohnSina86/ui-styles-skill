@@ -3,7 +3,7 @@ name: ui-styles
 description: >-
   Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # UI Styles (v1.2)
@@ -67,18 +67,19 @@ Every style defines the same roles, so components never hard-code colours. A blo
 Some styles add optional properties (`--ui-border-width`, `--ui-blur`, `--ui-backdrop`, `--ui-tilt`, `--ui-chrome`, `--ui-pattern`, `--ui-tracking`, `--ui-leading`). Components consume them.
 
 ## 4. Contrast contract
-Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** Don't judge contrast by eye.
+Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** A ledger row covers only the exact foreground, background and state it names. The same hex on another surface is a new pair, so recompute it and never quote the row's ratio for it. Don't judge contrast by eye.
 
 ## 5. Guardrails (full CSS in [guardrails.md](references/guardrails.md))
 - **Focus:** a visible `:focus-visible` outline on every interactive element. Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element.
 - **Motion:** honour `prefers-reduced-motion`. Mark decorative transforms with `data-ui-motion`.
 - **Transparency:** provide an `@supports` fallback and honour `prefers-reduced-transparency`. Glass is used only over a dark or saturated backdrop, and the surface tint must not be lowered.
 - **Forced colours:** controls drawn only with backgrounds or pseudo-elements need a real border in `@media (forced-colors: active)`.
+- **Scoping:** keep every rule under the theme container or a class you own. In a drop-in task (an existing app, a snippet, one component) never write a rule whose selector is a bare `html`, `body`, `*` or element name. In a page you create from scratch, put the theme class on `<html>` and write page-level rules as `.theme-<id> body`.
 - **Fonts:** self-host by default, end every stack in a generic family, and quote family names exactly once (`"Press Start 2P"`).
 - **Dark mode:** redefine the same roles under a selector and re-run the contrast check. Dark-only styles stay dark-only.
 
 ## 6. Workflow
-1. Do section 0, then choose with sections 1 and 2.
+1. Do section 0, then choose with sections 1 and 2. If the user only asks you to pick, recommend or explain a style, answer with the recommendation, the reasons and the risk, then **stop**: steps 2 to 4 apply only when they ask you to implement it.
 2. Read `references/tokens-<name>.md` and paste the style's block into the global stylesheet. Add the Tailwind mapping if needed, and the guardrails once.
 3. Build components from roles. For Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and Wabi-Sabi use [styles-catalog.md](references/styles-catalog.md). For any other style, use this pattern, **scoped to the theme** (if the project already has card, button or input components, map the roles into *those* selectors instead):
    ```css
@@ -95,13 +96,15 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 ## 7. Pre-delivery checklist
 - [ ] Existing design system respected (section 0).
 - [ ] Style chosen from the index or product-fit table, with the risk and `Requires` rule applied.
-- [ ] Only `--ui-*` roles used; no hard-coded colours outside decorative uses.
+- [ ] Only `--ui-*` roles used; no hard-coded colours outside decorative uses. A badge or tag colour that isn't in the ledger is decorative only. Text on it needs its own recomputed pair against that exact fill, or the text sits on a ledger surface instead.
+- [ ] Headings follow a logical order with no skipped levels, whatever the display font.
 - [ ] Every text, control and focus pair is in the ledger (or was recomputed).
 - [ ] Visible focus on every interactive element, and no clipped focusable element.
+- [ ] No bare `html`, `body`, `*` or element selectors (section 5, Scoping), and every `<button>` has an explicit `type` (`button` unless it submits a form).
 - [ ] Reduced motion, reduced transparency and forced colours handled.
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks.
-- [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping.
+- [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References
 - [styles-catalog.md](references/styles-catalog.md): card, button and input recipes for six styles.
