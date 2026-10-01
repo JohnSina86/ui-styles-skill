@@ -18,7 +18,7 @@ This skill turns an aesthetic request into production CSS: one token block per s
 
 1. **Existing design system first.** If the project already has tokens, a theme file or a component library, do not replace it. Map the chosen style onto the existing tokens as an accent layer, and only replace the system if the user asks.
 2. **Detect the Tailwind version** (`package.json` → `tailwindcss`) and pick the mapping in §2.
-3. **Font policy.** Check the project's CSP and asset policy before adding fonts. Prefer self-hosting (§5.4). Never inject a remote font link by default.
+3. **Font policy.** Check the project's CSP and asset policy before adding fonts. Prefer self-hosting (§5.5). Never inject a remote font link by default.
 4. **Pick a style.** Match the request to a style below. If no style was named, propose two styles, each with one line of reasoning drawn from its *Best for* and *Avoid when* lines.
 
 ## 1. The 5 archetypes
@@ -387,7 +387,7 @@ If you change a token, recompute the ratio. Don't judge contrast by eye. Translu
 ```
 * **Decorative only (not for text or control boundaries)**: #e4e4e7 card edge (1.3:1 — decorative, never on inputs)
 * **Best for**: Feature highlights, SaaS homepages, portfolio and executive summaries.
-* **Avoid when**: Sequential content: a bento layout has no reading order (ux-laws #9 Serial Position).
+* **Avoid when**: Sequential content, where spans and explicit placement make the visual order differ from DOM order (WCAG 1.3.2, 2.4.3 focus order). Keep source order equal to visual order.
 
 ---
 
@@ -695,11 +695,21 @@ If you change a token, recompute the ratio. Don't judge contrast by eye. Translu
 
 ### 5.1 Focus
 ```css
+:where([class*="theme-"]):focus-visible,
 :where([class*="theme-"]) :focus-visible {
   outline: 3px solid var(--ui-focus);
   outline-offset: 3px;
 }
+/* Translucent surfaces: an offset ring sits over whatever is behind the component, which may be white.
+   Use a two-tone ring (dark outline + white inner ring) so one of the two always reaches 3:1. */
+.theme-glassmorphism:focus-visible,
+.theme-glassmorphism :focus-visible {
+  outline: 3px solid #0f172a;          /* 17.9:1 on white */
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #ffffff, var(--ui-shadow);   /* white inner ring for dark backdrops */
+}
 ```
+Check focus contrast against the area **behind the outline**, not only the component's surface.
 Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element, because they clip its own outline. Draw clipped shapes on a pseudo-element instead (see the Cyberpunk recipe in the catalog).
 
 ### 5.2 Motion
@@ -717,7 +727,7 @@ Put `data-ui-motion` on elements whose transform is decorative or a hover effect
 ### 5.3 Transparency and blur
 ```css
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .theme-glassmorphism .ui-glass, .theme-ethereal .ui-glass { background: var(--ui-bg); }
+  .ui-glass { background: var(--ui-bg); }   /* matches whether .ui-glass sits on the theme element or inside it */
 }
 @media (prefers-reduced-transparency: reduce) {
   .ui-glass { background: var(--ui-bg) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
@@ -725,7 +735,17 @@ Put `data-ui-motion` on elements whose transform is decorative or a hover effect
 ```
 The Glassmorphism surface `rgba(15, 23, 42, 0.75)` was chosen so white text stays at 7.95:1 even over a pure-white backdrop. Don't lower its alpha.
 
-### 5.4 Fonts
+### 5.4 Forced colours (Windows High Contrast)
+Forced-colours mode replaces author backgrounds, so a control whose only visible shape is a background or a pseudo-element fill loses its boundary. Give such controls a real border in system colours:
+```css
+@media (forced-colors: active) {
+  .cyber-btn, .cyber-card { border: 1px solid ButtonText; }
+  .cyber-card { border-color: CanvasText; }
+}
+```
+The generic `.ui-button` in §6 already has a `2px solid transparent` border, and forced-colours mode paints that border visibly. Don't remove it.
+
+### 5.5 Fonts
 - All fonts named here are on Google Fonts under open licences, mostly the SIL OFL. Check the licence file you download.
 - **Default: self-host.** Download the `woff2`, then declare it:
   ```css
@@ -736,7 +756,7 @@ The Glassmorphism surface `rgba(15, 23, 42, 0.75)` was chosen so white text stay
 - Quote family names with exactly one pair of quotes: `"Press Start 2P"`, never `'"Press Start 2P"'`.
 - Proprietary faces (Helvetica Neue, Didot, SF Pro) may be put *before* the open font as an optional local match. Never rely on them alone.
 
-### 5.5 Dark mode
+### 5.6 Dark mode
 The tokens are a single theme per style. To add dark mode, redefine the same roles under a selector (`.theme-bento-grid.dark { --ui-bg: …; }` or `@media (prefers-color-scheme: dark)`) and re-run the contrast check. Styles that are dark by nature (Cybercore, Synthwave, Pixel Art, Cyberpunk, Surrealism, Maximalism, Glassmorphism) and the parchment styles are light-only or dark-only by design. Say so instead of inverting them automatically.
 
 ---

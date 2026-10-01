@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ui-styles demo: Cyberpunk, Glass, scoped tokens</title>
-<!-- Self-contained: no remote fonts, so every stack falls back to its generic family (SKILL.md §5.4). -->
+<!-- Self-contained: no remote fonts, so every stack falls back to its generic family (SKILL.md §5.5). -->
 <style>
 /* ---- token blocks copied from SKILL.md §4 ---- */
 .theme-cyberpunk {
@@ -35,14 +35,16 @@
 }
 
 /* ---- guardrails, SKILL.md §5 ---- */
-:where([class*="theme-"]) :focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
+:where([class*="theme-"]):focus-visible, :where([class*="theme-"]) :focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
+.theme-glassmorphism:focus-visible, .theme-glassmorphism :focus-visible { outline: 3px solid #0f172a; outline-offset: 2px; box-shadow: 0 0 0 2px #ffffff, var(--ui-shadow); }
+@media (forced-colors: active) { .cyber-btn, .cyber-card { border: 1px solid ButtonText; } .cyber-card { border-color: CanvasText; } }
 @media (prefers-reduced-motion: reduce) {
   :where([class*="theme-"]) *, :where([class*="theme-"]) *::before, :where([class*="theme-"]) *::after {
     animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important;
   }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .ui-glass { background: var(--ui-bg); } }
-@media (prefers-reduced-transparency: reduce) { .ui-glass { background: var(--ui-bg) !important; backdrop-filter: none !important; } }
+@media (prefers-reduced-transparency: reduce) { .ui-glass { background: var(--ui-bg) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; } }
 
 /* ---- page ---- */
 body { margin: 0; font-family: system-ui, sans-serif; }

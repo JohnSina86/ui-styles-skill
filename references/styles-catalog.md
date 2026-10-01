@@ -144,12 +144,14 @@ Use only over a dark or saturated backdrop. The surface tint keeps white text at
 
 ### Vanilla CSS
 ```css
+.bento-wrap { container-type: inline-size; }   /* spans follow the space the grid actually has, not the viewport */
 .bento {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: 1fr;
   grid-auto-rows: minmax(12rem, auto);
   gap: 16px;
 }
+@container (min-width: 48rem) { .bento { grid-template-columns: repeat(3, 1fr); } }
 .bento-card {
   background: var(--ui-surface);
   color: var(--ui-text);
@@ -158,14 +160,34 @@ Use only over a dark or saturated backdrop. The surface tint keeps white text at
   box-shadow: var(--ui-shadow);
   padding: 24px;
 }
-@media (min-width: 48rem) { .bento-card--hero { grid-column: span 2; grid-row: span 2; } }
-.bento-input { border: 1px solid var(--ui-border); }   /* inputs use the 3:1 border, never the decorative edge */
+@container (min-width: 48rem) { .bento-card--hero { grid-column: span 2; grid-row: span 2; } }   /* only when 3 columns exist */
+.bento-button {
+  background: var(--ui-accent);
+  color: var(--ui-on-accent);
+  border: 2px solid transparent;    /* becomes visible in forced-colours mode */
+  border-radius: 12px;
+  font: 600 1rem var(--ui-font-display);
+  min-height: 44px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.bento-input {
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  border: 1px solid var(--ui-border);   /* inputs use the 3:1 border, never the decorative edge */
+  border-radius: 12px;
+  min-height: 44px;
+  padding: 8px 12px;
+  font: 1rem var(--ui-font-body);
+}
 ```
 
 ### Tailwind (v4)
 ```html
-<div class="theme-bento-grid grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto bg-ui-bg p-4">
-  <div class="md:col-span-2 md:row-span-2 bg-ui-surface border border-zinc-200 rounded-ui p-8 text-ui-text flex flex-col justify-between">
+<!-- @container + @3xl: variants (Tailwind v4) key the layout to the wrapper's width, not the viewport -->
+<div class="theme-bento-grid @container max-w-5xl mx-auto bg-ui-bg p-4">
+<div class="grid grid-cols-1 @3xl:grid-cols-3 gap-4">
+  <div class="@3xl:col-span-2 @3xl:row-span-2 bg-ui-surface border border-zinc-200 rounded-ui p-8 text-ui-text flex flex-col justify-between">
     <div>
       <span class="text-xs uppercase tracking-wider text-ui-muted font-semibold">Real-time telemetry</span>
       <h2 class="text-2xl font-bold mt-1 font-ui-display">Unified data stream</h2>
@@ -180,6 +202,7 @@ Use only over a dark or saturated backdrop. The surface tint keeps white text at
     <span class="text-ui-muted text-xs font-semibold">Latency</span>
     <div class="text-3xl font-extrabold">&lt; 14ms</div>
   </div>
+</div>
 </div>
 ```
 
@@ -255,6 +278,14 @@ Contrast: the card's yellow text on `#0d0d11` is 16.04:1. The black label is 17.
 }
 .swiss-link { color: var(--ui-accent); }   /* #d00000 — use this red for text, never #ff0000 (4.0:1) */
 .swiss-rule { border: 0; border-top: 2px solid var(--ui-border); margin: 32px 0; }
+.swiss-card {                         /* flat: structure comes from rules and the grid, not shadows */
+  background: var(--ui-surface);
+  color: var(--ui-text);
+  border-top: 4px solid var(--ui-border);
+  padding: 24px 0;
+}
+.swiss-card h3 { font: 700 1.25rem/1.1 var(--ui-font-display); margin: 0 0 8px; }
+.swiss-card p  { color: var(--ui-text-muted); margin: 0; }
 .swiss-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; min-height: 44px; padding: 10px 24px; font-weight: 700; }
 .swiss-input  { border: 2px solid var(--ui-border); min-height: 44px; padding: 8px 12px; }
 ```

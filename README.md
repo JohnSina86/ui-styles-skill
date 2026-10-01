@@ -30,6 +30,8 @@ Each style in [`SKILL.md`](SKILL.md) §4 lists its visual DNA, tokens, decorativ
 
 Install a tagged release, so you get a reviewed version and not whatever the default branch holds later.
 
+> **Release status:** the `v1.1.0` tag is published together with this README. If `git clone --branch v1.1.0` reports that the tag isn't found, the release hasn't been published yet. Clone without `--branch`, then check that `SKILL.md` says "v1.1", and re-pin once the tag exists.
+
 ### Claude Code
 User level, so the skill is available in every project:
 ```bash
@@ -38,7 +40,14 @@ mkdir -p ~/.claude/skills && git clone --branch v1.1.0 https://github.com/JohnSi
 ```powershell
 New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null; git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.claude\skills\ui-styles"
 ```
-For project level, run the same command from the project root with the target `.claude/skills/ui-styles`. The folder name must be `ui-styles`, which is the skill's `name`. Claude Code loads the skill on demand from its description, so you don't need to edit a system prompt.
+For project level, run this from the project root:
+```bash
+mkdir -p .claude/skills && git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git .claude/skills/ui-styles
+```
+```powershell
+New-Item -ItemType Directory -Force ".claude\skills" | Out-Null; git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git ".claude\skills\ui-styles"
+```
+The folder name must be `ui-styles`, which is the skill's `name`. Claude Code loads the skill on demand from its description, so you don't need to edit a system prompt.
 
 ### Google Antigravity
 ```bash
