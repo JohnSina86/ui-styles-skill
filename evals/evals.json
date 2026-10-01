@@ -35,7 +35,7 @@
       "expectations": [
         "Proposes a primary and a secondary style with one reason each, using Best for and Avoid when guidance",
         "Does not propose maximalism, cyberpunk or another style the table lists under Avoid for healthcare",
-        "Says there is no product-specific row for an online pharmacy (the nearest row is healthcare or clinic, or general e-commerce) instead of presenting its answer as an exact catalog match",
+        "Says the table has no exact online-pharmacy row and that it is working from the nearest analogue (the Healthcare or clinic row, or general e-commerce), instead of presenting its answer as an exact catalog match",
         "Mentions at least one relevant risk or requirement from the style index (for example inputs needing the --ui-border)"
       ]
     },

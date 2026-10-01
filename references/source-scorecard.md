@@ -9,7 +9,7 @@ How the links in [related-resources.md](related-resources.md) were chosen. Read 
 - [Re-running a comparison](#re-running-a-comparison)
 
 ## Method
-Seven categories were compared on **2026-10-01** by separate research agents. Each candidate was scored 0 to 5 on eight criteria and weighted:
+Seven groups of categories were compared on **2026-10-01** by separate research agents. Each candidate was scored 0 to 5 on eight criteria and weighted:
 
 | Criterion | Weight |
 | :--- | :--- |
@@ -22,7 +22,7 @@ Seven categories were compared on **2026-10-01** by separate research agents. Ea
 | Trust (named owner, track record) | 1 |
 | Safety (telemetry, remote fetches, install scripts) | 1 |
 
-The weights sum to 13, so the maximum is 65. Some agents reported out of 70 or 80 because they added a criterion or used different weights, so **compare totals only within one category**. The agent that compared companion skills used a different rubric (quality and footprint replaced safety) and scored out of 80.
+The weights sum to 14, so the maximum is **70** (five points on every criterion). The first agent that scored primitives and kits wrote 65, which was an arithmetic slip, and its totals are correct out of 70. The agent that compared companion skills used a different rubric (design quality, accessibility, fit, footprint, documentation and trust, plus licence and maintenance, weights summing to 16), so its maximum is **80**. Totals are comparable within a category only, and the per-category denominators are shown in the winners table.
 
 Evidence came from the GitHub API (licence field, last push, releases), the npm registry, and each project's own docs pages. A score of 0 means "could not verify", not "proven bad".
 
@@ -37,8 +37,8 @@ Evidence came from the GitHub API (licence field, last push, releases), the npm 
 ## Winners and runners-up
 | Category | Winner | Runner-up | Score (max) |
 | :--- | :--- | :--- | :--- |
-| Unstyled primitives | Base UI | React Aria Components, Radix | 65 (65) |
-| Styled kits | shadcn/ui | Mantine | 61 (65) |
+| Unstyled primitives | Base UI | React Aria Components, Radix | 65 (70) |
+| Styled kits | shadcn/ui | Mantine | 61 (70) |
 | Animated copy-in components | Magic UI | Cult UI, Vengeance UI | 61 (70) |
 | Icons | Lucide | Phosphor, Tabler | 65 (70) |
 | Self-hosted fonts | Fontsource | google/fonts repository | 67 (70) |
