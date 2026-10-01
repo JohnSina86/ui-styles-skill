@@ -11,7 +11,11 @@ An agent skill with **contrast-verified design tokens and CSS/Tailwind recipes f
 - **Every text and control colour pair is computed against WCAG 2.x.** Colours that fail are marked *decorative only*.
 - **Tailwind mappings** for v4 (`@theme inline`) and v3 (`theme.extend`).
 - **Shared guardrails:** visible focus, `prefers-reduced-motion`, `prefers-reduced-transparency`, a `backdrop-filter` fallback, self-hosted font loading and dark-mode notes.
-- **Detailed component recipes** (card, button, input) for 6 styles in [`references/styles-catalog.md`](references/styles-catalog.md). The other 16 are built from their tokens using the shared role pattern.
+- **Detailed component recipes** (card, button, input) for six styles in [`references/styles-catalog.md`](references/styles-catalog.md). The others are built from their tokens using the shared role pattern.
+- **A style index** in `SKILL.md` with aliases, *Best for*, *Avoid when*, a risk flag and the one rule that keeps each style usable, plus a hand-written [product-fit table](references/product-fit.md).
+- **A contrast ledger** ([`references/contrast-ledger.md`](references/contrast-ledger.md)) with every role pair and every derived component pair, the method, and a freshness rule.
+- **Related resources** ([`references/related-resources.md`](references/related-resources.md)): a short list of third-party animated component libraries, and eight rules for using them (licence check, no invented URLs, tokens and reduced motion still apply).
+- **Evals** in [`evals/`](evals/): four functional tasks and twenty trigger queries (half are near-miss negatives).
 - **A runnable demo:** [`examples/cyberpunk-glass.html`](examples/cyberpunk-glass.html).
 
 ## The 22 styles
@@ -24,7 +28,7 @@ An agent skill with **contrast-verified design tokens and CSS/Tailwind recipes f
 | High-Tech & Futuristic | Cybercore, Cyberpunk |
 | Artistic & Organic | Scrapbook, Surrealism, Conceptual Sketch, Ethereal, Bohemian, Luxury Typography, Wabi-Sabi |
 
-Each style in [`SKILL.md`](SKILL.md) §4 lists its visual DNA, tokens, decorative-only colours, *Best for* and *Avoid when*. The *Avoid when* lines point to the relevant law in the companion [ux-laws skill](https://github.com/JohnSina86/ux-laws-skill).
+The style index in [`SKILL.md`](SKILL.md) lists each style's aliases, *Best for*, *Avoid when* and risk. Its tokens, visual DNA and decorative-only colours are in `references/tokens-<archetype>.md`. The *Avoid when* lines point to the relevant law in the companion [ux-laws skill](https://github.com/JohnSina86/ux-laws-skill).
 
 ## Installation
 
@@ -69,6 +73,11 @@ When designing or building UI components, follow .agents/skills/ui-styles/SKILL.
 
 ## Changelog
 
+- **v1.2.0 (unreleased)**
+  - `SKILL.md` is now a short routing file. The token blocks moved to `references/tokens-*.md`, and the guardrail CSS and Tailwind mappings moved to their own references.
+  - Added a style index, a product-fit table, a "no verified match" contract, a pre-delivery checklist and a contrast ledger that includes derived component pairs.
+  - Added a related-resources list with usage rules, `evals/` and `RELEASING.md`. The description no longer carries hard-coded counts, and names the neighbouring skills it should not replace.
+  - The trigger evals were reviewed by hand. They were **not** run through the automated tester.
 - **v1.1.0**
   - Token contract with verified contrast.
   - Fixed the Cyberpunk focus and glow clipping and the Pixel Art font declaration.

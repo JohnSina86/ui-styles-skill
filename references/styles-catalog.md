@@ -1,14 +1,23 @@
 # UI Styles: Component Catalog
 
-This catalog has **detailed component recipes (card, button, input) for 6 of the 22 styles**: Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and Wabi-Sabi. Three of them (Neo-Brutalism, Glassmorphism, Bento Grid) also have a Tailwind version. For the other 16 styles, build components from the style's token block in `SKILL.md` §4, using the role pattern in `SKILL.md` §6.
+This catalog has **detailed component recipes (card, button, input) for six styles**: Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and Wabi-Sabi. Three of them (Neo-Brutalism, Glassmorphism, Bento Grid) also have a Tailwind version. For every other style, build components from the style's token block (the style index in `SKILL.md` names its `references/tokens-<name>.md` file), using the role pattern in `SKILL.md` (Workflow).
 
-Every recipe reads colours from the `--ui-*` tokens, so add the style's token block (`.theme-<name>`) first. The shared focus, motion, transparency and font rules are in `SKILL.md` §5.
+Every recipe reads colours from the `--ui-*` tokens, so add the style's token block (`.theme-<id>`) first. The shared focus, motion, transparency and font rules are in [guardrails.md](guardrails.md). Colours and alphas in these recipes are verified in [contrast-ledger.md](contrast-ledger.md); each recipe below cites its row IDs, and **changing a recipe colour or alpha means re-verifying those rows**.
+
+## Contents
+- [Quick matrix](#quick-matrix)
+- [1. Neo-Brutalism](#1-neo-brutalism)
+- [2. Glassmorphism](#2-glassmorphism)
+- [3. Bento Grid](#3-bento-grid)
+- [4. Cyberpunk](#4-cyberpunk-cut-corners-without-clipping-focus)
+- [5. Swiss Design](#5-swiss-design)
+- [6. Wabi-Sabi](#6-wabi-sabi)
 
 ---
 
 ## Quick matrix
 
-The fonts here match the token blocks in `SKILL.md`. All of them are open-licensed and on Google Fonts.
+The fonts here match the token blocks in `references/tokens-*.md`. All of them are open-licensed and on Google Fonts.
 
 | Style | Display / body font | Border | Elevation | Radius |
 | :--- | :--- | :--- | :--- | :--- |
@@ -72,10 +81,10 @@ The fonts here match the token blocks in `SKILL.md`. All of them are open-licens
   padding: 8px 12px;
   font: 1rem var(--ui-font-body);
 }
-/* focus: SKILL.md §5.1. Add data-ui-motion to .nb-button so reduced motion drops the press offset. */
+/* focus: guardrails.md (Focus). Add data-ui-motion to .nb-button so reduced motion drops the press offset. */
 ```
 
-### Tailwind (v4 with the `@theme inline` mapping from SKILL.md §2)
+### Tailwind (v4 with the `@theme inline` mapping from [tailwind-mapping.md](tailwind-mapping.md))
 ```html
 <div class="theme-neo-brutalism bg-ui-surface text-ui-text border-[3px] border-ui-border rounded-ui shadow-ui p-6 font-ui-body">
   <h3 class="font-ui-display font-bold text-xl mb-2">Neo-Brutalism card</h3>
@@ -92,11 +101,11 @@ The fonts here match the token blocks in `SKILL.md`. All of them are open-licens
 
 ## 2. Glassmorphism
 
-Use only over a dark or saturated backdrop. The surface tint keeps white text at **7.95:1** even if the area behind it is pure white. The button sits at **5.76:1** at rest and **4.70:1** on hover, all computed against `#ffffff` as the worst case.
+Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-btn-hover`, `D-glass-focus-light`, `D-glass-focus-dark`. Use only over a dark or saturated backdrop. The surface tint keeps white text at **7.95:1** even if the area behind it is pure white. The button sits at **5.76:1** at rest and **4.70:1** on hover, all computed against `#ffffff` as the worst case.
 
 ### Vanilla CSS
 ```css
-.glass-card {                       /* add class ui-glass for the §5.3 fallbacks */
+.glass-card {                       /* add class ui-glass for the guardrails.md fallbacks */
   background: var(--ui-surface);    /* rgba(15, 23, 42, 0.75) */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -212,7 +221,7 @@ Use only over a dark or saturated backdrop. The surface tint keeps white text at
 
 `clip-path` clips everything outside its path, including the element's own `box-shadow` and focus outline. So the focusable element is **never** clipped. Its cut shape is drawn by pseudo-elements behind the content, and the glow is a `filter: drop-shadow` that follows that shape.
 
-Contrast: the card's yellow text on `#0d0d11` is 16.04:1. The black label is 17.37:1 on yellow and 14.91:1 on cyan when hovered.
+Ledger rows: `D-cyber-card-text`, `D-cyber-btn-label`, `D-cyber-btn-hover`, `D-cyber-focus`. Contrast: the card's yellow text on `#0d0d11` is 16.04:1. The black label is 17.37:1 on yellow and 14.91:1 on cyan when hovered.
 
 ```css
 .cyber-card, .cyber-btn {
@@ -261,6 +270,8 @@ Contrast: the card's yellow text on `#0d0d11` is 16.04:1. The black label is 17.
 ---
 
 ## 5. Swiss Design
+
+Ledger rows: `D-swiss-red-text` (`#d00000`, passes) and `D-swiss-red-pure` (`#ff0000`, fails as text, so it is for rules and blocks only).
 
 ```css
 .swiss-container {

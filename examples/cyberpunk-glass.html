@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ui-styles demo: Cyberpunk, Glass, scoped tokens</title>
-<!-- Self-contained: no remote fonts, so every stack falls back to its generic family (SKILL.md §5.5). -->
+<!-- Self-contained: no remote fonts, so every stack falls back to its generic family (references/guardrails.md, Fonts). -->
 <style>
-/* ---- token blocks copied from SKILL.md §4 ---- */
+/* ---- token blocks copied from references/tokens-*.md ---- */
 .theme-cyberpunk {
   --ui-bg: #0c0c0e; --ui-surface: #0d0d11; --ui-text: #fcee09; --ui-text-muted: #c9c9d1;
   --ui-accent: #fcee09; --ui-on-accent: #000000; --ui-border: #fcee09; --ui-focus: #00f0ff;
@@ -34,7 +34,7 @@
   --ui-bg: #18181b; --ui-surface: #27272a; --ui-text: #fafafa; --ui-text-muted: #a1a1aa; --ui-border: #a1a1aa; --ui-focus: #a5b4fc;
 }
 
-/* ---- guardrails, SKILL.md §5 ---- */
+/* ---- guardrails, references/guardrails.md ---- */
 :where([class*="theme-"]):focus-visible, :where([class*="theme-"]) :focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
 .theme-glassmorphism:focus-visible, .theme-glassmorphism :focus-visible { outline: 3px solid #0f172a; outline-offset: 2px; box-shadow: 0 0 0 2px #ffffff, var(--ui-shadow); }
 @media (forced-colors: active) { .cyber-btn, .cyber-card { border: 1px solid ButtonText; } .cyber-card { border-color: CanvasText; } }
@@ -52,7 +52,7 @@ section { padding: 40px 24px; }
 h2 { margin: 0 0 16px; font-size: 1rem; letter-spacing: .08em; text-transform: uppercase; }
 .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
 
-/* ---- Cyberpunk recipe, catalog §4 ---- */
+/* ---- Cyberpunk recipe, styles-catalog.md (4. Cyberpunk) ---- */
 .theme-cyberpunk { background: var(--ui-bg); color: var(--ui-text); }
 .cyber-card, .cyber-btn { position: relative; isolation: isolate; background: none; filter: drop-shadow(0 0 8px rgba(252, 238, 9, 0.35)); }
 .cyber-card::before, .cyber-card::after, .cyber-btn::before {
@@ -67,7 +67,7 @@ h2 { margin: 0 0 16px; font-size: 1rem; letter-spacing: .08em; text-transform: u
 .cyber-btn:hover::before { background: #00f0ff; }
 .cyber-btn:focus-visible { outline: 2px solid var(--ui-focus); outline-offset: 4px; }
 
-/* ---- Glass recipe, catalog §2 — deliberately placed over PURE WHITE (worst case) ---- */
+/* ---- Glass recipe, styles-catalog.md (2. Glassmorphism) — deliberately placed over PURE WHITE (worst case) ---- */
 .white-stage { background: #ffffff; }
 .glass-card { background: var(--ui-surface); backdrop-filter: blur(var(--ui-blur)); -webkit-backdrop-filter: blur(var(--ui-blur));
   border: 1px solid rgba(255, 255, 255, .25); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); color: var(--ui-text); padding: 24px; max-width: 22rem; }
@@ -75,7 +75,7 @@ h2 { margin: 0 0 16px; font-size: 1rem; letter-spacing: .08em; text-transform: u
 .glass-button { background: rgba(255, 255, 255, .12); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: 9999px; min-height: 44px; padding: 10px 20px; font-weight: 500; cursor: pointer; }
 .glass-button:hover { background: rgba(255, 255, 255, .20); }
 
-/* ---- role pattern, SKILL.md §6 ---- */
+/* ---- role pattern, SKILL.md (Workflow) ---- */
 .theme-bento-grid { background: var(--ui-bg); color: var(--ui-text); }
 .ui-section { background: var(--ui-bg); color: var(--ui-text); padding: 24px; border-radius: 12px; }
 .ui-card { background: var(--ui-surface); color: var(--ui-text); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: 24px; border: 1px solid var(--ui-border); }
