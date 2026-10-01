@@ -48,6 +48,8 @@ The fonts here match the token blocks in `references/tokens-*.md`. All of them a
 
 ## 1. Neo-Brutalism
 
+Ledger rows: role row `neo-brutalism` (card, input, focus) and `D-neo-btn-label` (button label).
+
 ### Vanilla CSS
 ```css
 .nb-card {
@@ -101,7 +103,7 @@ The fonts here match the token blocks in `references/tokens-*.md`. All of them a
 
 ## 2. Glassmorphism
 
-Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-btn-hover`, `D-glass-focus-light`, `D-glass-focus-dark`. Use only over a dark or saturated backdrop. The surface tint keeps white text at **7.95:1** even if the area behind it is pure white. The button sits at **5.76:1** at rest and **4.70:1** on hover, all computed against `#ffffff` as the worst case.
+Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-btn-hover`, `D-glass-input-text`, `D-glass-input-border`, `D-glass-focus-light`, `D-glass-focus-dark`. Use only over a dark or saturated backdrop. The surface tint keeps white text at **7.95:1** even if the area behind it is pure white. The button sits at **5.76:1** at rest and **4.70:1** on hover, all computed against `#ffffff` as the worst case.
 
 ### Vanilla CSS
 ```css
@@ -150,6 +152,8 @@ Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-
 ---
 
 ## 3. Bento Grid
+
+Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The `#e4e4e7` card edge is decorative only, so inputs use `--ui-border` (role row `bento-grid`, border pairs).
 
 ### Vanilla CSS
 ```css
@@ -304,6 +308,8 @@ Ledger rows: `D-swiss-red-text` (`#d00000`, passes) and `D-swiss-red-pure` (`#ff
 ---
 
 ## 6. Wabi-Sabi
+
+Ledger rows: role row `wabi-sabi`, `D-wabi-btn-label` (button label) and `D-wabi-divider` (decorative divider, never a control boundary).
 
 ```css
 .wabi-container {

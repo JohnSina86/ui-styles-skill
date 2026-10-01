@@ -12,7 +12,7 @@ Two small data files. Neither runs automatically in this repo.
 4. For a baseline, repeat steps 1 to 3 in a session without the skill, and compare.
 
 ## Manual run: trigger evals
-Take the queries in order. Use the first 12 as the tuning set and the last 8 as a held-out set: look at the held-out results only after you finish editing the description. For each query, note whether the skill loaded. A query is correct when the result equals `should_trigger`.
+Take the queries in order. The queries alternate between positives and near-miss negatives, so each part of the split holds both labels. Use the first 12 as the tuning set and the last 8 as a held-out set: look at the held-out results only after you finish editing the description. For each query, note whether the skill loaded. A query is correct when the result equals `should_trigger`.
 
 ## Automated run (not run in this repository's release process)
 Anthropic's skill-creator ships `run_eval.py` and `run_loop.py`, which run trigger queries through the `claude` CLI and split the queries themselves. They need `claude -p`. Pass them `trigger-eval.json` as the query set. The v1.2.0 release was prepared on a machine without that CLI, so the trigger set was reviewed by hand and **not** run through the automated tester.

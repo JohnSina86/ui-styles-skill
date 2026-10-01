@@ -53,8 +53,14 @@ Recipes in [styles-catalog.md](styles-catalog.md) cite these IDs. Glass pairs ar
 | `D-cyber-focus` | Cyberpunk focus outline `#00f0ff` on `#0c0c0e` | 13.87 | 3.0:1 |
 | `D-swiss-red-text` | Swiss text red `#d00000` on white | 5.70 | 4.5:1 |
 | `D-swiss-red-pure` | Pure Swiss red `#ff0000` on white (**fails**: rules, blocks, text >= 24px only) | 4.00 | 3.0:1 |
+| `D-neo-btn-label` | Neo-Brutalism button label `#000` on `#ffde59` | 15.84 | 4.5:1 |
+| `D-bento-btn-label` | Bento button label `#fff` on accent `#4f46e5` | 6.29 | 4.5:1 |
+| `D-glass-input-text` | Glass input text `#fff` over `rgba(15,23,42,.6)` on the glass card | 13.53 | 4.5:1 |
+| `D-glass-input-border` | Glass input border `#94a3b8` on the same input surface | 5.27 | 3.0:1 |
+| `D-wabi-btn-label` | Wabi-Sabi button label `#fff` on accent `#5e4636` | 8.73 | 4.5:1 |
+| `D-wabi-divider` | Wabi-Sabi divider `rgba(35,35,35,.2)` on `#f4f2ec` (**decorative only**, below any text or control threshold) | 1.49 | n/a |
 
-`D-swiss-red-pure` is deliberately below the text threshold: it is a decorative-only colour, and its row exists so the failure stays visible.
+`D-swiss-red-pure` and `D-wabi-divider` are deliberately below the text and control thresholds: they are decorative-only, and their rows exist so the failure stays visible and nobody uses them for text or control boundaries. Required text and control pairs are the role pairs above and every other `D-` row.
 
 ## Method
 1. Convert each sRGB channel to 0-1 and linearise: `c <= 0.04045 ? c/12.92 : ((c+0.055)/1.055)^2.4`.
