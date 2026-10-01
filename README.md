@@ -1,94 +1,81 @@
 # UI Styles & Visual Themes AI Skill (`ui-styles`)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skill: Antigravity](https://img.shields.io/badge/Skill-Antigravity%20%2F%20Agents-purple.svg)](SKILL.md)
+[![Skill: Agents](https://img.shields.io/badge/Skill-Claude%20Code%20%2F%20Antigravity-purple.svg)](SKILL.md)
 
-An agentic AI skill providing design tokens, CSS recipes, Tailwind classes, and implementation rules for **22 distinctive UI design styles and visual themes**.
+An agent skill with **contrast-verified design tokens and CSS/Tailwind recipes for 22 distinctive UI styles**. It's designed for AI coding assistants (Claude Code, Google Antigravity, Cursor, Copilot), so they produce coherent, accessible themes instead of generic grey-box templates.
 
-Designed for AI coding assistants (Google Antigravity, Claude Code, Cursor, Copilot) to generate high-fidelity, stylistically coherent user interfaces rather than generic gray-box templates.
+## What's inside
 
----
+- **One token block per style** with fixed role names (`--ui-bg`, `--ui-surface`, `--ui-text`, `--ui-accent`, `--ui-border`, `--ui-focus`, …), so components never hard-code colours.
+- **Every text and control colour pair is computed against WCAG 2.x.** Colours that fail are marked *decorative only*.
+- **Tailwind mappings** for v4 (`@theme inline`) and v3 (`theme.extend`).
+- **Shared guardrails:** visible focus, `prefers-reduced-motion`, `prefers-reduced-transparency`, a `backdrop-filter` fallback, self-hosted font loading and dark-mode notes.
+- **Detailed component recipes** (card, button, input) for 6 styles in [`references/styles-catalog.md`](references/styles-catalog.md). The other 16 are built from their tokens using the shared role pattern.
+- **A runnable demo:** [`examples/cyberpunk-glass.html`](examples/cyberpunk-glass.html).
 
-## The 22 UI Styles at a Glance
+## The 22 styles
 
-| Archetype | Styles Included | Ideal Product Categories |
-| :--- | :--- | :--- |
-| **1. Dimensional & Tactile** | Claymorphism, Neumorphism, Glassmorphism | Games, Modern OS / Control centers, Smart Home |
-| **2. Graphic & Modernist** | Neo-Brutalism, Swiss Design, Minimalism, Maximalism, Editorial Design, Bento Grid | Modern SaaS, Dev tools, Dashboards, Journalism, Design portfolios |
-| **3. Retro & Nostalgic** | Y2K Aesthetic, Pixel Art, Synthwave, Victorian | Gaming, Retro culture, Indie music, Heritage brands |
-| **4. High-Tech & Futuristic** | Cybercore, Cyberpunk | Terminal interfaces, Web3/crypto, Esports, Hardware telemetry |
-| **5. Artistic & Organic** | Scrapbook, Surrealism, Conceptual Sketch, Bohemian, Ethereal, Luxury Typography, Wabi-Sabi | Lifestyle, Fashion, Mindful wellness, Architecture, Fine arts |
+| Archetype | Styles |
+| :--- | :--- |
+| Dimensional & Tactile | Claymorphism, Neumorphism, Glassmorphism |
+| Graphic & Modernist | Neo-Brutalism, Swiss Design, Minimalism, Maximalism, Editorial Design, Bento Grid |
+| Retro & Nostalgic | Y2K Aesthetic, Pixel Art, Synthwave, Victorian |
+| High-Tech & Futuristic | Cybercore, Cyberpunk |
+| Artistic & Organic | Scrapbook, Surrealism, Conceptual Sketch, Ethereal, Bohemian, Luxury Typography, Wabi-Sabi |
 
----
+Each style in [`SKILL.md`](SKILL.md) §4 lists its visual DNA, tokens, decorative-only colours, *Best for* and *Avoid when*. The *Avoid when* lines point to the relevant law in the companion [ux-laws skill](https://github.com/JohnSina86/ux-laws-skill).
 
-## Complete Style Directory
+## Installation
 
-| # | Style | Key Aesthetic Feature | Signature Tokens |
-|---|---|---|---|
-| 1 | **Claymorphism** | 3D puffy, inflated clay shapes | Pastel tones, 4-layer inner/outer shadows, `rounded-3xl` |
-| 2 | **Cybercore** | Technical wireframes, HUD overlays | Monospace fonts, thin cyan borders, coordinate grids |
-| 3 | **Neo-Brutalism** | Raw, punchy, high-contrast | Thick black borders (`3px`), solid offset shadows (`5px 5px 0 #000`) |
-| 4 | **Scrapbook** | Tactile collage, paper textures | Tilted elements (`-2deg`), tape decals, warm cream paper |
-| 5 | **Surrealism** | Dreamlike, impossible scale | Radial atmospheric lighting, deep shadows, floating depth |
-| 6 | **Y2K Aesthetic** | Late 90s/early 2000s cyber-optimism | Chrome sheen, glossy candy buttons, bubblegum & cyan gradients |
-| 7 | **Pixel Art** | 8-bit / 16-bit retro arcade | Stepped block shadows, bitmap fonts (`Press Start 2P`), no antialiasing |
-| 8 | **Synthwave** | 1980s neon retrowave | Magenta/cyan dual glows, dark purple backdrops, horizon grids |
-| 9 | **Glassmorphism** | Translucent frosted glass | `backdrop-blur-md`, subtle 1px white border (`rgba(255,255,255,0.2)`) |
-| 10 | **Neumorphism** | Soft extruded plastic UI | Monochromatic surfaces, dual soft light & dark drop shadows |
-| 11 | **Bento Grid** | Modular asymmetric card grid | Rounded containers (`20px–24px`), compact metrics, multi-span cells |
-| 12 | **Editorial Design** | High-end print magazine | Display serifs (Playfair/Newsreader), multi-column text, drop caps |
-| 13 | **Swiss Design** | Mathematical grid rigor | Bold grotesque sans (Helvetica), Swiss Red accents, strict hierarchy |
-| 14 | **Minimalism** | Radical reduction of clutter | Generous negative space, monochrome palette, subtle borders |
-| 15 | **Maximalism** | Kinetic visual abundance | Clashing saturated palettes, dense patterns, layered kinetic type |
-| 16 | **Luxury Typography** | Understated high fashion | High-contrast serifs (Didone/Bodoni), wide letter tracking, gold accents |
-| 17 | **Conceptual Sketch** | Blueprint / hand-drawn napkin | Graph paper grid, irregular borders (`255px 15px...`), pencil ink |
-| 18 | **Ethereal** | Ambient mystical glow | Soft pastel blur gradients, translucent layers, delicate type |
-| 19 | **Bohemian (Boho)** | Earthy artisanal warmth | Terracotta, olive sage, warm sand, organic curved containers |
-| 20 | **Victorian** | 19th-century ornate elegance | Filigree borders, aged parchment, dark burgundy velvet tones |
-| 21 | **Cyberpunk** | High-contrast dystopian tech | Neon yellow/cyan on carbon black, angular cut-corners (`clip-path`) |
-| 22 | **Wabi-Sabi** | Impermanence & raw texture | Unbleached linen, sumi charcoal ink, quiet asymmetrical balance |
+Install a tagged release, so you get a reviewed version and not whatever the default branch holds later.
 
-*For complete CSS and Tailwind component recipes, see [`references/styles-catalog.md`](references/styles-catalog.md).*
+> **Release status: pending.** The `v1.1.0` tag doesn't exist yet, so the commands below will fail until it's published. **Don't** install from the default branch instead: it still holds v1.0.0, without these fixes. Once the tag is published, the commands work as written, and `git -C <install dir> describe --tags` should print `v1.1.0`.
 
----
-
-## Installation & Setup
-
-### 1. In Google Antigravity
-
-#### Workspace / Project Level
+### Claude Code
+User level, so the skill is available in every project:
 ```bash
-# In your project root:
-mkdir -p .agents/skills
-git clone https://github.com/JohnSina86/ui-styles-skill.git .agents/skills/ui-styles
+mkdir -p ~/.claude/skills && git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.claude/skills/ui-styles
+```
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null; git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.claude\skills\ui-styles"
+```
+For project level, run this from the project root:
+```bash
+mkdir -p .claude/skills && git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git .claude/skills/ui-styles
+```
+```powershell
+New-Item -ItemType Directory -Force ".claude\skills" | Out-Null; git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git ".claude\skills\ui-styles"
+```
+The folder name must be `ui-styles`, which is the skill's `name`. Claude Code loads the skill on demand from its description, so you don't need to edit a system prompt.
+
+### Google Antigravity
+```bash
+mkdir -p .agents/skills && git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git .agents/skills/ui-styles          # project
+mkdir -p ~/.gemini/config/skills && git clone --branch v1.1.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.gemini/config/skills/ui-styles   # global
 ```
 
-#### Global Level (Machine-Wide)
-```bash
-# Windows PowerShell
-git clone https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.gemini\config\skills\ui-styles"
-
-# macOS / Linux
-git clone https://github.com/JohnSina86/ui-styles-skill.git ~/.gemini/config/skills/ui-styles
-```
-
-### 2. In Other Agentic AI Assistants (Claude Code, Cursor, Copilot)
-Add a reference in your system prompt or `.cursorrules`:
+### Cursor, Copilot and other tools without native skills
+Clone it as above, then reference it in your rules file:
 ```markdown
-When designing or building UI components, consult the UI Styles Skill in .agents/skills/ui-styles/SKILL.md to adhere to the designated theme and CSS tokens.
+When designing or building UI components, follow .agents/skills/ui-styles/SKILL.md (tokens, contrast notes and guardrails).
 ```
 
----
+## Example prompts
 
-## Example Prompts
+- "Build a hero section and pricing card in Neo-Brutalism using Tailwind v4."
+- "Add a Glassmorphism control bar to this dashboard, mapped onto our existing tokens."
+- "Create an artisan coffee homepage in the Bohemian style, with self-hosted fonts."
 
-* *"Build a hero section and pricing card in Neo-Brutalism style using Tailwind CSS."*
-* *"Restyle our dashboard using Bento Grid architecture and subtle Glassmorphism."*
-* *"Create an artisan coffee homepage adhering to the Bohemian and Wabi-Sabi aesthetic."*
-* *"Generate a cyberpunk HUD status widget with angular cut corners."*
+## Changelog
 
----
+- **v1.1.0**
+  - Token contract with verified contrast.
+  - Fixed the Cyberpunk focus and glow clipping and the Pixel Art font declaration.
+  - Added Tailwind v4/v3 mappings, guardrails, consistent open-licensed fonts, the existing-design-system rule and the demo page.
+  - Corrected the catalog scope claim.
+- **v1.0.0**: Initial release.
 
 ## License
 
-MIT License © 2026 [JohnSina86](https://github.com/JohnSina86). See [LICENSE](LICENSE) for details.
+MIT License © 2026 [JohnSina86](https://github.com/JohnSina86). See [LICENSE](LICENSE).
