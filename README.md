@@ -34,29 +34,29 @@ The style index in [`SKILL.md`](SKILL.md) lists each style's aliases, *Best for*
 
 Install a tagged release, so you get a reviewed version and not whatever the default branch holds later.
 
-> **Current release: `v1.2.2`.** To confirm an install, run `git -C <install dir> describe --tags`, which should print `v1.2.2`.
+> **Current release: `v1.3.0`.** To confirm an install, run `git -C <install dir> describe --tags`, which should print `v1.3.0`.
 
 ### Claude Code
 User level, so the skill is available in every project:
 ```bash
-mkdir -p ~/.claude/skills && git clone --branch v1.2.2 https://github.com/JohnSina86/ui-styles-skill.git ~/.claude/skills/ui-styles
+mkdir -p ~/.claude/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.claude/skills/ui-styles
 ```
 ```powershell
-New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null; git clone --branch v1.2.2 https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.claude\skills\ui-styles"
+New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null; git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.claude\skills\ui-styles"
 ```
 For project level, run this from the project root:
 ```bash
-mkdir -p .claude/skills && git clone --branch v1.2.2 https://github.com/JohnSina86/ui-styles-skill.git .claude/skills/ui-styles
+mkdir -p .claude/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git .claude/skills/ui-styles
 ```
 ```powershell
-New-Item -ItemType Directory -Force ".claude\skills" | Out-Null; git clone --branch v1.2.2 https://github.com/JohnSina86/ui-styles-skill.git ".claude\skills\ui-styles"
+New-Item -ItemType Directory -Force ".claude\skills" | Out-Null; git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git ".claude\skills\ui-styles"
 ```
 The folder name must be `ui-styles`, which is the skill's `name`. Claude Code loads the skill on demand from its description, so you don't need to edit a system prompt.
 
 ### Google Antigravity
 ```bash
-mkdir -p .agents/skills && git clone --branch v1.2.2 https://github.com/JohnSina86/ui-styles-skill.git .agents/skills/ui-styles          # project
-mkdir -p ~/.gemini/config/skills && git clone --branch v1.2.2 https://github.com/JohnSina86/ui-styles-skill.git ~/.gemini/config/skills/ui-styles   # global
+mkdir -p .agents/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git .agents/skills/ui-styles          # project
+mkdir -p ~/.gemini/config/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.gemini/config/skills/ui-styles   # global
 ```
 
 ### Cursor, Copilot and other tools without native skills
@@ -73,7 +73,7 @@ When designing or building UI components, follow .agents/skills/ui-styles/SKILL.
 
 ## Changelog
 
-- **v1.3.0 (unreleased)**
+- **v1.3.0**
   - `references/contrast-check.md`: a copy-paste function that computes a pair by the ledger's method, compositing a translucent foreground first, and prints both luminances beside the ratio. It reproduces the ledger's worked example (`D-glass-card-text`, 7.95:1). Added after a live audit where a hand-computed ratio came out 9.15:1 against a true 9.16:1. The rules and the ledger are unchanged.
 - **v1.2.2**
   - A ratio you compute must show both luminances, or it isn't called "recomputed". Before claiming "no remote fonts" or "dependencies: none", search every delivered file for `http(s)://`. The scoping rule now covers the inline `<style>` of a demo page. Found by a third blind comparison, where one reply misquoted a border ratio and another claimed no remote fonts while loading Google Fonts.
