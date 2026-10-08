@@ -3,7 +3,7 @@ name: ui-styles
 description: >-
   Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.2.2"
+  version: "1.3.0"
 ---
 
 # UI Styles (v1.2)
@@ -67,7 +67,7 @@ Every style defines the same roles, so components never hard-code colours. A blo
 Some styles add optional properties (`--ui-border-width`, `--ui-blur`, `--ui-backdrop`, `--ui-tilt`, `--ui-chrome`, `--ui-pattern`, `--ui-tracking`, `--ui-leading`). Components consume them.
 
 ## 4. Contrast contract
-Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** A ledger row covers only the exact foreground, background and state it names. The same hex on another surface is a new pair, so recompute it and never quote the row's ratio for it. When you compute a ratio yourself, write both relative luminances next to it (`L1 0.36, L2 1.00 -> 2.56:1`). A ratio with no luminances shown is a claim, not a recomputation, so don't call it "recomputed". Don't judge contrast by eye.
+Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** A ledger row covers only the exact foreground, background and state it names. The same hex on another surface is a new pair, so recompute it and never quote the row's ratio for it. When you compute a ratio yourself, write both relative luminances next to it (`L1 0.36, L2 1.00 -> 2.56:1`). A ratio with no luminances shown is a claim, not a recomputation, so don't call it "recomputed". Compute pairs with [contrast-check.md](references/contrast-check.md) rather than by hand; it prints both luminances in that form. Don't judge contrast by eye.
 
 ## 5. Guardrails (full CSS in [guardrails.md](references/guardrails.md))
 - **Focus:** a visible `:focus-visible` outline on every interactive element. Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element.
@@ -110,6 +110,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [styles-catalog.md](references/styles-catalog.md): card, button and input recipes for six styles.
 - [product-fit.md](references/product-fit.md): product type to style table.
 - [contrast-ledger.md](references/contrast-ledger.md): verified ratios and method.
+- [contrast-check.md](references/contrast-check.md): a copy-paste function that computes a pair by the ledger's method and prints both luminances.
 - [related-resources.md](references/related-resources.md): links to third-party components, icons, fonts, motion, charts and companion skills, and the rules for using them.
 - [source-scorecard.md](references/source-scorecard.md): how those links were scored, and their limits.
 - [guardrails.md](references/guardrails.md): focus, motion, transparency, forced colours, fonts and dark-mode CSS.
