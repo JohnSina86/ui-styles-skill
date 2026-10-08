@@ -13,7 +13,7 @@ An agent skill with **contrast-verified design tokens and CSS/Tailwind recipes f
 - **Shared guardrails:** visible focus, `prefers-reduced-motion`, `prefers-reduced-transparency`, a `backdrop-filter` fallback, self-hosted font loading and dark-mode notes.
 - **Detailed component recipes** (card, button, input) for six styles in [`references/styles-catalog.md`](references/styles-catalog.md). The others are built from their tokens using the shared role pattern.
 - **A style index** in `SKILL.md` with aliases, *Best for*, *Avoid when*, a risk flag and the one rule that keeps each style usable, plus a hand-written [product-fit table](references/product-fit.md).
-- **A contrast ledger** ([`references/contrast-ledger.md`](references/contrast-ledger.md)) with every role pair and every derived component pair, the method, and a freshness rule.
+- **A contrast ledger** ([`references/contrast-ledger.md`](references/contrast-ledger.md)) with every role pair and every derived component pair, the method, and a freshness rule. A copy-paste [contrast check](references/contrast-check.md) computes any pair by the same method and prints both luminances.
 - **Related resources** ([`references/related-resources.md`](references/related-resources.md)): links, not bundled code, for components, icons, fonts, motion, charts and companion agent skills, chosen by a scored comparison ([`references/source-scorecard.md`](references/source-scorecard.md)), plus rules for using them (licence check, no invented URLs, no run-time remote rules, one icon family per project, tokens and reduced motion still apply). The scores are reported, not independently verified.
 - **Evals** in [`evals/`](evals/): four functional tasks and twenty trigger queries (half are near-miss negatives).
 - **A runnable demo:** [`examples/cyberpunk-glass.html`](examples/cyberpunk-glass.html).
@@ -73,6 +73,8 @@ When designing or building UI components, follow .agents/skills/ui-styles/SKILL.
 
 ## Changelog
 
+- **v1.3.0 (unreleased)**
+  - `references/contrast-check.md`: a copy-paste function that computes a pair by the ledger's method, compositing a translucent foreground first, and prints both luminances beside the ratio. It reproduces the ledger's worked example (`D-glass-card-text`, 7.95:1). Added after a live audit where a hand-computed ratio came out 9.15:1 against a true 9.16:1. The rules and the ledger are unchanged.
 - **v1.2.2**
   - A ratio you compute must show both luminances, or it isn't called "recomputed". Before claiming "no remote fonts" or "dependencies: none", search every delivered file for `http(s)://`. The scoping rule now covers the inline `<style>` of a demo page. Found by a third blind comparison, where one reply misquoted a border ratio and another claimed no remote fonts while loading Google Fonts.
 - **v1.2.1**
