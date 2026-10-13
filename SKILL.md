@@ -6,7 +6,7 @@ metadata:
   version: "1.8.0"
 ---
 
-# UI Styles (v1.7)
+# UI Styles (v1.8)
 
 Turns an aesthetic request into production CSS: one token block per style with fixed role names, verified contrast and shared guardrails. This file is the routing layer. Token blocks, recipes and CSS guardrails are in `references/`, and you read them **after** you choose a style.
 
@@ -118,7 +118,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 
 ## References
 - [composition.md](references/composition.md): three style-neutral layout moves (depth planes, signal colour, scale contrast), when to use each, and their checks.
-- [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.5) of about twenty tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
+- [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.5) of named tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
 - [typography.md](references/typography.md): the two-step type scale with floors, the measure, the `--ui-space-*` steps, section padding by role, and a display-and-body pairing row per style.
 - [imagery.md](references/imagery.md): the imagery kind per style, treatment rules (crop, edges, no accent tint, alt decision) and the ban list.
 - [choreography.md](references/choreography.md): how a first-screen reveal arrives (loader or none, gate, stagger, subject last), its timing budget, what never moves, the reduced-motion end state and its checks.

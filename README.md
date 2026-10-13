@@ -13,7 +13,7 @@ An agent skill with **contrast-verified design tokens and CSS/Tailwind recipes f
 - **Shared guardrails:** visible focus, `prefers-reduced-motion`, `prefers-reduced-transparency`, a `backdrop-filter` fallback, self-hosted font loading and dark-mode notes.
 - **Detailed component recipes** (card, button, input) for six styles in [`references/styles-catalog.md`](references/styles-catalog.md). The others are built from their tokens using the shared role pattern.
 - **Composition moves** ([`references/composition.md`](references/composition.md)): depth planes, a single signal colour and extreme scale contrast, for screens that feel flat or default. They work under any style and keep its contracts.
-- **Anti-slop tells** ([`references/anti-slop.md`](references/anti-slop.md)): a frozen rubric of about twenty tells of a default AI-generated page (centred hero stack, icon-card grid, purple-blue gradient, fake logo rows, gradient text and more), each with a severity, a fix in the skill's own vocabulary, an applicability exception, the evidence required and a counting unit, plus a five-question "Could this be any site?" test. Prevalence observations, not detection.
+- **Anti-slop tells** ([`references/anti-slop.md`](references/anti-slop.md)): a frozen rubric (v1.5) of named tells of a default AI-generated page (centred hero stack, icon-card grid, purple-blue gradient, fake logo rows, gradient text and more), each with a severity, a fix in the skill's own vocabulary, an applicability exception, the evidence required and a counting unit, plus a five-question "Could this be any site?" test. Prevalence observations, not detection.
 - **Typography and imagery** ([`references/typography.md`](references/typography.md), [`references/imagery.md`](references/imagery.md)): a two-step type scale with 16px and 12px floors, a 45 to 75 character measure, an optional `--ui-space-*` spacing scale, section padding that varies by role, and a display-and-body pairing for every style from its own font stack; plus the imagery kind per style (photo, illustration, 3D, typographic or none), treatment rules, a ban list and an imagery note per product-fit row.
 - **Reveal choreography** ([`references/choreography.md`](references/choreography.md)): the order a first screen arrives in (loader or none, a gate, staggered type, the subject last), a timing budget, what never moves (controls and body text), a static reduced-motion end state and one framework-free CSS example.
 - **A style index** in `SKILL.md` with aliases, *Best for*, *Avoid when*, a risk flag and the one rule that keeps each style usable, plus a hand-written [product-fit table](references/product-fit.md).
@@ -38,29 +38,29 @@ The style index in [`SKILL.md`](SKILL.md) lists each style's aliases, *Best for*
 
 Install a tagged release, so you get a reviewed version and not whatever the default branch holds later.
 
-> **Current release: `v1.3.0`.** To confirm an install, run `git -C <install dir> describe --tags`, which should print `v1.3.0`.
+> **Current release: `v1.8.0`.** To confirm an install, run `git -C <install dir> describe --tags`, which should print `v1.8.0`.
 
 ### Claude Code
 User level, so the skill is available in every project:
 ```bash
-mkdir -p ~/.claude/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.claude/skills/ui-styles
+mkdir -p ~/.claude/skills && git clone --branch v1.8.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.claude/skills/ui-styles
 ```
 ```powershell
-New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null; git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.claude\skills\ui-styles"
+New-Item -ItemType Directory -Force "$HOME\.claude\skills" | Out-Null; git clone --branch v1.8.0 https://github.com/JohnSina86/ui-styles-skill.git "$HOME\.claude\skills\ui-styles"
 ```
 For project level, run this from the project root:
 ```bash
-mkdir -p .claude/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git .claude/skills/ui-styles
+mkdir -p .claude/skills && git clone --branch v1.8.0 https://github.com/JohnSina86/ui-styles-skill.git .claude/skills/ui-styles
 ```
 ```powershell
-New-Item -ItemType Directory -Force ".claude\skills" | Out-Null; git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git ".claude\skills\ui-styles"
+New-Item -ItemType Directory -Force ".claude\skills" | Out-Null; git clone --branch v1.8.0 https://github.com/JohnSina86/ui-styles-skill.git ".claude\skills\ui-styles"
 ```
 The folder name must be `ui-styles`, which is the skill's `name`. Claude Code loads the skill on demand from its description, so you don't need to edit a system prompt.
 
 ### Google Antigravity
 ```bash
-mkdir -p .agents/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git .agents/skills/ui-styles          # project
-mkdir -p ~/.gemini/config/skills && git clone --branch v1.3.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.gemini/config/skills/ui-styles   # global
+mkdir -p .agents/skills && git clone --branch v1.8.0 https://github.com/JohnSina86/ui-styles-skill.git .agents/skills/ui-styles          # project
+mkdir -p ~/.gemini/config/skills && git clone --branch v1.8.0 https://github.com/JohnSina86/ui-styles-skill.git ~/.gemini/config/skills/ui-styles   # global
 ```
 
 ### Cursor, Copilot and other tools without native skills
