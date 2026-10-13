@@ -83,7 +83,7 @@
     {
       "id": 7,
       "prompt": "Build me a SaaS landing page for Ledgerline, an invoicing tool for freelance illustrators. Sections: hero, how it works, pricing (Free and Studio at 12 euro a month), and a footer with Contact and Privacy. No customer names, quotes or usage numbers exist yet. No browser is available.",
-      "expected_output": "A landing page in an indexed style that passes the anti-slop gate (zero high tells, at most two medium tells each with a reason, graded by the frozen predicates after their exceptions), with the delivery note reporting the rubric run (version, counts by id and severity, exceptions with their accepted evidence), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
+      "expected_output": "A landing page in an indexed style that passes the anti-slop gate (zero high tells, at most two medium tells each with a reason, graded by the frozen predicates after their exceptions), with the delivery note reporting the rubric run (version, gate result and assessed coverage, counts by id and severity, exceptions with their accepted evidence), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
       "files": [],
       "expectations": [
         "Reads references/anti-slop.md and names the rubric version it applied (the version line at the top of that file) in the delivery note",
@@ -94,7 +94,7 @@
         "The footer holds only Contact and Privacy, with no placeholder link columns",
         "Headline and calls to action name the product and the audience (invoicing, illustrators) and use verb plus object, not Get started or Learn more alone",
         "Answers the five Could-this-be-any-site questions, one sentence of evidence each, under their own heading in the delivery note",
-        "Reports tell counts per page by id and severity with zero high and at most two medium, each medium with its reason and each exception citing one of the rubric's accepted evidence types for that occurrence, and does not report any tell as a ux-laws law finding or score",
+        "Reports the gate result (pass, fail or inconclusive) with assessed coverage, and tell counts per page by id and severity with zero high and at most two medium, each medium with its reason and each exception citing one of the rubric's accepted evidence types for that occurrence, and does not report any tell as a ux-laws law finding or score",
         "Says it did not render the result and marks the render-only evidence as source only"
       ]
     }

@@ -91,7 +91,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
    :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
    ```
 4. **Composition moves.** If the screen feels flat or looks like a default template, if users can't tell what to tap, or if the user asks for depth, focus or hierarchy, read [composition.md](references/composition.md) and apply the moves its table matches (depth planes, signal colour, scale contrast). In an existing design system, propose them first (section 0).
-5. **Anti-slop.** Read [anti-slop.md](references/anti-slop.md), run its checks on what you built (rubric v1.3: no high tell, at most two medium tells with a reason, kept aesthetic choices listed as retained) and answer its five "Could this be any site?" questions in the delivery note. Tells are craft findings, never `ux-laws` rows.
+5. **Anti-slop.** Read [anti-slop.md](references/anti-slop.md), run its checks on what you built (rubric v1.4: a gate result of pass, fail or inconclusive with assessed coverage; pass is no high tell, at most two medium with a reason and every row assessed; kept aesthetic choices listed as retained) and answer its five "Could this be any site?" questions in the delivery note. Tells are craft findings, never `ux-laws` rows.
 6. Run the checklist in section 7.
 7. If the user asks for ready-made or animated components, icons, fonts, charts or companion skills, read [related-resources.md](references/related-resources.md) first and follow its rules. Never recreate a library's component or icon from memory.
 8. For a UX review of the result, use `ux-laws`. It grades structure and behaviour, not the chosen aesthetic.
@@ -109,12 +109,12 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
 - [ ] If a composition move was used, its lines in [composition.md](references/composition.md) (Checks) are done.
-- [ ] Anti-slop checks done ([anti-slop.md](references/anti-slop.md), rubric v1.3): no high tell, at most two medium tells with a reason, retained choices listed, the five questions answered, and no tell reported as a `ux-laws` finding.
+- [ ] Anti-slop checks done ([anti-slop.md](references/anti-slop.md), rubric v1.4): gate result pass, fail or inconclusive with coverage, never inconclusive reported as passing, retained choices listed, the five questions answered, and no tell reported as a `ux-laws` finding.
 - [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References
 - [composition.md](references/composition.md): three style-neutral layout moves (depth planes, signal colour, scale contrast), when to use each, and their checks.
-- [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.3) of about twenty tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
+- [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.4) of about twenty tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
 - [styles-catalog.md](references/styles-catalog.md): card, button and input recipes for six styles.
 - [product-fit.md](references/product-fit.md): product type to style table.
 - [contrast-ledger.md](references/contrast-ledger.md): verified ratios and method.
