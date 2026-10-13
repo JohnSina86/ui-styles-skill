@@ -42,7 +42,7 @@ Reading text (paragraphs, bios, descriptions, article body) sits in a column of 
 - Line height follows the measure: 1.5 to 1.6 for body at 65 characters, tighter (1.3 to 1.4) for meta, 1 to 1.1 for display. A style's `--ui-leading` wins where it has one.
 
 ## 3. Spacing scale
-Six optional roles, listed in the token contract as optional properties. Components consume them, so no new component carries a hard-coded padding once a style defines them. The default block fits every style; two variants change only the top step.
+Six optional roles, listed in the token contract as optional properties. The generic recipe in SKILL.md (workflow step 3) consumes them with fallbacks (`var(--ui-space-4, 24px)`), so it uses the scale when this block is present and keeps its old values when it isn't. Spacing you write yourself uses the steps. The catalog recipes in [styles-catalog.md](styles-catalog.md) keep their fixed defaults until they are mapped. The default block fits every style; two variants change only the top step.
 
 ```css
 :where([class*="theme-"]) {
@@ -76,7 +76,7 @@ Pages only: a component-only task has no sections, so this section doesn't apply
 - **Phones:** the `vw` term in `--ui-space-6` shrinks section padding; the `clamp()` floor keeps a hero from touching the next section.
 
 ## 5. Pairing table
-One row per style ID in the SKILL.md index, in index order. Both faces are the style's own `--ui-font-display` and `--ui-font-body` stacks; where they are the same family the pairing is **one family**, ranked by weight and size, never a second font. The notes are floors and limits for that face; the style's `Requires` rule still applies. **Control labels** (buttons, inputs, form labels) use the **body face** in the generic recipe (SKILL.md, workflow step 3) and in every catalog recipe; `pixel-art` is the one exception, stated in its row.
+One row per style ID in the SKILL.md index, in index order. Both faces are the style's own `--ui-font-display` and `--ui-font-body` stacks; where they are the same family the pairing is **one family**, ranked by weight and size, never a second font. The notes are floors and limits for that face; the style's `Requires` rule still applies. **Control labels** (buttons, inputs, selects, textareas, form labels) use the **body face** in the generic recipe (SKILL.md, workflow step 3), in every catalog recipe and in the demo, declared on the control itself (`font: 1rem var(--ui-font-body)`): browsers don't let form controls inherit the page font. A face floor in a row applies to controls too (`luxury` and `wabi-sabi` controls at `1.125rem`). `pixel-art` is the one exception to the face, stated in its row.
 
 | ID | Display face (weight) | Body face (weight) | Notes |
 | :--- | :--- | :--- | :--- |
@@ -86,7 +86,7 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 | `scrapbook` | Caveat 700 | Lora 400 | Caveat on the huge element and short notes only, never below 24px; secondary headings in Lora 700, uppercase or tracked. Body never rotated. |
 | `surrealism` | Syne 800 | Inter 400 | Syne at 800 only; lighter weights lose the shape. Text on solid panels only. |
 | `y2k` | Outfit 800 | Outfit 400 | One family. Display may take `-0.02em` tracking. Text on `--ui-surface`, never on the chrome gradient. |
-| `pixel-art` | Press Start 2P | VT323 | Both faces only at multiples of 8px, so no `clamp()`: the stepped sizes below this table. Display 32/48/64px and secondary headings 24px in Press Start 2P; body VT323 `1.5rem` (24px, the body step, because its x-height is small); meta and captions VT323 16px. **Exception to the control-label rule:** control labels in Press Start 2P 16px. |
+| `pixel-art` | Press Start 2P | VT323 | Both faces only at multiples of 8px, so no `clamp()`: the stepped sizes below this table. Display 32/48/64px and secondary headings 24px in Press Start 2P; body VT323 `1.5rem` (24px, the body step, because its x-height is small); meta and captions VT323 16px. **Exception to the control-label rule:** button and form labels in Press Start 2P 16px; typed text in inputs stays VT323 24px. |
 | `synthwave` | Orbitron 700 | Inter 400 | Orbitron on headings only; glow at 24px and above only. Meta in Inter. |
 | `glassmorphism` | Inter 700 | Inter 400 | One family. Display at `-0.02em`; the glass edge, not a second face, separates panels. |
 | `neumorphism` | Inter 600 | Inter 400 | One family. Keep display at 600: the style is low-contrast, so size does the ranking. |
@@ -110,6 +110,7 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 .theme-pixel-art .ui-body { font-size: 24px; line-height: 1.34; }                                    /* VT323 */
 .theme-pixel-art :is(h2, h3, h4):not(.ui-display-section) { font-size: 24px; line-height: 1.34; }  /* Press Start 2P at the body step */
 .theme-pixel-art .ui-button { font-family: var(--ui-font-display); font-size: 16px; }               /* control labels: Press Start 2P 16px */
+.theme-pixel-art .ui-input { font-size: 24px; }                                                     /* typed text: VT323 at the body step */
 .theme-pixel-art .ui-meta { font-size: 16px; line-height: 1.5; }                                      /* VT323 */
 @media (min-width: 30rem) { .theme-pixel-art .ui-display { font-size: 48px; } }
 @media (min-width: 64rem) { .theme-pixel-art .ui-display { font-size: 64px; } .theme-pixel-art .ui-display-section { font-size: 48px; } }
@@ -119,6 +120,6 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 Add these to the section 7 checklist when you set the type scale.
 - [ ] **Scale** (on views that take it, per composition.md's table): one huge element per view, set with `clamp()` and a `vw` term (or the stepped sizes for `pixel-art`), and no third size between the body step and the display step. Everywhere: reading text >= 16px, labels >= 12px, plus any face floor from the pairing table.
 - [ ] **Measure:** reading text capped at 45 to 75 characters (`ch`), text not shrunk to fit on phones.
-- [ ] **Spacing:** every padding and gap is a `--ui-space-*` step. On a page, at least two different section paddings; not applicable to a component-only task.
-- [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors; secondary headings in the body face where the row says so; control labels in the body face (`pixel-art` excepted). No font added.
+- [ ] **Spacing:** every padding, margin and gap you write, and the generic recipe's, is a `--ui-space-*` step. Zero and safe-area adjustments (`env(safe-area-inset-*)`, alone or added to a step) are allowed. Catalog recipes keep their fixed defaults until mapped. On a page, at least two different section paddings; not applicable to a component-only task.
+- [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors; secondary headings in the body face where the row says so; control labels in the body face, declared on every button, input, select and textarea with a size of at least `1rem` (`pixel-art` excepted). No font added.
 - [ ] **Reflow:** 320px and 200% zoom checked, or left open as "needs a render".

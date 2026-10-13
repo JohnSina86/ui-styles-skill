@@ -124,7 +124,7 @@ Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-
   border-radius: 9999px;
   min-height: 44px;
   padding: 10px 20px;
-  font-weight: 500;
+  font: 500 1rem var(--ui-font-body);
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -136,12 +136,13 @@ Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-
   border-radius: 12px;
   min-height: 44px;
   padding: 8px 12px;
+  font: 1rem var(--ui-font-body);
 }
 ```
 
 ### Tailwind (v4)
 ```html
-<div class="theme-glassmorphism ui-glass bg-ui-surface backdrop-blur-lg border border-white/25 rounded-ui shadow-ui p-6 text-ui-text">
+<div class="theme-glassmorphism ui-glass bg-ui-surface backdrop-blur-lg border border-white/25 rounded-ui shadow-ui p-6 text-ui-text font-ui-body">
   <h3 class="text-xl font-semibold mb-2">Glassmorphism card</h3>
   <p class="text-ui-muted mb-4">Translucent layers with crisp edge highlights.</p>
   <button class="bg-white/12 hover:bg-white/20 border border-ui-border rounded-full min-h-11 px-5 py-2 font-medium transition
@@ -198,7 +199,7 @@ Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The 
 ### Tailwind (v4)
 ```html
 <!-- @container + @3xl: variants (Tailwind v4) key the layout to the wrapper's width, not the viewport -->
-<div class="theme-bento-grid @container max-w-5xl mx-auto bg-ui-bg p-4">
+<div class="theme-bento-grid @container max-w-5xl mx-auto bg-ui-bg p-4 font-ui-body">
 <div class="grid grid-cols-1 @3xl:grid-cols-3 gap-4">
   <div class="@3xl:col-span-2 @3xl:row-span-2 bg-ui-surface border border-zinc-200 rounded-ui p-8 text-ui-text flex flex-col justify-between">
     <div>
@@ -301,8 +302,8 @@ Ledger rows: `D-swiss-red-text` (`#d00000`, passes) and `D-swiss-red-pure` (`#ff
 }
 .swiss-card h3 { font: 700 1.25rem/1.1 var(--ui-font-display); margin: 0 0 8px; }
 .swiss-card p  { color: var(--ui-text-muted); margin: 0; }
-.swiss-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; min-height: 44px; padding: 10px 24px; font-weight: 700; }
-.swiss-input  { border: 2px solid var(--ui-border); min-height: 44px; padding: 8px 12px; }
+.swiss-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; min-height: 44px; padding: 10px 24px; font: 700 1rem var(--ui-font-body); }
+.swiss-input  { border: 2px solid var(--ui-border); min-height: 44px; padding: 8px 12px; font: 1rem var(--ui-font-body); }
 ```
 
 ---
@@ -328,6 +329,6 @@ Ledger rows: role row `wabi-sabi`, `D-wabi-btn-label` (button label) and `D-wabi
   margin-bottom: 32px;
 }
 .wabi-title { font: 400 1.75rem var(--ui-font-display); letter-spacing: 0.05em; }
-.wabi-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 24px; }
-.wabi-input  { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
+.wabi-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 24px; font: 1.125rem var(--ui-font-body); }   /* Cormorant floor */
+.wabi-input  { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; font: 1.125rem var(--ui-font-body); }
 ```
