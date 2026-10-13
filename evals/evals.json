@@ -86,7 +86,7 @@
       "expected_output": "A landing page in an indexed style that carries none of the anti-slop tells, with the delivery note reporting the rubric run (version, counts by id and severity), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
       "files": [],
       "expectations": [
-        "Reads references/anti-slop.md and names the rubric version it applied (v1.1) in the delivery note",
+        "Reads references/anti-slop.md and names the rubric version it applied (the version line at the top of that file) in the delivery note",
         "The hero is not a centred H1, one line and two buttons: one huge element, one accent-filled action, and the second action as an outline or a text link",
         "No purple-to-blue gradient, no gradient text, no hero badge, no blurred colour blobs and no opacity reveal applied to three or more sections",
         "No section matches the icon-card-grid predicate (three or more equal-width cards each holding an icon, a heading and one to two lines). A parallel grid for the pricing tiers or the how-it-works steps is graded by that predicate and its exceptions, not banned",
