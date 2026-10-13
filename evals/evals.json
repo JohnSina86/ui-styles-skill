@@ -81,6 +81,24 @@
       ]
     },
     {
+      "id": 7,
+      "prompt": "Build me a SaaS landing page for Ledgerline, an invoicing tool for freelance illustrators. Sections: hero, how it works, pricing (Free and Studio at 12 euro a month), and a footer with Contact and Privacy. No customer names, quotes or usage numbers exist yet. No browser is available.",
+      "expected_output": "A landing page in an indexed style that passes the anti-slop gate (zero high tells, at most two medium tells each with a reason, graded by the frozen predicates after their exceptions), with the delivery note reporting the rubric run (version, gate result and assessed coverage, counts by id and severity, exceptions with their accepted evidence), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
+      "files": [],
+      "expectations": [
+        "Reads references/anti-slop.md and names the rubric version it applied (the version line at the top of that file) in the delivery note",
+        "The hero is not a centred H1, one line and two buttons: one huge element, one accent-filled action, and the second action as an outline or a text link",
+        "Graded by the frozen predicates after their exceptions: no purple-to-blue gradient, no gradient text and no hero badge, since no exception applies to this brief; blurred colour blobs or an opacity reveal on three or more sections count as medium tells unless the row's exception holds with its accepted evidence, and any medium counted stays within the gate of two with a reason",
+        "No section matches the icon-card-grid predicate (three or more equal-width cards each holding an icon, a heading and one to two lines). A parallel grid for the pricing tiers or the how-it-works steps is graded by that predicate and its exceptions, not banned",
+        "No trusted-by logo row, and no quote, star rating, statistic or customer attribution, because the brief supplied none; each one present counts as a separate unsupported attribution",
+        "The footer holds only Contact and Privacy, with no placeholder link columns",
+        "Headline and calls to action name the product and the audience (invoicing, illustrators) and use verb plus object, not Get started or Learn more alone",
+        "Answers the five Could-this-be-any-site questions, one sentence of evidence each, under their own heading in the delivery note",
+        "Reports the gate result (pass, fail or inconclusive) with assessed coverage, and tell counts per page by id and severity with zero high and at most two medium, each medium with its reason and each exception citing one of the rubric's accepted evidence types for that occurrence, and does not report any tell as a ux-laws law finding or score",
+        "Says it did not render the result and marks the render-only evidence as source only"
+      ]
+    },
+    {
       "id": 8,
       "prompt": "Build the home page for a wedding photographer's portfolio in the Editorial style: her name, a three-sentence bio, a featured gallery of eight photos she will supply, a short testimonial from a couple, and a Book a date link. No browser is available.",
       "expected_output": "An Editorial-themed page with a two-step type scale (one huge element per view, body and meta sizes with the 16px and 12px floors), the bio in a measure of 45 to 75 characters, the editorial pairing (Playfair Display display, Newsreader body) from the token stack, section padding that varies by role using the --ui-space-* steps, the imagery kind named as photo with the treatment rules applied, an alt decision per image, nothing from the ban list, and an honest statement that nothing was rendered.",
