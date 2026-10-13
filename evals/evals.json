@@ -81,6 +81,40 @@
       ]
     },
     {
+      "id": 7,
+      "prompt": "Build me a SaaS landing page for Ledgerline, an invoicing tool for freelance illustrators. Sections: hero, how it works, pricing (Free and Studio at 12 euro a month), and a footer with Contact and Privacy. No customer names, quotes or usage numbers exist yet. No browser is available.",
+      "expected_output": "A landing page in an indexed style that passes the anti-slop gate (zero high tells, at most two medium tells each with a reason, graded by the frozen predicates after their exceptions), with the delivery note reporting the rubric run (version, gate result and assessed coverage, counts by id and severity, exceptions with their accepted evidence), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
+      "files": [],
+      "expectations": [
+        "Reads references/anti-slop.md and names the rubric version it applied (the version line at the top of that file) in the delivery note",
+        "The hero is not a centred H1, one line and two buttons: one huge element, one accent-filled action, and the second action as an outline or a text link",
+        "Graded by the frozen predicates after their exceptions: no purple-to-blue gradient, no gradient text and no hero badge, since no exception applies to this brief; blurred colour blobs or an opacity reveal on three or more sections count as medium tells unless the row's exception holds with its accepted evidence, and any medium counted stays within the gate of two with a reason",
+        "No section matches the icon-card-grid predicate (three or more equal-width cards each holding an icon, a heading and one to two lines). A parallel grid for the pricing tiers or the how-it-works steps is graded by that predicate and its exceptions, not banned",
+        "No trusted-by logo row, and no quote, star rating, statistic or customer attribution, because the brief supplied none; each one present counts as a separate unsupported attribution",
+        "The footer holds only Contact and Privacy, with no placeholder link columns",
+        "Headline and calls to action name the product and the audience (invoicing, illustrators) and use verb plus object, not Get started or Learn more alone",
+        "Answers the five Could-this-be-any-site questions, one sentence of evidence each, under their own heading in the delivery note",
+        "Reports the gate result (pass, fail or inconclusive) with assessed coverage, and tell counts per page by id and severity with zero high and at most two medium, each medium with its reason and each exception citing one of the rubric's accepted evidence types for that occurrence, and does not report any tell as a ux-laws law finding or score",
+        "Says it did not render the result and marks the render-only evidence as source only"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Build the home page for a wedding photographer's portfolio in the Editorial style: her name, a three-sentence bio, a featured gallery of eight photos she will supply, a short testimonial from a couple, and a Book a date link. No browser is available.",
+      "expected_output": "An Editorial-themed page with a two-step type scale (one huge element per view, body and meta sizes with the 16px and 12px floors), the bio in a measure of 45 to 75 characters, the editorial pairing (Playfair Display display, Newsreader body) from the token stack, section padding that varies by role using the --ui-space-* steps, the imagery kind named as photo with the treatment rules applied, an alt decision per image, nothing from the ban list, and an honest statement that nothing was rendered.",
+      "files": [],
+      "expectations": [
+        "Reads references/typography.md and references/imagery.md and names the type scale and the imagery kind it chose",
+        "Applies the two-step scale, since a portfolio page is a view that takes scale contrast: display via clamp() with a vw term, body at 1rem or 1.125rem, meta between 0.8125rem and 0.875rem, no third size between the body and display steps within a view (the section display floor resolving to 32px on phones is the display step, not a violation), reading text at least 16px and labels at least 12px",
+        "Caps the bio and other reading text at a measure of 45 to 75 characters (for example max-inline-size in ch) and does not shrink text on narrow screens to fit more per line",
+        "Uses the editorial row of the pairing table (Playfair Display for display, Newsreader for body) from the existing --ui-font-display and --ui-font-body stacks, and adds no new font",
+        "Names the imagery kind as photo (the style's row), fixes every image box with aspect-ratio plus width and height, crops toward the subject, puts no tint or overlay in --ui-accent on any photo, and places the testimonial and any text over imagery on a solid panel or on a translucent panel whose text and surface pair has a worst-case ledger row",
+        "Gives every image an alt decision (a descriptive alt for the gallery photos, alt=\"\" for decoration) and states which, and uses nothing from the ban list (no stock handshake, floating UI cards, abstract blobs or AI-generated faces presented as real people)",
+        "Because this is a page and not a component, section padding differs by section role (hero, content, band, footer) using the --ui-space-* steps, not one value for every section",
+        "Says it did not render the result and leaves the crop, reflow and 200% zoom checks open"
+      ]
+    },
+    {
       "id": 9,
       "prompt": "Build the hero section of a launch page for a pair of studio headphones in the Editorial style: a brand word, a two-line headline, an eyebrow, the product photo, one paragraph and a Pre-order button. The display font is self-hosted and the client wants a short loading screen before the hero animates in. Plain CSS, no animation library. No browser is available.",
       "expected_output": "An Editorial hero with a loader and a choreographed reveal that follows references/choreography.md: an opaque loader that exits by transform or clip-path and gates the content, headings and decoration staggered from a --ui-stagger step with the product photo entering last, the paragraph and the button at rest from the first frame, every entrance at full opacity, a static reduced-motion end state, data-ui-motion on every moving element, and a choreography line in the delivery.",
