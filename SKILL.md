@@ -1,9 +1,9 @@
 ---
 name: ui-styles
 description: >-
-  Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
+  Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style, wants a distinctive theme, or calls a UI generic or AI-made, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.7.0"
+  version: "1.8.0"
 ---
 
 # UI Styles (v1.7)
@@ -91,7 +91,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
    :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: var(--ui-space-2, 8px) var(--ui-space-3, 12px); font: 1rem/1.4 var(--ui-font-body); } /* form controls don't inherit fonts: set face and size */
    ```
 4. **Composition moves.** If the screen feels flat or looks like a default template, if users can't tell what to tap, or if the user asks for depth, focus or hierarchy, read [composition.md](references/composition.md) and apply the moves its table matches (depth planes, signal colour, scale contrast). In an existing design system, propose them first (section 0).
-5. **Anti-slop.** Read [anti-slop.md](references/anti-slop.md), run its checks on what you built (rubric v1.4: a gate result of pass, fail or inconclusive with assessed coverage; pass is no high tell, at most two medium with a reason and every row assessed; kept aesthetic choices listed as retained) and answer its five "Could this be any site?" questions in the delivery note. Tells are craft findings, never `ux-laws` rows.
+5. **Anti-slop.** Read [anti-slop.md](references/anti-slop.md), run its checks on what you built (rubric v1.5: a gate result of pass, fail or inconclusive with assessed coverage; pass is no high tell, at most two medium with a reason and every row assessed; kept aesthetic choices listed as retained) and answer its five "Could this be any site?" questions in the delivery note. Tells are craft findings, never `ux-laws` rows.
 6. **Type scale and imagery.** Set the type scale and imagery direction from [typography.md](references/typography.md) and [imagery.md](references/imagery.md). The two-step scale applies where composition.md's table allows scale contrast (not dashboards or data views); the floors, measure, spacing steps and pairing row apply everywhere; section padding by role applies to pages, not to a component-only task. Name the imagery kind (or none) and respect the ban list.
 7. **Reveal choreography.** If the page has a first-screen reveal (a loader, a staggered hero, an entrance of any kind), read [choreography.md](references/choreography.md) and follow its order, budget and marker; otherwise write `choreography: none` in the delivery.
 8. Run the checklist in section 7.
@@ -111,14 +111,14 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
 - [ ] If a composition move was used, its lines in [composition.md](references/composition.md) (Checks) are done.
-- [ ] Anti-slop checks done ([anti-slop.md](references/anti-slop.md), rubric v1.4): gate result pass, fail or inconclusive with coverage, never inconclusive reported as passing, retained choices listed, the five questions answered, and no tell reported as a `ux-laws` finding.
+- [ ] Anti-slop checks done ([anti-slop.md](references/anti-slop.md), rubric v1.5): gate result pass, fail or inconclusive with coverage, never inconclusive reported as passing, retained choices listed, the five questions answered, and no tell reported as a `ux-laws` finding.
 - [ ] Type and imagery: reading text >= 16px and labels >= 12px, reading text at 45 to 75 characters, the style's pairing row; one huge element per view where scale contrast applies; on a page, section padding varies by role; the imagery kind named (or "none") with nothing from the ban list.
 - [ ] First-screen reveal, if any: the lines in [choreography.md](references/choreography.md) (Checks) are done and the `choreography:` line is in the delivery; otherwise it says `choreography: none`.
 - [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References
 - [composition.md](references/composition.md): three style-neutral layout moves (depth planes, signal colour, scale contrast), when to use each, and their checks.
-- [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.4) of about twenty tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
+- [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.5) of about twenty tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
 - [typography.md](references/typography.md): the two-step type scale with floors, the measure, the `--ui-space-*` steps, section padding by role, and a display-and-body pairing row per style.
 - [imagery.md](references/imagery.md): the imagery kind per style, treatment rules (crop, edges, no accent tint, alt decision) and the ban list.
 - [choreography.md](references/choreography.md): how a first-screen reveal arrives (loader or none, gate, stagger, subject last), its timing budget, what never moves, the reduced-motion end state and its checks.
