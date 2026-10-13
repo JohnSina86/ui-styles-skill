@@ -79,6 +79,22 @@
         "Uses one huge element with body text at least 16px and labels at least 12px, and keeps a logical heading order",
         "Says it did not render the result and leaves the overlap, reflow and 200% zoom checks open"
       ]
+    },
+    {
+      "id": 9,
+      "prompt": "Build the hero section of a launch page for a pair of studio headphones in the Editorial style: a brand word, a two-line headline, an eyebrow, the product photo, one paragraph and a Pre-order button. The display font is self-hosted and the client wants a short loading screen before the hero animates in. Plain CSS, no animation library. No browser is available.",
+      "expected_output": "An Editorial hero with a loader and a choreographed reveal that follows references/choreography.md: an opaque loader that exits by transform or clip-path and gates the content, headings and decoration staggered from a --ui-stagger step with the product photo entering last, the paragraph and the button at rest from the first frame, every entrance at full opacity, a static reduced-motion end state, data-ui-motion on every moving element, and a choreography line in the delivery.",
+      "files": [],
+      "expectations": [
+        "Reads references/choreography.md and delivers the order it names: the loader, then a gate that holds the content while the loader is up, then the brand word, headline lines and eyebrow one stagger step apart, and the product photo last",
+        "States the timings in a choreography line and they fit the budget: the stagger step is between 40 and 80 ms and comes from a --ui-stagger custom property, no first-screen element starts later than 600 ms, and the last element is at rest under 1.2 s",
+        "The paragraph and the Pre-order button are not animated: they are at rest from the first frame and no control or body text carries an entrance",
+        "No first-screen text fades from transparent: the headline, brand word and eyebrow enter by transform, clip-path or mask at opacity 1",
+        "Under prefers-reduced-motion the loader is not shown and every choreographed element sits at its end pose with no clip, so the page is fully readable at first paint",
+        "Every element that moves, the loader included, carries data-ui-motion, and the count matches the elements the choreography line names",
+        "The loader exits by transform or clip-path (not by animating its width or height), and the page is not left hidden if the script never runs",
+        "Says it did not render the result and leaves the order, budget and reduced-motion checks open"
+      ]
     }
   ]
 }
