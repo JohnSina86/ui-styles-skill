@@ -83,18 +83,18 @@
     {
       "id": 7,
       "prompt": "Build me a SaaS landing page for Ledgerline, an invoicing tool for freelance illustrators. Sections: hero, how it works, pricing (Free and Studio at 12 euro a month), and a footer with Contact and Privacy. No customer names, quotes or usage numbers exist yet. No browser is available.",
-      "expected_output": "A landing page in an indexed style that carries none of the anti-slop tells, with the delivery note reporting the rubric run (version, counts by id and severity), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
+      "expected_output": "A landing page in an indexed style that passes the anti-slop gate (zero high tells, at most two medium tells each with a reason, graded by the frozen predicates after their exceptions), with the delivery note reporting the rubric run (version, counts by id and severity, exceptions with their accepted evidence), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
       "files": [],
       "expectations": [
         "Reads references/anti-slop.md and names the rubric version it applied (the version line at the top of that file) in the delivery note",
         "The hero is not a centred H1, one line and two buttons: one huge element, one accent-filled action, and the second action as an outline or a text link",
-        "No purple-to-blue gradient, no gradient text, no hero badge, no blurred colour blobs and no opacity reveal applied to three or more sections",
+        "Graded by the frozen predicates after their exceptions: no purple-to-blue gradient, no gradient text and no hero badge, since no exception applies to this brief; blurred colour blobs or an opacity reveal on three or more sections count as medium tells unless the row's exception holds with its accepted evidence, and any medium counted stays within the gate of two with a reason",
         "No section matches the icon-card-grid predicate (three or more equal-width cards each holding an icon, a heading and one to two lines). A parallel grid for the pricing tiers or the how-it-works steps is graded by that predicate and its exceptions, not banned",
         "No trusted-by logo row, and no quote, star rating, statistic or customer attribution, because the brief supplied none; each one present counts as a separate unsupported attribution",
         "The footer holds only Contact and Privacy, with no placeholder link columns",
         "Headline and calls to action name the product and the audience (invoicing, illustrators) and use verb plus object, not Get started or Learn more alone",
         "Answers the five Could-this-be-any-site questions, one sentence of evidence each, under their own heading in the delivery note",
-        "Reports tell counts per page by id and severity with zero high and at most two medium, each medium with its reason and each exception with its brief or token-block reference, and does not report any tell as a ux-laws law finding or score",
+        "Reports tell counts per page by id and severity with zero high and at most two medium, each medium with its reason and each exception citing one of the rubric's accepted evidence types for that occurrence, and does not report any tell as a ux-laws law finding or score",
         "Says it did not render the result and marks the render-only evidence as source only"
       ]
     }
