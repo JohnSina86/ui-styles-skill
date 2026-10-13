@@ -8,6 +8,7 @@ Apply these to **every** style. The rules are summarised in SKILL.md; this file 
 - [Transparency and blur](#transparency-and-blur)
 - [Forced colours (Windows High Contrast)](#forced-colours-windows-high-contrast)
 - [Scoping](#scoping)
+- [Phones and overlays](#phones-and-overlays)
 - [Fonts](#fonts)
 - [Dark mode](#dark-mode)
 
@@ -42,6 +43,10 @@ Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element, beca
 ```
 Put `data-ui-motion` on elements whose transform is decorative or a hover effect, such as Neo-Brutalism's press offset, Scrapbook tilts or kinetic Maximalism type.
 
+- **First-screen reveals don't fade text from transparent.** A contrast check, or a person, that samples the entrance mid-fade sees text far below its ledger ratio, and darker text doesn't fix it. Reveal first-screen copy by transform, `clip-path` or a `mask-image` sweep at `opacity: 1`, or start the fade at an opacity whose pair still passes. Not over glass: a mask over `backdrop-filter` repaints every frame.
+- **Loops stop under reduced motion.** The CSS block above ends CSS loops after one pass. A JavaScript loop (a `requestAnimationFrame` loop, an animation library's `loop` option) must check `matchMedia('(prefers-reduced-motion: reduce)')` and not start, because a loop whose steps take zero time restarts every tick and can freeze the page.
+- **Hover-only effects need a hover-capable pointer.** Custom cursors, cursor followers and hover-driven motion go under `@media (hover: hover) and (pointer: fine)`. On touch, a tap fires a synthetic hover that can leave them stuck on screen.
+
 ## Transparency and blur
 ```css
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -72,6 +77,14 @@ A theme must not restyle the page that hosts it. Everything stays under `.theme-
 .theme-swiss body { margin: 0; min-height: 100vh; background: var(--ui-bg); color: var(--ui-text); font-family: var(--ui-font-body); }
 ```
 In a drop-in task (an existing app, a snippet, one component) the host keeps its `body`, margins and base font, so write no page-level rules at all. A bare selector inside a media query counts too, and so does one in the inline `<style>` of a demo or preview page you build around the component: write it as `.theme-<id> body` or put it on a wrapper class.
+
+## Phones and overlays
+- **Full-screen menus and overlays** use `height: 100dvh` from `top: 0`, with bottom padding `max(<pad>, calc(env(safe-area-inset-bottom) + <pad>))`. `100vh` or `inset: 0` puts the overlay's last control under the mobile browser's toolbar.
+- **A `position: fixed` overlay inside a transformed ancestor** is fixed to that ancestor, not the viewport, so it won't cover the screen. Render it as a direct child of the page body or the theme container.
+- **Overlays get their own role values.** A menu that follows a dark-mode `--ui-bg` while the page around it stays light can drop to about 1:1. Give it its own surface and text values and check it with `prefers-color-scheme: dark` emulated.
+- **Letter-by-letter headline effects** wrap each word's letters in a span with `white-space: nowrap`, or narrow screens break words mid-letter.
+- **Horizontal sliders** use `touch-action: pan-x pan-y` (or `manipulation`) with pointer events. `touch-action: pan-y` on a slider whose drag code ignores touch blocks the sideways swipe.
+- **No horizontal overflow at 320 to 430px wide.** One over-wide section makes a phone zoom out the whole page. Check that `document.documentElement.scrollWidth` equals `innerWidth`.
 
 ## Fonts
 - All fonts named here are on Google Fonts under open licences, mostly the SIL OFL. Check the licence file you download.

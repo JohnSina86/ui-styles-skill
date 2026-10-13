@@ -71,7 +71,8 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 
 ## 5. Guardrails (full CSS in [guardrails.md](references/guardrails.md))
 - **Focus:** a visible `:focus-visible` outline on every interactive element. Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element.
-- **Motion:** honour `prefers-reduced-motion`. Mark decorative transforms with `data-ui-motion`.
+- **Motion:** honour `prefers-reduced-motion`, and stop JavaScript loops under it. Mark decorative transforms with `data-ui-motion`. First-screen text reveals by transform, clip or mask at full opacity, never a fade from transparent. Hover-only effects sit under `(hover: hover) and (pointer: fine)`.
+- **Phones and overlays:** menus and overlays use `100dvh` plus the bottom safe-area inset, carry their own surface and text values checked in dark mode, and the page has no horizontal overflow at 320 to 430px.
 - **Transparency:** provide an `@supports` fallback and honour `prefers-reduced-transparency`. Glass is used only over a dark or saturated backdrop, and the surface tint must not be lowered.
 - **Forced colours:** controls drawn only with backgrounds or pseudo-elements need a real border in `@media (forced-colors: active)`.
 - **Scoping:** keep every rule under the theme container or a class you own. A demo or preview page you build around a component follows the same rule, including its inline `<style>` block. In a drop-in task (an existing app, a snippet, one component) never write a rule whose selector is a bare `html`, `body`, `*` or element name. In a page you create from scratch, put the theme class on `<html>` and write page-level rules as `.theme-<id> body`.
@@ -101,8 +102,9 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] Headings follow a logical order with no skipped levels, whatever the display font.
 - [ ] Every text, control and focus pair is in the ledger (or was recomputed).
 - [ ] Visible focus on every interactive element, and no clipped focusable element.
-- [ ] No bare `html`, `body`, `*` or element selectors (section 5, Scoping), and every `<button>` has an explicit `type` (`button` unless it submits a form).
-- [ ] Reduced motion, reduced transparency and forced colours handled.
+- [ ] No bare `html`, `body`, `*` or element selectors (section 5, Scoping), and every `<button>` has an explicit `type` (`button` unless it submits a form). A button acts on the page and a link goes somewhere: never a clickable `div`, whatever it looks like.
+- [ ] Reduced motion (JavaScript loops included), reduced transparency and forced colours handled. No first-screen text fades from transparent.
+- [ ] Overlays and menus: `100dvh` with the safe-area inset, own surface and text values, checked in dark mode.
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
 - [ ] If a composition move was used, its lines in [composition.md](references/composition.md) (Checks) are done.
@@ -116,6 +118,6 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [contrast-check.md](references/contrast-check.md): a copy-paste function that computes a pair by the ledger's method and prints both luminances.
 - [related-resources.md](references/related-resources.md): links to third-party components, icons, fonts, motion, charts and companion skills, and the rules for using them.
 - [source-scorecard.md](references/source-scorecard.md): how those links were scored, and their limits.
-- [guardrails.md](references/guardrails.md): focus, motion, transparency, forced colours, fonts and dark-mode CSS.
+- [guardrails.md](references/guardrails.md): focus, motion, transparency, forced colours, scoping, phones and overlays, fonts and dark-mode CSS.
 - [tailwind-mapping.md](references/tailwind-mapping.md): v4 and v3 mappings.
 - Token blocks: [dimensional](references/tokens-dimensional.md), [graphic](references/tokens-graphic.md), [retro](references/tokens-retro.md), [hightech](references/tokens-hightech.md), [artistic](references/tokens-artistic.md).

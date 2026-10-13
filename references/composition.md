@@ -29,7 +29,7 @@ Stack the screen in three planes, back to front:
 ```css
 :where([class*="theme-"]) .ui-stage { display: grid; isolation: isolate; }
 :where([class*="theme-"]) .ui-stage > * { grid-area: 1 / 1; }
-:where([class*="theme-"]) .ui-plane-back { z-index: 0; overflow: clip; font-family: var(--ui-font-display); font-size: clamp(4rem, 22vw, 12rem); line-height: 0.85; color: var(--ui-text); }
+:where([class*="theme-"]) .ui-plane-back { z-index: 0; overflow-x: clip; font-family: var(--ui-font-display); font-size: clamp(4rem, 22vw, 12rem); line-height: 1.1; color: var(--ui-text); }
 :where([class*="theme-"]) .ui-plane-mid { z-index: 1; pointer-events: none; }
 :where([class*="theme-"]) .ui-plane-front { z-index: 2; align-self: end; }
 ```
@@ -43,7 +43,7 @@ Stack the screen in three planes, back to front:
 - **The back word is decorative.** Give it `aria-hidden="true"` and make sure the same words exist as real text in the front plane. If the word must be read, it counts as large text and needs >= 3:1 at every backdrop it crosses (contrast contract). Over a photo that is rarely provable, so keep it decorative.
 - **Never in the signal colour.** The back word uses `--ui-text`, `--ui-text-muted` or a decorative-only colour, never `--ui-accent` (move 2).
 - **The subject never covers a control.** A transparent image still takes clicks inside its box, so it gets `pointer-events: none`. Confirm the front plane's hit areas with the `ux-laws` hit-testing method when a page can be rendered.
-- **Clip the word, not the controls.** `overflow: clip` goes on the back plane only, never on a focusable element or the front plane (focus guardrail). Check for horizontal overflow at narrow width.
+- **Clip the word, not the controls.** Clip only sideways (`overflow-x: clip`): clipping both axes with a line height under about 1.1 shaves the tops and tails of the letters. It goes on the back plane only, never on a focusable element or the front plane (focus guardrail). Check for horizontal overflow at narrow width.
 - **Motion:** parallax or drift on a plane is decorative. Mark it `data-ui-motion` (motion guardrail).
 
 ## 2. Signal colour
@@ -64,7 +64,7 @@ Make one thing huge and everything else small, with no middle sizes on that view
 - **Two sizes and a floor:** display `clamp(3rem, 12vw, 8rem)` for the one thing, body `1rem`, labels and meta `0.8125rem` to `0.875rem`. Leave out the 20 to 40px band. Rank the rest with weight, case, tracking (`--ui-tracking` where the style has it) and `--ui-text-muted`, not size.
 - **Floors:** reading text is never below 16px, and labels never below 12px. "Tiny" means smaller than the display, not unreadable.
 - **Semantics don't follow size.** Heading levels follow document order (pre-delivery checklist), so a small `h2` is fine.
-- **Huge text must reflow.** Use `clamp()` with a `vw` term, allow long names to break (`overflow-wrap: anywhere`), and check 320px width and 200% zoom.
+- **Huge text must reflow.** Use `clamp()` with a `vw` term, allow long names to break (`overflow-wrap: anywhere`), and check 320px width and 200% zoom. If the huge text animates letter by letter, wrap each word's letters in a `white-space: nowrap` span (guardrails, Phones and overlays).
 
 ## Checks
 Add these to the section 7 checklist for each move you used.
