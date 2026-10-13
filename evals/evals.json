@@ -79,6 +79,22 @@
         "Uses one huge element with body text at least 16px and labels at least 12px, and keeps a logical heading order",
         "Says it did not render the result and leaves the overlap, reflow and 200% zoom checks open"
       ]
+    },
+    {
+      "id": 8,
+      "prompt": "Build the home page for a wedding photographer's portfolio in the Editorial style: her name, a three-sentence bio, a featured gallery of eight photos she will supply, a short testimonial from a couple, and a Book a date link. No browser is available.",
+      "expected_output": "An Editorial-themed page with a two-step type scale (one huge element per view, body and meta sizes with the 16px and 12px floors), the bio in a measure of 45 to 75 characters, the editorial pairing (Playfair Display display, Newsreader body) from the token stack, section padding that varies by role using the --ui-space-* steps, the imagery kind named as photo with the treatment rules applied, an alt decision per image, nothing from the ban list, and an honest statement that nothing was rendered.",
+      "files": [],
+      "expectations": [
+        "Reads references/typography.md and references/imagery.md and names the type scale and the imagery kind it chose",
+        "Sets the display step with clamp() and a vw term, body at 1rem or 1.125rem and meta between 0.8125rem and 0.875rem, with no sizes in the 20 to 40px band within a view, reading text at least 16px and labels at least 12px",
+        "Caps the bio and other reading text at a measure of 45 to 75 characters (for example max-inline-size in ch) and does not shrink text on narrow screens to fit more per line",
+        "Uses the editorial row of the pairing table (Playfair Display for display, Newsreader for body) from the existing --ui-font-display and --ui-font-body stacks, and adds no new font",
+        "Names the imagery kind as photo (the style's row), fixes every image box with aspect-ratio plus width and height, crops toward the subject, puts no tint or overlay in --ui-accent on any photo, and places the testimonial and any text over imagery on a solid panel",
+        "Gives every image an alt decision (a descriptive alt for the gallery photos, alt=\"\" for decoration) and states which, and uses nothing from the ban list (no stock handshake, floating UI cards, abstract blobs or AI-generated faces presented as real people)",
+        "Section padding differs by section role (hero, content, band, footer) using the --ui-space-* steps, not one value for every section",
+        "Says it did not render the result and leaves the crop, reflow and 200% zoom checks open"
+      ]
     }
   ]
 }
