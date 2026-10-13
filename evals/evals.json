@@ -79,6 +79,23 @@
         "Uses one huge element with body text at least 16px and labels at least 12px, and keeps a logical heading order",
         "Says it did not render the result and leaves the overlap, reflow and 200% zoom checks open"
       ]
+    },
+    {
+      "id": 7,
+      "prompt": "Build me a SaaS landing page for Ledgerline, an invoicing tool for freelance illustrators. Sections: hero, how it works, pricing (Free and Studio at 12 euro a month), and a footer with Contact and Privacy. No customer names, quotes or usage numbers exist yet. No browser is available.",
+      "expected_output": "A landing page in an indexed style that carries none of the anti-slop tells, with the delivery note reporting the rubric run (version, counts by id and severity), the five Could-this-be-any-site answers with evidence, and tells kept out of any ux-laws finding.",
+      "files": [],
+      "expectations": [
+        "Reads references/anti-slop.md and names the rubric version (v1) in the delivery note",
+        "The hero is not a centred H1, one line and two buttons: one huge element, one accent-filled action, and the second action as an outline or a text link",
+        "No three-column icon-card grid, no purple-to-blue gradient, no gradient text, no hero badge, no blurred colour blobs and no section that fades in on scroll",
+        "No trusted-by logo row, testimonial cards or stat tiles, because the brief supplied no customers, quotes or figures; the pricing tiers are the only parallel grid, and the brief asked for them",
+        "The footer holds only Contact and Privacy, with no placeholder link columns",
+        "Headline and calls to action name the product and the audience (invoicing, illustrators) and use verb plus object, not Get started or Learn more alone",
+        "Answers the five Could-this-be-any-site questions, one sentence of evidence each, under their own heading in the delivery note",
+        "Reports tell counts per page by id and severity with zero high and at most two medium, each medium with its reason, and does not report any tell as a ux-laws law finding or score",
+        "Says it did not render the result and marks the render-only evidence as source only"
+      ]
     }
   ]
 }
