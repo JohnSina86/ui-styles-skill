@@ -91,7 +91,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
    :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
    ```
 4. **Composition moves.** If the screen feels flat or looks like a default template, if users can't tell what to tap, or if the user asks for depth, focus or hierarchy, read [composition.md](references/composition.md) and apply the moves its table matches (depth planes, signal colour, scale contrast). In an existing design system, propose them first (section 0).
-5. **Type scale and imagery.** Set the type scale and imagery direction from [typography.md](references/typography.md) and [imagery.md](references/imagery.md): two steps with floors, a measure, the spacing steps, section padding by role, the style's pairing row, and the imagery kind (or none) with the ban list.
+5. **Type scale and imagery.** Set the type scale and imagery direction from [typography.md](references/typography.md) and [imagery.md](references/imagery.md). The two-step scale applies where composition.md's table allows scale contrast (not dashboards or data views); the floors, measure, spacing steps and pairing row apply everywhere; section padding by role applies to pages, not to a component-only task. Name the imagery kind (or none) and respect the ban list.
 6. Run the checklist in section 7.
 7. If the user asks for ready-made or animated components, icons, fonts, charts or companion skills, read [related-resources.md](references/related-resources.md) first and follow its rules. Never recreate a library's component or icon from memory.
 8. For a UX review of the result, use `ux-laws`. It grades structure and behaviour, not the chosen aesthetic.
@@ -109,7 +109,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
 - [ ] If a composition move was used, its lines in [composition.md](references/composition.md) (Checks) are done.
-- [ ] Type and imagery: reading text >= 16px and labels >= 12px, reading text at 45 to 75 characters, one huge element per view, and the imagery kind named (or "none") with nothing from the ban list.
+- [ ] Type and imagery: reading text >= 16px and labels >= 12px, reading text at 45 to 75 characters, the style's pairing row; one huge element per view where scale contrast applies; on a page, section padding varies by role; the imagery kind named (or "none") with nothing from the ban list.
 - [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References

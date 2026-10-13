@@ -87,12 +87,12 @@
       "files": [],
       "expectations": [
         "Reads references/typography.md and references/imagery.md and names the type scale and the imagery kind it chose",
-        "Sets the display step with clamp() and a vw term, body at 1rem or 1.125rem and meta between 0.8125rem and 0.875rem, with no sizes in the 20 to 40px band within a view, reading text at least 16px and labels at least 12px",
+        "Applies the two-step scale, since a portfolio page is a view that takes scale contrast: display via clamp() with a vw term, body at 1rem or 1.125rem, meta between 0.8125rem and 0.875rem, no third size between the body and display steps within a view (the section display floor resolving to 32px on phones is the display step, not a violation), reading text at least 16px and labels at least 12px",
         "Caps the bio and other reading text at a measure of 45 to 75 characters (for example max-inline-size in ch) and does not shrink text on narrow screens to fit more per line",
         "Uses the editorial row of the pairing table (Playfair Display for display, Newsreader for body) from the existing --ui-font-display and --ui-font-body stacks, and adds no new font",
-        "Names the imagery kind as photo (the style's row), fixes every image box with aspect-ratio plus width and height, crops toward the subject, puts no tint or overlay in --ui-accent on any photo, and places the testimonial and any text over imagery on a solid panel",
+        "Names the imagery kind as photo (the style's row), fixes every image box with aspect-ratio plus width and height, crops toward the subject, puts no tint or overlay in --ui-accent on any photo, and places the testimonial and any text over imagery on a solid panel or on a translucent panel whose text and surface pair has a worst-case ledger row",
         "Gives every image an alt decision (a descriptive alt for the gallery photos, alt=\"\" for decoration) and states which, and uses nothing from the ban list (no stock handshake, floating UI cards, abstract blobs or AI-generated faces presented as real people)",
-        "Section padding differs by section role (hero, content, band, footer) using the --ui-space-* steps, not one value for every section",
+        "Because this is a page and not a component, section padding differs by section role (hero, content, band, footer) using the --ui-space-* steps, not one value for every section",
         "Says it did not render the result and leaves the crop, reflow and 200% zoom checks open"
       ]
     }

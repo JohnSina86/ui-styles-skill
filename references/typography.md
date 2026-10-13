@@ -13,7 +13,9 @@ These are craft heuristics, not graded rules. `ux-laws` grades legibility and hi
 - [Checks](#checks)
 
 ## 1. Two-step type scale
-Each view (the first screen, then each section) has **one huge element** and everything else is body or meta. Nothing sits in the 20 to 40px band within a view.
+**Where it applies.** The scale follows the *When to use which* table in composition.md: landing, product detail, profile, editorial and portfolio views take it; dashboards and data views don't, because they rank data with middle sizes. There, and in a component-only task, keep the floors, the measure (section 2), the spacing steps (section 3) and the pairing row (section 5), and skip the huge element.
+
+Each view that takes the scale (the first screen, then each section) has **one huge element** and everything else is body or meta. **Nothing sits between the two steps.** At desktop widths that leaves the 20 to 40px band empty, as composition.md says. The band is measured between the view's body size and its display size, not in fixed pixels, so two values inside 20 to 40px are still correct: the section display floor (`2rem`, 32px at 320 to 430px with a 16px root) is the display step on a phone, and a body floor raised by the pairing table (VT323 at `1.25rem`) is the body step. What is banned is a third size between them.
 
 | Step | Size | Used for |
 | :--- | :--- | :--- |
@@ -59,7 +61,7 @@ Six optional roles, listed in the token contract as optional properties. Compone
 Four steps (`1`, `3`, `4`, `6`) are enough for a small component set; use all six on a page. Never add a seventh: a value that isn't on the scale is a hard-coded padding.
 
 ## 4. Vertical rhythm
-Section padding varies by the section's role. **Never one value top to bottom:** a page whose every section has the same `padding-block` reads as a template whatever the style.
+Pages only: a component-only task has no sections, so this section doesn't apply to it. Section padding varies by the section's role. **Never one value top to bottom:** a page whose every section has the same `padding-block` reads as a template whatever the style.
 
 | Section role | Block padding | Inside the section |
 | :--- | :--- | :--- |
@@ -84,7 +86,7 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 | `scrapbook` | Caveat 700 | Lora 400 | Caveat on headings and short notes only, never below 24px. Body never rotated. |
 | `surrealism` | Syne 800 | Inter 400 | Syne at 800 only; lighter weights lose the shape. Text on solid panels only. |
 | `y2k` | Outfit 800 | Outfit 400 | One family. Display may take `-0.02em` tracking. Text on `--ui-surface`, never on the chrome gradient. |
-| `pixel-art` | Press Start 2P | VT323 | Set Press Start 2P at multiples of 8px (16, 24, 32) so pixels align, display cap `4rem`. VT323 body floor `1.25rem`: its x-height is small. Headings and labels only in Press Start 2P. |
+| `pixel-art` | Press Start 2P | VT323 | Set Press Start 2P at multiples of 8px (16, 24, 32) so pixels align, display cap `4rem`. VT323 body floor `1.25rem` (20px, which is then the body step): its x-height is small. Headings and labels only in Press Start 2P. |
 | `synthwave` | Orbitron 700 | Inter 400 | Orbitron on headings only; glow at 24px and above only. Meta in Inter. |
 | `glassmorphism` | Inter 700 | Inter 400 | One family. Display at `-0.02em`; the glass edge, not a second face, separates panels. |
 | `neumorphism` | Inter 600 | Inter 400 | One family. Keep display at 600: the style is low-contrast, so size does the ranking. |
@@ -103,8 +105,8 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 
 ## Checks
 Add these to the section 7 checklist when you set the type scale.
-- [ ] **Scale:** one huge element per view, set with `clamp()` and a `vw` term; nothing in the 20 to 40px band within a view. Reading text >= 16px, labels >= 12px, plus any face floor from the pairing table.
+- [ ] **Scale** (on views that take it, per composition.md's table): one huge element per view, set with `clamp()` and a `vw` term, and no third size between the body step and the display step. Everywhere: reading text >= 16px, labels >= 12px, plus any face floor from the pairing table.
 - [ ] **Measure:** reading text capped at 45 to 75 characters (`ch`), text not shrunk to fit on phones.
-- [ ] **Spacing:** every padding and gap is a `--ui-space-*` step; at least two different section paddings on the page.
+- [ ] **Spacing:** every padding and gap is a `--ui-space-*` step. On a page, at least two different section paddings; not applicable to a component-only task.
 - [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors. No font added.
 - [ ] **Reflow:** 320px and 200% zoom checked, or left open as "needs a render".

@@ -35,7 +35,7 @@ One row per style ID in the SKILL.md index, in index order. *Fits* is the kind t
 | `y2k` | 3D | typographic | Chrome, bubbles and glossy objects. Gloss stays on objects; the chrome gradient is decor, never behind text. |
 | `pixel-art` | illustration | none | Sprites at integer scale with `image-rendering: pixelated`. No photographs, no smoothed upscales. |
 | `synthwave` | illustration | typographic | Horizon grid and sunset as a backdrop. Glow on the drawing, not on text under 24px. No photographs. |
-| `glassmorphism` | photo | 3D | The backdrop is the image: full bleed, dark or saturated, so the glass contract holds. Text only inside a panel. |
+| `glassmorphism` | photo | 3D | The backdrop is the image: full bleed, dark or saturated, so the glass contract holds. Text only inside the glass panel, whose pairs are verified over white, the worst case (ledger rows `D-glass-card-text`, `D-glass-muted`). |
 | `neumorphism` | none | illustration | The surface is the image. Monochrome icons in `--ui-text`. A product shot sits only inside a pressed well. |
 | `bento-grid` | photo | illustration | Screenshots of the real screen, cropped to the card edge at `--ui-radius`. At most one image per card. |
 | `editorial` | photo | illustration | Reportage, at column width or full bleed, each with a caption in the meta step. The hero is one photo, not a grid. |
@@ -54,7 +54,7 @@ One row per style ID in the SKILL.md index, in index order. *Fits* is the kind t
 - **Crop to the subject.** Fix the box with `aspect-ratio` plus `width` and `height` attributes, then `object-fit: cover` with `object-position` toward the subject. A cover crop changes with the box, so check it at 375 and 1440. Never cut a product or a face at the edge of its frame.
 - **Edges follow the style.** Hard edge at `--ui-radius` by default. Cut-outs (transparent PNG or WebP) for depth-plane subjects and the styles whose row says so. Frames only where the row names one. Feathered edges only on `ethereal`. No drop shadow on a photo unless the style's `--ui-shadow` applies to its cards.
 - **No tint through `--ui-accent` while signal colour is on.** A duotone, overlay, gradient or icon fill in the accent makes decoration look tappable (composition.md, move 2). Greyscale, or a tint in a decorative-only colour, is allowed where the row says so. Otherwise photos keep their own colour: no filter stack.
-- **Text over an image is an unverifiable pair.** Put it on `--ui-surface` or a solid plane instead. A gradient scrim does not make it verifiable, and a style whose `Requires` rule says solid panels gets no exception.
+- **Text over an image needs a verified panel.** A solid `--ui-surface` or plane is verified by its ledger row. A translucent panel is allowed only when its exact text and surface pair has a ledger row computed against the worst-case backdrop, as the glass rows are (`D-glass-card-text` 7.95:1 and `D-glass-muted` 5.35:1 over pure white, in [contrast-ledger.md](contrast-ledger.md)). Any other translucent panel needs the same worst-case recomputation with [contrast-check.md](contrast-check.md), luminances shown. A gradient scrim is not a panel, and a style whose `Requires` rule says solid panels (`surrealism`, `y2k`) gets no translucent exception.
 - **Alt decision, per image.** Every `<img>` carries either a descriptive `alt` (the subject, not "image of") or `alt=""` because it is decoration, and the delivery says which. A `background-image` carries no content. An image that is a link's only content gets the destination as its `alt`. A gallery image gets its subject, never the file name.
 - **Layout and loading.** `width` and `height` on every image so nothing shifts. `loading="lazy"` below the fold; the hero image loads eagerly. Dark mode: images don't invert, and a cut-out on `--ui-bg` is checked in both modes.
 - **Motion.** Parallax or drift on an image is decorative: `data-ui-motion`, static under reduced motion (guardrails, Motion). Video follows the same rule and needs a poster.
@@ -73,6 +73,6 @@ Never used, whatever the style or product. Each has a reason and a replacement.
 ## Checks
 Add these to the section 7 checklist when the page has imagery, or when you chose none.
 - [ ] **Kind named:** photo, illustration, 3D, typographic or none, from the style's row or with a reason.
-- [ ] **Treatment:** boxes fixed with `aspect-ratio`, crops checked at 375 and 1440 or left open as "needs a render", edges per the row, no tint or overlay in `--ui-accent`, no text over an image outside a solid panel.
+- [ ] **Treatment:** boxes fixed with `aspect-ratio`, crops checked at 375 and 1440 or left open as "needs a render", edges per the row, no tint or overlay in `--ui-accent`, no text over an image outside a panel verified against the worst-case backdrop (solid, or a translucent pair with a worst-case ledger row).
 - [ ] **Alt:** every `<img>` has a descriptive `alt` or `alt=""`, and the delivery lists which.
 - [ ] **Ban list:** nothing from section 4, and the image source (the user's, or a named licence) is stated.
