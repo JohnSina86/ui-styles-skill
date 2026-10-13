@@ -93,8 +93,9 @@
         "Under prefers-reduced-motion the loader is not shown and every choreographed element sits at its end pose with no clip, so the page is fully readable at first paint",
         "Every choreographed element, the loader included, carries data-ui-reveal beside data-ui-motion, and the data-ui-reveal count matches the elements the choreography line names; a hover or press effect marked data-ui-motion alone is not counted",
         "The loader exits by transform or clip-path (not by animating its width or height), is hidden until script shows it, and the page is usable with script disabled or blocked",
-        "Saves the previous history.scrollRestoration value and restores it when the gate closes, including when the loader fails or the page is left early; skips the loader and the top scroll on history (back_forward) and fragment navigation",
+        "Saves the previous history.scrollRestoration value and restores it when the gate closes, including when the loader fails or the page is left early; skips the loader and the top scroll on reload, history (back_forward) and fragment navigation, so a reader who reloads a scrolled page keeps their position",
         "Arms the loader's deadline when the gate is set rather than at DOMContentLoaded, ends the loader through one terminal cleanup that a late readiness callback cannot restart, and runs that cleanup when prefers-reduced-motion changes to reduce while the loader is up",
+        "Keyboard focus during loading cannot activate an obscured control: focus entering the covered content dismisses the loader through the same cleanup (or the covered content is inert while the gate is set)",
         "Says it did not render the result and leaves the order, budget and reduced-motion checks open"
       ]
     }
