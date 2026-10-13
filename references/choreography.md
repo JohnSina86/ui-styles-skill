@@ -18,8 +18,8 @@ It adds no colours and no roles, and every contract still applies: the Motion, F
 ## The order
 Four steps, in this sequence. Skip a step and the ones after it move up; never reorder them.
 
-1. **Loader, or none.** Default to none. A loader is justified only when the first screen would otherwise show something broken while it loads (a scene, a large hero image, a font the display heading depends on). It is opaque, carries `--ui-bg` and `--ui-text`, and belongs to a page you own, never to a drop-in component. It animates by `transform` or `clip-path`, never by its own box (a bar that grows by `width` shifts layout). It locks the scroll while it is up and the page starts at the top when it leaves: set `history.scrollRestoration = "manual"` and scroll to `0` as the loader lifts. A smooth-scroll script ignores `overflow: hidden`, so stop it while the loader is up and check nothing restarts it. A loader that waits for a network asset gets a deadline (about 3 s), after which it lifts anyway.
-2. **The gate.** Choreographed elements hold their start pose while the loader is up, so nobody sees them mid-entrance through the curtain. The gate is an attribute the script sets on the theme element before the loader shows and removes the moment the loader starts to exit, so the first steps play under the clearing curtain. Without script there is no gate and the reveal plays from first paint, so the page never stays hidden. The content is in the HTML at rest; the start pose is only the first keyframe.
+1. **Loader, or none.** Default to none. A loader is justified only when the first screen would otherwise show something broken while it loads (a scene, a large hero image, a font the display heading depends on). It is opaque, carries `--ui-bg` and `--ui-text`, and belongs to a page you own, never to a drop-in component. It animates by `transform` or `clip-path`, never by its own box (a bar that grows by `width` shifts layout). It locks the scroll while it is up and the page starts at the top when it leaves: set `history.scrollRestoration = "manual"` while the loader is up, scroll to `0` as it lifts, and put the previous value back when the gate closes (on exit, on failure and on `pagehide`), so Back navigation keeps native scroll restoration. A smooth-scroll script ignores `overflow: hidden`, so stop it while the loader is up and check nothing restarts it. A loader that waits for a network asset gets a deadline (about 3 s), after which it lifts anyway.
+2. **The gate.** Choreographed elements hold their start pose while the loader is up, so nobody sees them mid-entrance through the curtain. The gate is an attribute a short inline script in `<head>` sets on the theme element before the body parses, and removes the moment the loader starts to exit, so the first steps play under the clearing curtain. The loader is hidden by default and shown only by the gate, so with script disabled or blocked by the CSP there is no gate and no loader: the reveal plays from first paint and the page is usable. The content is in the HTML at rest; the start pose is only the first keyframe.
 3. **Staggered content.** Headings and decoration enter first, one step apart: the back-plane word, then each heading line, then an eyebrow or meta line. Each line is its own element (a `span` per line, letters grouped in `white-space: nowrap` word spans if the effect is per letter). Delays are multiples of one `--ui-stagger` step, never hand-picked values.
 4. **The hero subject last.** The product cut-out, portrait, illustration or video enters after the type, so the eye lands on it as the sequence settles. It is the last element to come to rest. Controls and body text are not in the sequence: they are at rest from the first frame.
 
@@ -49,7 +49,7 @@ Controls appear at rest so a visitor can act on the first frame and a hit test g
 Animate `transform` and `clip-path` only. Never `width`, `height`, `top`, `margin` or `font-size` (layout shifts, and the hit area moves). No `filter: blur()` per letter or word; if the style wants blur, one filter per line, removed at rest. Hover effects are not choreography and sit under `(hover: hover) and (pointer: fine)`.
 
 ## Reduced motion: a static end state
-Under `prefers-reduced-motion: reduce` the page is complete and readable at first paint: every choreographed element sits at its end pose, nothing is clipped, nothing is paused, and there is no loader and no gate. The guardrail block ends every animation after one tick but keeps `animation-delay`, so an element with a 600 ms delay and a backwards fill would sit clipped for 600 ms. The choreography therefore adds its own rule: `animation: none` and `clip-path: none` on every `[data-ui-motion]` element, and the loader is not shown. The script checks `matchMedia('(prefers-reduced-motion: reduce)')` before it sets the gate. A loader that is also a loop (a spinner, a counter) stops under reduced motion, or it can hang the page (guardrails, Motion).
+Under `prefers-reduced-motion: reduce` the page is complete and readable at first paint: every choreographed element sits at its end pose, nothing is clipped, nothing is paused, and there is no loader and no gate. The guardrail block ends every animation after one tick but keeps `animation-delay`, so an element with a 600 ms delay and a backwards fill would sit clipped for 600 ms. The choreography therefore adds its own rule: `animation: none` and `clip-path: none` on every `[data-ui-reveal]` element, and the loader is not shown. The script checks `matchMedia('(prefers-reduced-motion: reduce)')` before it sets the gate. A loader that is also a loop (a spinner, a counter) stops under reduced motion, or it can hang the page (guardrails, Motion).
 
 ## One choreographed section per view
 One section per view above the fold gets a sequence, and it is almost always the hero. A second sequence in the same view competes with the first and doubles the budget.
@@ -57,19 +57,21 @@ One section per view above the fold gets a sequence, and it is almost always the
 Sections below the fold get no choreography. Each may have at most **one inview reveal**: the section's heading or media enters once by transform or `clip-path` when it scrolls into view (an `IntersectionObserver` with a threshold, unobserved after the first entry), never replayed on the way back up, and never on body text or controls. Everything else below the fold is static. A page where every section slides in on scroll is a tell, not a design.
 
 ## The marker
-Every choreographed element, including the loader and each inview reveal, carries `data-ui-motion`. The guardrails' reduced-motion block then neutralises its transform, this file's rule removes its animation and clip, and a reviewer can count the moving elements: the number of `data-ui-motion` attributes in the markup equals the number of elements the sequence names. An animated element without the marker is a defect.
+Two attributes, with different jobs:
+- `data-ui-motion` is the shared reduced-motion marker from [guardrails.md](guardrails.md) (Motion). It also sits on hover and press effects (the Neo-Brutalism press offset, Scrapbook tilts), so it does not identify the sequence.
+- `data-ui-reveal` marks membership of the sequence: every choreographed element, the loader and each inview reveal carry it, beside `data-ui-motion`. The gate selector pauses `[data-ui-reveal]`, this file's reduced-motion rule removes its animation and clip, and a reviewer counts it: the number of `data-ui-reveal` attributes in the markup equals the number of elements the delivery line names. A button marked `data-ui-motion` for its press effect is not in that count. An element in the sequence without both attributes is a defect.
 
 ## CSS example
-Scoped under `.theme-swiss`; replace the id. Three lines of script set and lift the gate. The content is in the HTML at rest, the start pose is a keyframe, and every entrance runs at `opacity: 1`.
+Scoped under `.theme-swiss`; replace the id. A short inline script in `<head>` sets the gate before first paint and lifts it; the loader is hidden until the gate shows it. The content is in the HTML at rest, the start pose is a keyframe, and every entrance runs at `opacity: 1`.
 
 ```html
-<div class="ui-loader" data-ui-motion aria-hidden="true"><span>Aura</span></div>
+<div class="ui-loader" data-ui-reveal data-ui-motion aria-hidden="true"><span>Aura</span></div>
 <section class="ui-hero">
-  <p class="ui-plane-back ui-enter" style="--ui-i: 0" data-ui-motion aria-hidden="true">AURA</p>
-  <h1><span class="ui-enter" style="--ui-i: 1" data-ui-motion>Sound you can</span><br>
-      <span class="ui-enter" style="--ui-i: 2" data-ui-motion>see in the room</span></h1>
-  <p class="ui-eyebrow ui-enter" style="--ui-i: 3" data-ui-motion>Studio headphones</p>
-  <img class="ui-subject" style="--ui-i: 7" data-ui-motion src="headphones.png" alt="Aura Studio headphones in sage green">
+  <p class="ui-plane-back ui-enter" style="--ui-i: 0" data-ui-reveal data-ui-motion aria-hidden="true">AURA</p>
+  <h1><span class="ui-enter" style="--ui-i: 1" data-ui-reveal data-ui-motion>Sound you can</span><br>
+      <span class="ui-enter" style="--ui-i: 2" data-ui-reveal data-ui-motion>see in the room</span></h1>
+  <p class="ui-eyebrow ui-enter" style="--ui-i: 3" data-ui-reveal data-ui-motion>Studio headphones</p>
+  <img class="ui-subject" style="--ui-i: 7" data-ui-reveal data-ui-motion src="headphones.png" alt="Aura Studio headphones in sage green">
   <p>Open-back drivers tuned for mixing rooms. Ships in three days.</p>
   <button type="button" class="ui-button">Add to bag</button>
 </section>
@@ -78,9 +80,10 @@ Scoped under `.theme-swiss`; replace the id. Three lines of script set and lift 
 .theme-swiss { --ui-stagger: 60ms; }
 /* Gate: held while the theme element carries data-ui-loading. The loader is excluded so its own exit can run. */
 .theme-swiss[data-ui-loading] { overflow: hidden; }
-.theme-swiss[data-ui-loading] [data-ui-motion]:not(.ui-loader) { animation-play-state: paused; }
-/* Loader: opaque, exits by clip, not by its box. */
-.theme-swiss .ui-loader { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: var(--ui-bg); color: var(--ui-text); font-family: var(--ui-font-display); }
+.theme-swiss[data-ui-loading] [data-ui-reveal]:not(.ui-loader) { animation-play-state: paused; }
+/* Loader: hidden until the gate shows it (no script, no loader); opaque; exits by clip, not by its box. */
+.theme-swiss .ui-loader { display: none; position: fixed; inset: 0; z-index: 10; place-items: center; background: var(--ui-bg); color: var(--ui-text); font-family: var(--ui-font-display); }
+.theme-swiss[data-ui-loading] .ui-loader, .theme-swiss .ui-loader.is-done { display: grid; }
 .theme-swiss .ui-loader.is-done { animation: ui-lift 400ms cubic-bezier(0.76, 0, 0.24, 1) forwards; }
 @keyframes ui-lift { to { clip-path: inset(0 0 100% 0); } }
 /* Type and decoration: a clip wipe with a short rise, opacity stays 1. */
@@ -91,23 +94,30 @@ Scoped under `.theme-swiss`; replace the id. Three lines of script set and lift 
 @keyframes ui-subject { from { transform: translateY(24px) scale(0.96); clip-path: inset(100% 0 0 0); } to { transform: none; clip-path: inset(0); } }
 /* Reduced motion: no loader, no gate, every element at its end pose at first paint. */
 @media (prefers-reduced-motion: reduce) {
-  .theme-swiss .ui-loader { display: none; }
-  .theme-swiss [data-ui-motion] { animation: none !important; clip-path: none !important; }
+  .theme-swiss .ui-loader { display: none !important; }
+  .theme-swiss [data-ui-reveal] { animation: none !important; clip-path: none !important; }
 }
 ```
 ```js
-const root = document.documentElement, loader = root.querySelector('.ui-loader');
-if (loader && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+/* Inline in <head>, before the body, so the gate exists before first paint. Without script none of this runs: no gate, no loader, page at rest. */
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const root = document.documentElement, previous = history.scrollRestoration;
   history.scrollRestoration = 'manual'; root.setAttribute('data-ui-loading', '');
-  const lift = () => { window.scrollTo(0, 0); root.removeAttribute('data-ui-loading'); loader.classList.add('is-done'); loader.addEventListener('animationend', () => loader.remove(), { once: true }); };
-  Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 3000))]).then(lift);
-} else { loader?.remove(); }
+  const close = () => { root.removeAttribute('data-ui-loading'); history.scrollRestoration = previous; };
+  addEventListener('pagehide', close, { once: true });                     /* left before the lift: restore anyway */
+  addEventListener('DOMContentLoaded', () => {
+    const loader = root.querySelector('.ui-loader');
+    if (!loader) return close();
+    const lift = () => { window.scrollTo(0, 0); loader.classList.add('is-done'); close(); loader.addEventListener('animationend', () => loader.remove(), { once: true }); };
+    Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 3000))]).then(lift, lift);   /* failure lifts too */
+  });
+}
 ```
 The `ui-enter` spans are `inline-block` so `transform` applies; the `h1` keeps its line height at 1.1 or more so the clip never shaves glyphs. If the project's CSP forbids inline styles, set each `--ui-i` in the stylesheet instead. The back word is the depth-planes move from [composition.md](composition.md) and keeps its rules (decorative, `aria-hidden`, clipped sideways only). `pointer-events: none` on the subject is the same move's rule: a transparent image still takes clicks.
 
 ## Record it
 Write one line in the delivery, matching the SKILL.md workflow step:
-- `choreography: hero: loader none; step 60 ms; back word 0, heading lines 60/120, eyebrow 180, subject 420 for 600 ms; at rest by 1.02 s; 5 marked elements` or
+- `choreography: hero: loader 400 ms; step 60 ms; back word 0, heading lines 60/120, eyebrow 180, subject 420 for 600 ms; at rest by 1.02 s; 6 data-ui-reveal elements` or
 - `choreography: none`.
 
 ## Checks
@@ -118,5 +128,6 @@ Add these to the section 7 checklist when the page has a reveal.
 - [ ] **Opacity:** first-screen headings enter by transform, `clip-path` or mask at full opacity (guardrails, Motion). No mask over glass.
 - [ ] **Reduced motion:** with `prefers-reduced-motion` emulated, no loader, no gate, every element at its end pose, the page fully readable at first paint. No loop runs.
 - [ ] **One section:** one choreographed section per view above the fold; below it only inview reveals that play once on headings or media.
-- [ ] **Marker:** `data-ui-motion` on every choreographed element, the loader and each inview reveal; the count matches the elements named in the delivery line.
+- [ ] **Marker:** `data-ui-reveal` beside `data-ui-motion` on every choreographed element, the loader and each inview reveal; the `data-ui-reveal` count matches the elements named in the delivery line. Hover and press effects keep `data-ui-motion` alone.
+- [ ] **No script:** the loader is hidden until the gate shows it, and `history.scrollRestoration` is put back when the gate closes.
 - [ ] **Render:** say "rendered" only if the reveal was watched in a browser tool in this session, at 375px and 1440px; otherwise leave the order and budget items open and say so.

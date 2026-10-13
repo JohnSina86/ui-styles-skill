@@ -91,8 +91,9 @@
         "The paragraph and the Pre-order button are not animated: they are at rest from the first frame and no control or body text carries an entrance",
         "No first-screen text fades from transparent: the headline, brand word and eyebrow enter by transform, clip-path or mask at opacity 1",
         "Under prefers-reduced-motion the loader is not shown and every choreographed element sits at its end pose with no clip, so the page is fully readable at first paint",
-        "Every element that moves, the loader included, carries data-ui-motion, and the count matches the elements the choreography line names",
-        "The loader exits by transform or clip-path (not by animating its width or height), and the page is not left hidden if the script never runs",
+        "Every choreographed element, the loader included, carries data-ui-reveal beside data-ui-motion, and the data-ui-reveal count matches the elements the choreography line names; a hover or press effect marked data-ui-motion alone is not counted",
+        "The loader exits by transform or clip-path (not by animating its width or height), is hidden until script shows it, and the page is usable with script disabled or blocked",
+        "Saves the previous history.scrollRestoration value and restores it when the gate closes, including when the loader fails or the page is left early",
         "Says it did not render the result and leaves the order, budget and reduced-motion checks open"
       ]
     }
