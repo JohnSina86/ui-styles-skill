@@ -18,7 +18,7 @@ It adds no colours and no roles, and every contract still applies: the Motion, F
 ## The order
 Four steps, in this sequence. Skip a step and the ones after it move up; never reorder them.
 
-1. **Loader, or none.** Default to none. A loader is justified only when the first screen would otherwise show something broken while it loads (a scene, a large hero image, a font the display heading depends on). It is opaque, carries `--ui-bg` and `--ui-text`, and belongs to a page you own, never to a drop-in component. It animates by `transform` or `clip-path`, never by its own box (a bar that grows by `width` shifts layout). It locks the scroll while it is up and the page starts at the top when it leaves: set `history.scrollRestoration = "manual"` while the loader is up, scroll to `0` as it lifts, and put the previous value back when the gate closes (on exit, on failure and on `pagehide`), so Back navigation keeps native scroll restoration. A smooth-scroll script ignores `overflow: hidden`, so stop it while the loader is up and check nothing restarts it. A loader that waits for a network asset gets a deadline (about 3 s), after which it lifts anyway.
+1. **Loader, or none.** Default to none. A loader is justified only when the first screen would otherwise show something broken while it loads (a scene, a large hero image, a font the display heading depends on). It is opaque, carries `--ui-bg` and `--ui-text`, and belongs to a page you own, never to a drop-in component. It animates by `transform` or `clip-path`, never by its own box (a bar that grows by `width` shifts layout). It locks the scroll while it is up and the page starts at the top when it leaves: set `history.scrollRestoration = "manual"` while the loader is up, scroll to `0` as it lifts, and put the previous value back when the gate closes. It does not run on history navigation (Back, Forward, a reload that restores position) or on a fragment URL: those keep the browser's own scroll position, so the script returns before setting the gate. A smooth-scroll script ignores `overflow: hidden`, so stop it while the loader is up and check nothing restarts it. A loader that waits on an asset gets a deadline (about 3 s) armed the moment the gate is set, not when the document finishes parsing; when it fires, the loader is removed and the gate and scroll state released, and a readiness callback that arrives later does nothing. One terminal cleanup runs on every end: the exit, the deadline, a failed wait, `pagehide`, and a change to reduced motion while the loader is up.
 2. **The gate.** Choreographed elements hold their start pose while the loader is up, so nobody sees them mid-entrance through the curtain. The gate is an attribute a short inline script in `<head>` sets on the theme element before the body parses, and removes the moment the loader starts to exit, so the first steps play under the clearing curtain. The loader is hidden by default and shown only by the gate, so with script disabled or blocked by the CSP there is no gate and no loader: the reveal plays from first paint and the page is usable. The content is in the HTML at rest; the start pose is only the first keyframe.
 3. **Staggered content.** Headings and decoration enter first, one step apart: the back-plane word, then each heading line, then an eyebrow or meta line. Each line is its own element (a `span` per line, letters grouped in `white-space: nowrap` word spans if the effect is per letter). Delays are multiples of one `--ui-stagger` step, never hand-picked values.
 4. **The hero subject last.** The product cut-out, portrait, illustration or video enters after the type, so the eye lands on it as the sequence settles. It is the last element to come to rest. Controls and body text are not in the sequence: they are at rest from the first frame.
@@ -49,7 +49,7 @@ Controls appear at rest so a visitor can act on the first frame and a hit test g
 Animate `transform` and `clip-path` only. Never `width`, `height`, `top`, `margin` or `font-size` (layout shifts, and the hit area moves). No `filter: blur()` per letter or word; if the style wants blur, one filter per line, removed at rest. Hover effects are not choreography and sit under `(hover: hover) and (pointer: fine)`.
 
 ## Reduced motion: a static end state
-Under `prefers-reduced-motion: reduce` the page is complete and readable at first paint: every choreographed element sits at its end pose, nothing is clipped, nothing is paused, and there is no loader and no gate. The guardrail block ends every animation after one tick but keeps `animation-delay`, so an element with a 600 ms delay and a backwards fill would sit clipped for 600 ms. The choreography therefore adds its own rule: `animation: none` and `clip-path: none` on every `[data-ui-reveal]` element, and the loader is not shown. The script checks `matchMedia('(prefers-reduced-motion: reduce)')` before it sets the gate. A loader that is also a loop (a spinner, a counter) stops under reduced motion, or it can hang the page (guardrails, Motion).
+Under `prefers-reduced-motion: reduce` the page is complete and readable at first paint: every choreographed element sits at its end pose, nothing is clipped, nothing is paused, and there is no loader and no gate. The guardrail block ends every animation after one tick but keeps `animation-delay`, so an element with a 600 ms delay and a backwards fill would sit clipped for 600 ms. The choreography therefore adds its own rule: `animation: none` and `clip-path: none` on every `[data-ui-reveal]` element, and the loader is not shown. The script checks `matchMedia('(prefers-reduced-motion: reduce)')` before it sets the gate and listens for the query to change: if reduction is requested while the loader is up or exiting, the cleanup runs at once (loader removed, gate and scroll state released, pending lift cancelled) instead of waiting for an `animationend` that a cancelled animation never fires. A loader that is also a loop (a spinner, a counter) stops under reduced motion, or it can hang the page (guardrails, Motion).
 
 ## One choreographed section per view
 One section per view above the fold gets a sequence, and it is almost always the hero. A second sequence in the same view competes with the first and doubles the budget.
@@ -100,18 +100,26 @@ Scoped under `.theme-swiss`; replace the id. A short inline script in `<head>` s
 ```
 ```js
 /* Inline in <head>, before the body, so the gate exists before first paint. Without script none of this runs: no gate, no loader, page at rest. */
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+(() => {
+  const motion = matchMedia('(prefers-reduced-motion: reduce)'), nav = performance.getEntriesByType('navigation')[0];
+  if (motion.matches || (nav && nav.type === 'back_forward') || location.hash) return;   /* reduced motion, history or fragment navigation: no loader, the browser keeps its scroll position */
   const root = document.documentElement, previous = history.scrollRestoration;
+  let state = 'gated';                                        /* gated -> lifting -> done; done is terminal */
   history.scrollRestoration = 'manual'; root.setAttribute('data-ui-loading', '');
-  const close = () => { root.removeAttribute('data-ui-loading'); history.scrollRestoration = previous; };
-  addEventListener('pagehide', close, { once: true });                     /* left before the lift: restore anyway */
-  addEventListener('DOMContentLoaded', () => {
+  const release = () => { clearTimeout(deadline); root.removeAttribute('data-ui-loading'); history.scrollRestoration = previous; };
+  const done = () => { if (state === 'done') return; state = 'done'; release(); root.querySelector('.ui-loader')?.remove(); };
+  const lift = () => {                                        /* the only path that plays the exit; a late or repeated call does nothing */
+    if (state !== 'gated') return;
     const loader = root.querySelector('.ui-loader');
-    if (!loader) return close();
-    const lift = () => { window.scrollTo(0, 0); loader.classList.add('is-done'); close(); loader.addEventListener('animationend', () => loader.remove(), { once: true }); };
-    Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 3000))]).then(lift, lift);   /* failure lifts too */
-  });
-}
+    if (!loader) return done();
+    state = 'lifting'; window.scrollTo(0, 0); release(); loader.classList.add('is-done');
+    loader.addEventListener('animationend', done, { once: true }); setTimeout(done, 500);   /* animationend or the timer, whichever comes first */
+  };
+  const deadline = setTimeout(done, 3000);                    /* armed now, not at DOMContentLoaded: a stalled script cannot keep the page covered */
+  addEventListener('pagehide', done, { once: true });
+  motion.addEventListener('change', e => { if (e.matches) done(); });   /* reduction requested mid-way: end it now */
+  addEventListener('DOMContentLoaded', () => document.fonts.ready.then(lift, lift));
+})();
 ```
 The `ui-enter` spans are `inline-block` so `transform` applies; the `h1` keeps its line height at 1.1 or more so the clip never shaves glyphs. If the project's CSP forbids inline styles, set each `--ui-i` in the stylesheet instead. The back word is the depth-planes move from [composition.md](composition.md) and keeps its rules (decorative, `aria-hidden`, clipped sideways only). `pointer-events: none` on the subject is the same move's rule: a transparent image still takes clicks.
 
@@ -129,5 +137,5 @@ Add these to the section 7 checklist when the page has a reveal.
 - [ ] **Reduced motion:** with `prefers-reduced-motion` emulated, no loader, no gate, every element at its end pose, the page fully readable at first paint. No loop runs.
 - [ ] **One section:** one choreographed section per view above the fold; below it only inview reveals that play once on headings or media.
 - [ ] **Marker:** `data-ui-reveal` beside `data-ui-motion` on every choreographed element, the loader and each inview reveal; the `data-ui-reveal` count matches the elements named in the delivery line. Hover and press effects keep `data-ui-motion` alone.
-- [ ] **No script:** the loader is hidden until the gate shows it, and `history.scrollRestoration` is put back when the gate closes.
+- [ ] **Lifecycle:** the loader is hidden until the gate shows it; the deadline is armed when the gate is set; history and fragment navigation skip the loader and the top scroll; one idempotent cleanup releases the gate, restores `history.scrollRestoration` and removes the loader on exit, deadline, failure, `pagehide` and a reduced-motion change, and a late readiness callback cannot restart the exit.
 - [ ] **Render:** say "rendered" only if the reveal was watched in a browser tool in this session, at 375px and 1440px; otherwise leave the order and budget items open and say so.
