@@ -15,7 +15,7 @@ These are craft heuristics, not graded rules. `ux-laws` grades legibility and hi
 ## 1. Two-step type scale
 **Where it applies.** The scale follows the *When to use which* table in composition.md: landing, product detail, profile, editorial and portfolio views take it; dashboards and data views don't, because they rank data with middle sizes. There, and in a component-only task, keep the floors, the measure (section 2), the spacing steps (section 3) and the pairing row (section 5), and skip the huge element.
 
-Each view that takes the scale (the first screen, then each section) has **one huge element** and everything else is body or meta. **Nothing sits between the two steps.** At desktop widths that leaves the 20 to 40px band empty, as composition.md says. The band is measured between the view's body size and its display size, not in fixed pixels, so two values inside 20 to 40px are still correct: the section display floor (`2rem`, 32px at 320 to 430px with a 16px root) is the display step on a phone, and a body floor raised by the pairing table (VT323 at `1.25rem`) is the body step. What is banned is a third size between them.
+Each view that takes the scale (the first screen, then each section) has **one huge element** and everything else is body or meta. **Nothing sits between the two steps.** At desktop widths that leaves the 20 to 40px band empty, as composition.md says. The band is measured between the view's body size and its display size, not in fixed pixels, so two values inside 20 to 40px are still correct: the section display floor (`2rem`, 32px at 320 to 430px with a 16px root) is the display step on a phone, and a body floor raised by the pairing table (VT323 at `1.5rem`) is the body step. What is banned is a third size between them.
 
 | Step | Size | Used for |
 | :--- | :--- | :--- |
@@ -76,7 +76,7 @@ Pages only: a component-only task has no sections, so this section doesn't apply
 - **Phones:** the `vw` term in `--ui-space-6` shrinks section padding; the `clamp()` floor keeps a hero from touching the next section.
 
 ## 5. Pairing table
-One row per style ID in the SKILL.md index, in index order. Both faces are the style's own `--ui-font-display` and `--ui-font-body` stacks; where they are the same family the pairing is **one family**, ranked by weight and size, never a second font. The notes are floors and limits for that face; the style's `Requires` rule still applies.
+One row per style ID in the SKILL.md index, in index order. Both faces are the style's own `--ui-font-display` and `--ui-font-body` stacks; where they are the same family the pairing is **one family**, ranked by weight and size, never a second font. The notes are floors and limits for that face; the style's `Requires` rule still applies. **Control labels** (buttons, inputs, form labels) use the **body face** in the generic recipe (SKILL.md, workflow step 3) and in every catalog recipe; `pixel-art` is the one exception, stated in its row.
 
 | ID | Display face (weight) | Body face (weight) | Notes |
 | :--- | :--- | :--- | :--- |
@@ -86,7 +86,7 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 | `scrapbook` | Caveat 700 | Lora 400 | Caveat on the huge element and short notes only, never below 24px; secondary headings in Lora 700, uppercase or tracked. Body never rotated. |
 | `surrealism` | Syne 800 | Inter 400 | Syne at 800 only; lighter weights lose the shape. Text on solid panels only. |
 | `y2k` | Outfit 800 | Outfit 400 | One family. Display may take `-0.02em` tracking. Text on `--ui-surface`, never on the chrome gradient. |
-| `pixel-art` | Press Start 2P | VT323 | Press Start 2P only at multiples of 8px (16, 24, 32, 48, 64) so pixels align: no `clamp()`, use the stepped sizes below this table. VT323 body floor `1.25rem` (20px, which is then the body step): its x-height is small. Headings and labels only in Press Start 2P. |
+| `pixel-art` | Press Start 2P | VT323 | Both faces only at multiples of 8px, so no `clamp()`: the stepped sizes below this table. Display 32/48/64px and secondary headings 24px in Press Start 2P; body VT323 `1.5rem` (24px, the body step, because its x-height is small); meta and captions VT323 16px. **Exception to the control-label rule:** control labels in Press Start 2P 16px. |
 | `synthwave` | Orbitron 700 | Inter 400 | Orbitron on headings only; glow at 24px and above only. Meta in Inter. |
 | `glassmorphism` | Inter 700 | Inter 400 | One family. Display at `-0.02em`; the glass edge, not a second face, separates panels. |
 | `neumorphism` | Inter 600 | Inter 400 | One family. Keep display at 600: the style is low-contrast, so size does the ranking. |
@@ -103,11 +103,15 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 | `cyberpunk` | Rajdhani 700 | Chakra Petch 400 | Rajdhani uppercase for display; Chakra Petch body `1rem`, labels 12px and above. No long reading. |
 | `wabi-sabi` | Shippori Mincho 500 | Cormorant Garamond 400 | Body uses `--ui-leading` 1.8 and `--ui-tracking`. Cormorant body floor `1.125rem`. |
 
-**Pixel Art exception.** Press Start 2P is a bitmap face that only looks right at multiples of 8px, so a fluid `clamp()` is wrong for it: it hits 60px at a 500px viewport. `pixel-art` uses stepped sizes instead, and the Scale check accepts them in place of the `vw` term. The steps still reflow: keep `overflow-wrap: anywhere`.
+**Pixel Art exception.** Press Start 2P and VT323 are bitmap faces that only look right at multiples of 8px, so a fluid `clamp()` is wrong for them (it hits 60px at a 500px viewport) and so are 13px, 14px and 20px. `pixel-art` sets every step explicitly, and the Scale check accepts these in place of the `vw` term. The steps still reflow: keep `overflow-wrap: anywhere`. Body is VT323 at 24px because its x-height is small (it reads like 16 to 18px of a text face); secondary headings are the body step in Press Start 2P, ranked by face and case, not size; control labels are the row's exception to the body-face rule.
 ```css
 .theme-pixel-art .ui-display { font-size: 32px; line-height: 1.25; }
-.theme-pixel-art .ui-display-section { font-size: 24px; line-height: 1.34; }
-@media (min-width: 30rem) { .theme-pixel-art .ui-display { font-size: 48px; } .theme-pixel-art .ui-display-section { font-size: 32px; } }
+.theme-pixel-art .ui-display-section { font-size: 32px; line-height: 1.25; }
+.theme-pixel-art .ui-body { font-size: 24px; line-height: 1.34; }                                    /* VT323 */
+.theme-pixel-art :is(h2, h3, h4):not(.ui-display-section) { font-size: 24px; line-height: 1.34; }  /* Press Start 2P at the body step */
+.theme-pixel-art .ui-button { font-family: var(--ui-font-display); font-size: 16px; }               /* control labels: Press Start 2P 16px */
+.theme-pixel-art .ui-meta { font-size: 16px; line-height: 1.5; }                                      /* VT323 */
+@media (min-width: 30rem) { .theme-pixel-art .ui-display { font-size: 48px; } }
 @media (min-width: 64rem) { .theme-pixel-art .ui-display { font-size: 64px; } .theme-pixel-art .ui-display-section { font-size: 48px; } }
 ```
 
@@ -116,5 +120,5 @@ Add these to the section 7 checklist when you set the type scale.
 - [ ] **Scale** (on views that take it, per composition.md's table): one huge element per view, set with `clamp()` and a `vw` term (or the stepped sizes for `pixel-art`), and no third size between the body step and the display step. Everywhere: reading text >= 16px, labels >= 12px, plus any face floor from the pairing table.
 - [ ] **Measure:** reading text capped at 45 to 75 characters (`ch`), text not shrunk to fit on phones.
 - [ ] **Spacing:** every padding and gap is a `--ui-space-*` step. On a page, at least two different section paddings; not applicable to a component-only task.
-- [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors, and secondary headings in the body face where the row says so. No font added.
+- [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors; secondary headings in the body face where the row says so; control labels in the body face (`pixel-art` excepted). No font added.
 - [ ] **Reflow:** 320px and 200% zoom checked, or left open as "needs a render".

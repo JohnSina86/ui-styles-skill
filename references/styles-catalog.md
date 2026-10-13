@@ -63,7 +63,7 @@ Ledger rows: role row `neo-brutalism` (card, input, focus) and `D-neo-btn-label`
 .nb-button {
   background: var(--ui-accent);
   color: var(--ui-on-accent);
-  font: 700 1rem/1.2 var(--ui-font-display);
+  font: 700 1rem/1.2 var(--ui-font-body);      /* control labels use the body face (typography.md, pairing table) */
   border: 3px solid var(--ui-border);
   border-radius: var(--ui-radius);
   box-shadow: 4px 4px 0 var(--ui-border);
@@ -91,7 +91,7 @@ Ledger rows: role row `neo-brutalism` (card, input, focus) and `D-neo-btn-label`
 <div class="theme-neo-brutalism bg-ui-surface text-ui-text border-[3px] border-ui-border rounded-ui shadow-ui p-6 font-ui-body">
   <h3 class="font-ui-display font-bold text-xl mb-2">Neo-Brutalism card</h3>
   <p class="text-ui-muted mb-4">High contrast, raw, unapologetically functional.</p>
-  <button data-ui-motion class="bg-ui-accent text-ui-on-accent font-ui-display font-bold min-h-11 px-6 py-2.5 rounded-ui border-[3px] border-ui-border shadow-[4px_4px_0_var(--ui-border)]
+  <button data-ui-motion class="bg-ui-accent text-ui-on-accent font-ui-body font-bold min-h-11 px-6 py-2.5 rounded-ui border-[3px] border-ui-border shadow-[4px_4px_0_var(--ui-border)]
            hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ui-border)] active:translate-x-1 active:translate-y-1 active:shadow-none
            motion-reduce:translate-none transition focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ui-focus">
     Execute action
@@ -179,7 +179,7 @@ Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The 
   color: var(--ui-on-accent);
   border: 2px solid transparent;    /* becomes visible in forced-colours mode */
   border-radius: 12px;
-  font: 600 1rem var(--ui-font-display);
+  font: 600 1rem var(--ui-font-body);          /* control labels use the body face; Plus Jakarta Sans is for the card's one title or number */
   min-height: 44px;
   padding: 10px 20px;
   cursor: pointer;
@@ -209,11 +209,11 @@ Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The 
   </div>
   <div class="bg-ui-surface border border-zinc-200 rounded-ui p-6 text-ui-text">
     <span class="text-ui-muted text-xs font-semibold">Uptime</span>
-    <div class="text-3xl font-extrabold">99.98%</div>
+    <div class="text-3xl font-extrabold font-ui-display">99.98%</div>
   </div>
   <div class="bg-ui-surface border border-zinc-200 rounded-ui p-6 text-ui-text">
     <span class="text-ui-muted text-xs font-semibold">Latency</span>
-    <div class="text-3xl font-extrabold">&lt; 14ms</div>
+    <div class="text-3xl font-extrabold font-ui-display">&lt; 14ms</div>
   </div>
 </div>
 </div>
@@ -251,7 +251,7 @@ Ledger rows: `D-cyber-card-text`, `D-cyber-btn-label`, `D-cyber-btn-hover`, `D-c
 .cyber-btn {
   color: var(--ui-on-accent);
   border: 0;
-  font: 700 1rem/1 var(--ui-font-display);
+  font: 700 1rem/1 var(--ui-font-body);        /* Chakra Petch: control labels use the body face */
   text-transform: uppercase;
   letter-spacing: 0.1em;
   min-height: 44px;

@@ -87,7 +87,7 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
    :where([class*="theme-"]) { font-family: var(--ui-font-body); }
    :where([class*="theme-"]) :is(h1, h2, h3, h4) { font-family: var(--ui-font-display); } /* secondary headings switch to --ui-font-body where the pairing row in typography.md says so */
    :where([class*="theme-"]) .ui-card { background: var(--ui-surface); color: var(--ui-text); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: 24px; }
-   :where([class*="theme-"]) .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 20px; font-family: var(--ui-font-display); }
+   :where([class*="theme-"]) .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 20px; font-family: var(--ui-font-body); font-weight: 700; }
    :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
    ```
 4. **Composition moves.** If the screen feels flat or looks like a default template, if users can't tell what to tap, or if the user asks for depth, focus or hierarchy, read [composition.md](references/composition.md) and apply the moves its table matches (depth planes, signal colour, scale contrast). In an existing design system, propose them first (section 0).
