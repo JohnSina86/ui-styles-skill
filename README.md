@@ -12,10 +12,11 @@ An agent skill with **contrast-verified design tokens and CSS/Tailwind recipes f
 - **Tailwind mappings** for v4 (`@theme inline`) and v3 (`theme.extend`).
 - **Shared guardrails:** visible focus, `prefers-reduced-motion`, `prefers-reduced-transparency`, a `backdrop-filter` fallback, self-hosted font loading and dark-mode notes.
 - **Detailed component recipes** (card, button, input) for six styles in [`references/styles-catalog.md`](references/styles-catalog.md). The others are built from their tokens using the shared role pattern.
+- **Composition moves** ([`references/composition.md`](references/composition.md)): depth planes, a single signal colour and extreme scale contrast, for screens that feel flat or default. They work under any style and keep its contracts.
 - **A style index** in `SKILL.md` with aliases, *Best for*, *Avoid when*, a risk flag and the one rule that keeps each style usable, plus a hand-written [product-fit table](references/product-fit.md).
 - **A contrast ledger** ([`references/contrast-ledger.md`](references/contrast-ledger.md)) with every role pair and every derived component pair, the method, and a freshness rule. A copy-paste [contrast check](references/contrast-check.md) computes any pair by the same method and prints both luminances.
 - **Related resources** ([`references/related-resources.md`](references/related-resources.md)): links, not bundled code, for components, icons, fonts, motion, charts and companion agent skills, chosen by a scored comparison ([`references/source-scorecard.md`](references/source-scorecard.md)), plus rules for using them (licence check, no invented URLs, no run-time remote rules, one icon family per project, tokens and reduced motion still apply). The scores are reported, not independently verified.
-- **Evals** in [`evals/`](evals/): four functional tasks and twenty trigger queries (half are near-miss negatives).
+- **Evals** in [`evals/`](evals/): six functional tasks and twenty trigger queries (half are near-miss negatives).
 - **A runnable demo:** [`examples/cyberpunk-glass.html`](examples/cyberpunk-glass.html).
 
 ## The 22 styles
@@ -73,6 +74,8 @@ When designing or building UI components, follow .agents/skills/ui-styles/SKILL.
 
 ## Changelog
 
+- **v1.4.0**
+  - `references/composition.md`: three layout moves that work under any style. **Depth planes** (oversized decorative type behind the subject, controls on top), **signal colour** (`--ui-accent` only on interactive elements and their states) and **scale contrast** (one huge element, small supporting text, no middle sizes). Each has a when-to-use table, scoped CSS and checks. Workflow step 4 and a checklist line point to it. Adapted from a short creator tip and bounded by the existing contrast, focus, motion and scoping contracts. Eval 6 covers it.
 - **v1.3.0**
   - `references/contrast-check.md`: a copy-paste function that computes a pair by the ledger's method, compositing a translucent foreground first, and prints both luminances beside the ratio. It reproduces the ledger's worked example (`D-glass-card-text`, 7.95:1). Added after a live audit where a hand-computed ratio came out 9.15:1 against a true 9.16:1. The rules and the ledger are unchanged.
 - **v1.2.2**
