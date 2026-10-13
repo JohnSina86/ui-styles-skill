@@ -3,10 +3,10 @@ name: ui-styles
 description: >-
   Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.3.0"
+  version: "1.4.0"
 ---
 
-# UI Styles (v1.2)
+# UI Styles (v1.4)
 
 Turns an aesthetic request into production CSS: one token block per style with fixed role names, verified contrast and shared guardrails. This file is the routing layer. Token blocks, recipes and CSS guardrails are in `references/`, and you read them **after** you choose a style.
 
@@ -71,7 +71,8 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 
 ## 5. Guardrails (full CSS in [guardrails.md](references/guardrails.md))
 - **Focus:** a visible `:focus-visible` outline on every interactive element. Never put `clip-path`, `mask` or `overflow: hidden` on a focusable element.
-- **Motion:** honour `prefers-reduced-motion`. Mark decorative transforms with `data-ui-motion`.
+- **Motion:** honour `prefers-reduced-motion`, and stop JavaScript loops under it. Mark decorative transforms with `data-ui-motion`. First-screen text reveals by transform, clip or mask at full opacity, never a fade from transparent. Hover-only effects sit under `(hover: hover) and (pointer: fine)`.
+- **Phones and overlays:** menus and overlays use `100dvh` plus the bottom safe-area inset, carry their own surface and text values checked in dark mode, and the page has no horizontal overflow at 320 to 430px.
 - **Transparency:** provide an `@supports` fallback and honour `prefers-reduced-transparency`. Glass is used only over a dark or saturated backdrop, and the surface tint must not be lowered.
 - **Forced colours:** controls drawn only with backgrounds or pseudo-elements need a real border in `@media (forced-colors: active)`.
 - **Scoping:** keep every rule under the theme container or a class you own. A demo or preview page you build around a component follows the same rule, including its inline `<style>` block. In a drop-in task (an existing app, a snippet, one component) never write a rule whose selector is a bare `html`, `body`, `*` or element name. In a page you create from scratch, put the theme class on `<html>` and write page-level rules as `.theme-<id> body`.
@@ -89,9 +90,10 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
    :where([class*="theme-"]) .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 20px; font-family: var(--ui-font-display); }
    :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
    ```
-4. Run the checklist in section 7.
-5. If the user asks for ready-made or animated components, icons, fonts, charts or companion skills, read [related-resources.md](references/related-resources.md) first and follow its rules. Never recreate a library's component or icon from memory.
-6. For a UX review of the result, use `ux-laws`. It grades structure and behaviour, not the chosen aesthetic.
+4. **Composition moves.** If the screen feels flat or looks like a default template, if users can't tell what to tap, or if the user asks for depth, focus or hierarchy, read [composition.md](references/composition.md) and apply the moves its table matches (depth planes, signal colour, scale contrast). In an existing design system, propose them first (section 0).
+5. Run the checklist in section 7.
+6. If the user asks for ready-made or animated components, icons, fonts, charts or companion skills, read [related-resources.md](references/related-resources.md) first and follow its rules. Never recreate a library's component or icon from memory.
+7. For a UX review of the result, use `ux-laws`. It grades structure and behaviour, not the chosen aesthetic.
 
 ## 7. Pre-delivery checklist
 - [ ] Existing design system respected (section 0).
@@ -100,19 +102,22 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] Headings follow a logical order with no skipped levels, whatever the display font.
 - [ ] Every text, control and focus pair is in the ledger (or was recomputed).
 - [ ] Visible focus on every interactive element, and no clipped focusable element.
-- [ ] No bare `html`, `body`, `*` or element selectors (section 5, Scoping), and every `<button>` has an explicit `type` (`button` unless it submits a form).
-- [ ] Reduced motion, reduced transparency and forced colours handled.
+- [ ] No bare `html`, `body`, `*` or element selectors (section 5, Scoping), and every `<button>` has an explicit `type` (`button` unless it submits a form). A button acts on the page and a link goes somewhere: never a clickable `div`, whatever it looks like.
+- [ ] Reduced motion (JavaScript loops included), reduced transparency and forced colours handled. No first-screen text fades from transparent.
+- [ ] Overlays and menus: `100dvh` with the safe-area inset, own surface and text values, checked in dark mode.
 - [ ] Target size: aim for 44x44 on touch-first surfaces. Before reporting a WCAG 2.2 AA 2.5.8 failure for a target under 24x24 CSS px, check the spacing test **and** the exceptions (inline in text, equivalent control elsewhere, user-agent default, essential). The `ux-laws` skill has the full procedure.
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
+- [ ] If a composition move was used, its lines in [composition.md](references/composition.md) (Checks) are done.
 - [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References
+- [composition.md](references/composition.md): three style-neutral layout moves (depth planes, signal colour, scale contrast), when to use each, and their checks.
 - [styles-catalog.md](references/styles-catalog.md): card, button and input recipes for six styles.
 - [product-fit.md](references/product-fit.md): product type to style table.
 - [contrast-ledger.md](references/contrast-ledger.md): verified ratios and method.
 - [contrast-check.md](references/contrast-check.md): a copy-paste function that computes a pair by the ledger's method and prints both luminances.
 - [related-resources.md](references/related-resources.md): links to third-party components, icons, fonts, motion, charts and companion skills, and the rules for using them.
 - [source-scorecard.md](references/source-scorecard.md): how those links were scored, and their limits.
-- [guardrails.md](references/guardrails.md): focus, motion, transparency, forced colours, fonts and dark-mode CSS.
+- [guardrails.md](references/guardrails.md): focus, motion, transparency, forced colours, scoping, phones and overlays, fonts and dark-mode CSS.
 - [tailwind-mapping.md](references/tailwind-mapping.md): v4 and v3 mappings.
 - Token blocks: [dimensional](references/tokens-dimensional.md), [graphic](references/tokens-graphic.md), [retro](references/tokens-retro.md), [hightech](references/tokens-hightech.md), [artistic](references/tokens-artistic.md).

@@ -65,6 +65,20 @@
         "Shows both relative luminances beside any ratio it computes, and lists the result of searching its own files for http(s):// before it states its dependencies or fonts",
         "Applies the same scoping rule to any demo page it builds, including the inline style block"
       ]
+    },
+    {
+      "id": 6,
+      "prompt": "Our product page for a pair of headphones feels flat and people don't know what to tap. Rebuild the hero in the Swiss style: product name, photo, price, colour swatches and an Add to bag button. No browser is available.",
+      "expected_output": "A Swiss-themed hero that applies the composition moves: a decorative oversized back word behind the product photo with controls on top, the accent reserved for interactive elements, and one huge element with small supporting text, all within the contrast, focus and scoping contracts.",
+      "files": [],
+      "expectations": [
+        "Reads references/composition.md and names which moves it applied and why",
+        "The oversized back word is aria-hidden and the product name also exists as real text, or its contrast is recomputed at every backdrop it crosses",
+        "The product image cannot intercept clicks (pointer-events: none or equivalent) and no control or body text is overlapped",
+        "--ui-accent appears only on interactive elements and their states, not on the price, headings, swatches' decoration or the back word",
+        "Uses one huge element with body text at least 16px and labels at least 12px, and keeps a logical heading order",
+        "Says it did not render the result and leaves the overlap, reflow and 200% zoom checks open"
+      ]
     }
   ]
 }
