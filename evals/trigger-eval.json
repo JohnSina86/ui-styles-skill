@@ -78,5 +78,13 @@
  {
   "query": "critique the usability of this signup flow and tell me what to change",
   "should_trigger": false
+ },
+ {
+  "query": "my landing page looks generic and AI-made, can you make it look designed",
+  "should_trigger": true
+ },
+ {
+  "query": "review our checkout page copy and tell me where users get confused",
+  "should_trigger": false
  }
 ]
