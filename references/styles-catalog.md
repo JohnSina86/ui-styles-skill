@@ -63,7 +63,7 @@ Ledger rows: role row `neo-brutalism` (card, input, focus) and `D-neo-btn-label`
 .nb-button {
   background: var(--ui-accent);
   color: var(--ui-on-accent);
-  font: 700 1rem/1.2 var(--ui-font-display);
+  font: 700 1rem/1.2 var(--ui-font-body);      /* control labels use the body face (typography.md, pairing table) */
   border: 3px solid var(--ui-border);
   border-radius: var(--ui-radius);
   box-shadow: 4px 4px 0 var(--ui-border);
@@ -91,7 +91,7 @@ Ledger rows: role row `neo-brutalism` (card, input, focus) and `D-neo-btn-label`
 <div class="theme-neo-brutalism bg-ui-surface text-ui-text border-[3px] border-ui-border rounded-ui shadow-ui p-6 font-ui-body">
   <h3 class="font-ui-display font-bold text-xl mb-2">Neo-Brutalism card</h3>
   <p class="text-ui-muted mb-4">High contrast, raw, unapologetically functional.</p>
-  <button data-ui-motion class="bg-ui-accent text-ui-on-accent font-ui-display font-bold min-h-11 px-6 py-2.5 rounded-ui border-[3px] border-ui-border shadow-[4px_4px_0_var(--ui-border)]
+  <button data-ui-motion class="bg-ui-accent text-ui-on-accent font-ui-body font-bold min-h-11 px-6 py-2.5 rounded-ui border-[3px] border-ui-border shadow-[4px_4px_0_var(--ui-border)]
            hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_var(--ui-border)] active:translate-x-1 active:translate-y-1 active:shadow-none
            motion-reduce:translate-none transition focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ui-focus">
     Execute action
@@ -124,7 +124,7 @@ Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-
   border-radius: 9999px;
   min-height: 44px;
   padding: 10px 20px;
-  font-weight: 500;
+  font: 500 1rem var(--ui-font-body);
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -136,12 +136,13 @@ Ledger rows: `D-glass-card-text`, `D-glass-muted`, `D-glass-btn-rest`, `D-glass-
   border-radius: 12px;
   min-height: 44px;
   padding: 8px 12px;
+  font: 1rem var(--ui-font-body);
 }
 ```
 
 ### Tailwind (v4)
 ```html
-<div class="theme-glassmorphism ui-glass bg-ui-surface backdrop-blur-lg border border-white/25 rounded-ui shadow-ui p-6 text-ui-text">
+<div class="theme-glassmorphism ui-glass bg-ui-surface backdrop-blur-lg border border-white/25 rounded-ui shadow-ui p-6 text-ui-text font-ui-body">
   <h3 class="text-xl font-semibold mb-2">Glassmorphism card</h3>
   <p class="text-ui-muted mb-4">Translucent layers with crisp edge highlights.</p>
   <button class="bg-white/12 hover:bg-white/20 border border-ui-border rounded-full min-h-11 px-5 py-2 font-medium transition
@@ -179,7 +180,7 @@ Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The 
   color: var(--ui-on-accent);
   border: 2px solid transparent;    /* becomes visible in forced-colours mode */
   border-radius: 12px;
-  font: 600 1rem var(--ui-font-display);
+  font: 600 1rem var(--ui-font-body);          /* control labels use the body face; Plus Jakarta Sans is for the card's one title or number */
   min-height: 44px;
   padding: 10px 20px;
   cursor: pointer;
@@ -198,7 +199,7 @@ Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The 
 ### Tailwind (v4)
 ```html
 <!-- @container + @3xl: variants (Tailwind v4) key the layout to the wrapper's width, not the viewport -->
-<div class="theme-bento-grid @container max-w-5xl mx-auto bg-ui-bg p-4">
+<div class="theme-bento-grid @container max-w-5xl mx-auto bg-ui-bg p-4 font-ui-body">
 <div class="grid grid-cols-1 @3xl:grid-cols-3 gap-4">
   <div class="@3xl:col-span-2 @3xl:row-span-2 bg-ui-surface border border-zinc-200 rounded-ui p-8 text-ui-text flex flex-col justify-between">
     <div>
@@ -209,11 +210,11 @@ Ledger rows: role row `bento-grid`, and `D-bento-btn-label` (button label). The 
   </div>
   <div class="bg-ui-surface border border-zinc-200 rounded-ui p-6 text-ui-text">
     <span class="text-ui-muted text-xs font-semibold">Uptime</span>
-    <div class="text-3xl font-extrabold">99.98%</div>
+    <div class="text-3xl font-extrabold font-ui-display">99.98%</div>
   </div>
   <div class="bg-ui-surface border border-zinc-200 rounded-ui p-6 text-ui-text">
     <span class="text-ui-muted text-xs font-semibold">Latency</span>
-    <div class="text-3xl font-extrabold">&lt; 14ms</div>
+    <div class="text-3xl font-extrabold font-ui-display">&lt; 14ms</div>
   </div>
 </div>
 </div>
@@ -251,7 +252,7 @@ Ledger rows: `D-cyber-card-text`, `D-cyber-btn-label`, `D-cyber-btn-hover`, `D-c
 .cyber-btn {
   color: var(--ui-on-accent);
   border: 0;
-  font: 700 1rem/1 var(--ui-font-display);
+  font: 700 1rem/1 var(--ui-font-body);        /* Chakra Petch: control labels use the body face */
   text-transform: uppercase;
   letter-spacing: 0.1em;
   min-height: 44px;
@@ -301,8 +302,8 @@ Ledger rows: `D-swiss-red-text` (`#d00000`, passes) and `D-swiss-red-pure` (`#ff
 }
 .swiss-card h3 { font: 700 1.25rem/1.1 var(--ui-font-display); margin: 0 0 8px; }
 .swiss-card p  { color: var(--ui-text-muted); margin: 0; }
-.swiss-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; min-height: 44px; padding: 10px 24px; font-weight: 700; }
-.swiss-input  { border: 2px solid var(--ui-border); min-height: 44px; padding: 8px 12px; }
+.swiss-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; min-height: 44px; padding: 10px 24px; font: 700 1rem var(--ui-font-body); }
+.swiss-input  { border: 2px solid var(--ui-border); min-height: 44px; padding: 8px 12px; font: 1rem var(--ui-font-body); }
 ```
 
 ---
@@ -328,6 +329,6 @@ Ledger rows: role row `wabi-sabi`, `D-wabi-btn-label` (button label) and `D-wabi
   margin-bottom: 32px;
 }
 .wabi-title { font: 400 1.75rem var(--ui-font-display); letter-spacing: 0.05em; }
-.wabi-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 24px; }
-.wabi-input  { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
+.wabi-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 0; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 24px; font: 1.125rem var(--ui-font-body); }   /* Cormorant floor */
+.wabi-input  { background: var(--ui-surface); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; font: 1.125rem var(--ui-font-body); }
 ```

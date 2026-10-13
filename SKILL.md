@@ -3,10 +3,10 @@ name: ui-styles
 description: >-
   Contrast-verified design tokens and CSS recipes for distinctive UI styles (Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and more). Use when the user names a visual style or wants a distinctive theme for new UI, even without naming this skill. Not for UX critique (use ux-laws), WCAG audits, or restyling a project that already has a design system unless asked.
 metadata:
-  version: "1.5.0"
+  version: "1.6.0"
 ---
 
-# UI Styles (v1.5)
+# UI Styles (v1.6)
 
 Turns an aesthetic request into production CSS: one token block per style with fixed role names, verified contrast and shared guardrails. This file is the routing layer. Token blocks, recipes and CSS guardrails are in `references/`, and you read them **after** you choose a style.
 
@@ -64,7 +64,7 @@ Every style defines the same roles, so components never hard-code colours. A blo
 | `--ui-radius`, `--ui-shadow` | Shape and elevation |
 | `--ui-font-display`, `--ui-font-body` | Font stacks with generic fallbacks |
 
-Some styles add optional properties (`--ui-border-width`, `--ui-blur`, `--ui-backdrop`, `--ui-tilt`, `--ui-chrome`, `--ui-pattern`, `--ui-tracking`, `--ui-leading`). Components consume them.
+Some styles add optional properties (`--ui-border-width`, `--ui-blur`, `--ui-backdrop`, `--ui-tilt`, `--ui-chrome`, `--ui-pattern`, `--ui-tracking`, `--ui-leading`, and the spacing steps `--ui-space-1` to `--ui-space-6` from [typography.md](references/typography.md)). Components consume them.
 
 ## 4. Contrast contract
 Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs are >= 3:1. Every role pair and every derived component or state pair (glass tint, button hover, Cyberpunk labels) is recorded in [contrast-ledger.md](references/contrast-ledger.md) with the method. A colour listed under *Decorative only* fails at least one threshold, so use it **only for ornament and rules**. It may carry large text (>= 24px, or >= 18.66px bold) only if a ledger row for that exact colour and backdrop shows >= 3:1. **If you change a token or a recipe colour or alpha, recompute the ratio and update the ledger.** A ledger row covers only the exact foreground, background and state it names. The same hex on another surface is a new pair, so recompute it and never quote the row's ratio for it. When you compute a ratio yourself, write both relative luminances next to it (`L1 0.36, L2 1.00 -> 2.56:1`). A ratio with no luminances shown is a claim, not a recomputation, so don't call it "recomputed". Compute pairs with [contrast-check.md](references/contrast-check.md) rather than by hand; it prints both luminances in that form. Don't judge contrast by eye.
@@ -85,16 +85,17 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 3. Build components from roles. For Neo-Brutalism, Glassmorphism, Bento Grid, Cyberpunk, Swiss and Wabi-Sabi use [styles-catalog.md](references/styles-catalog.md). For any other style, use this pattern, **scoped to the theme** (if the project already has card, button or input components, map the roles into *those* selectors instead):
    ```css
    :where([class*="theme-"]) { font-family: var(--ui-font-body); }
-   :where([class*="theme-"]) :is(h1, h2, h3, h4) { font-family: var(--ui-font-display); }
-   :where([class*="theme-"]) .ui-card { background: var(--ui-surface); color: var(--ui-text); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: 24px; }
-   :where([class*="theme-"]) .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius); min-height: 44px; padding: 10px 20px; font-family: var(--ui-font-display); }
-   :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: 8px 12px; }
+   :where([class*="theme-"]) :is(h1, h2, h3, h4) { font-family: var(--ui-font-display); } /* secondary headings switch to --ui-font-body where the pairing row in typography.md says so */
+   :where([class*="theme-"]) .ui-card { background: var(--ui-surface); color: var(--ui-text); border-radius: var(--ui-radius); box-shadow: var(--ui-shadow); padding: var(--ui-space-4, 24px); }
+   :where([class*="theme-"]) .ui-button { background: var(--ui-accent); color: var(--ui-on-accent); border: 2px solid transparent; border-radius: var(--ui-radius); min-height: 44px; padding: var(--ui-space-2, 10px) var(--ui-space-4, 20px); font: 700 1rem/1.2 var(--ui-font-body); }
+   :where([class*="theme-"]) .ui-input { background: var(--ui-surface); color: var(--ui-text); border: 1px solid var(--ui-border); border-radius: var(--ui-radius); min-height: 44px; padding: var(--ui-space-2, 8px) var(--ui-space-3, 12px); font: 1rem/1.4 var(--ui-font-body); } /* form controls don't inherit fonts: set face and size */
    ```
 4. **Composition moves.** If the screen feels flat or looks like a default template, if users can't tell what to tap, or if the user asks for depth, focus or hierarchy, read [composition.md](references/composition.md) and apply the moves its table matches (depth planes, signal colour, scale contrast). In an existing design system, propose them first (section 0).
 5. **Anti-slop.** Read [anti-slop.md](references/anti-slop.md), run its checks on what you built (rubric v1.4: a gate result of pass, fail or inconclusive with assessed coverage; pass is no high tell, at most two medium with a reason and every row assessed; kept aesthetic choices listed as retained) and answer its five "Could this be any site?" questions in the delivery note. Tells are craft findings, never `ux-laws` rows.
-6. Run the checklist in section 7.
-7. If the user asks for ready-made or animated components, icons, fonts, charts or companion skills, read [related-resources.md](references/related-resources.md) first and follow its rules. Never recreate a library's component or icon from memory.
-8. For a UX review of the result, use `ux-laws`. It grades structure and behaviour, not the chosen aesthetic.
+6. **Type scale and imagery.** Set the type scale and imagery direction from [typography.md](references/typography.md) and [imagery.md](references/imagery.md). The two-step scale applies where composition.md's table allows scale contrast (not dashboards or data views); the floors, measure, spacing steps and pairing row apply everywhere; section padding by role applies to pages, not to a component-only task. Name the imagery kind (or none) and respect the ban list.
+7. Run the checklist in section 7.
+8. If the user asks for ready-made or animated components, icons, fonts, charts or companion skills, read [related-resources.md](references/related-resources.md) first and follow its rules. Never recreate a library's component or icon from memory.
+9. For a UX review of the result, use `ux-laws`. It grades structure and behaviour, not the chosen aesthetic.
 
 ## 7. Pre-delivery checklist
 - [ ] Existing design system respected (section 0).
@@ -110,11 +111,14 @@ Text, muted text and on-accent pairs are >= 4.5:1, and border and focus pairs ar
 - [ ] No emoji used as icons; fonts self-hosted or policy-approved, with generic fallbacks. Before you write "no remote fonts" or "dependencies: none", search every file you deliver, demo pages included, for `http://` and `https://` (`<link>`, `<script>`, `@import`, `url()`), and list what you find.
 - [ ] If a composition move was used, its lines in [composition.md](references/composition.md) (Checks) are done.
 - [ ] Anti-slop checks done ([anti-slop.md](references/anti-slop.md), rubric v1.4): gate result pass, fail or inconclusive with coverage, never inconclusive reported as passing, retained choices listed, the five questions answered, and no tell reported as a `ux-laws` finding.
+- [ ] Type and imagery: reading text >= 16px and labels >= 12px, reading text at 45 to 75 characters, the style's pairing row; one huge element per view where scale contrast applies; on a page, section padding varies by role; the imagery kind named (or "none") with nothing from the ban list.
 - [ ] Layout checked at narrow width and 200% zoom, with text reflowing without clipping. Say "rendered" or "checked" only if you opened the result in a browser tool in this session. Reading the code or the DOM is not a render, so leave this item open and say so.
 
 ## References
 - [composition.md](references/composition.md): three style-neutral layout moves (depth planes, signal colour, scale contrast), when to use each, and their checks.
 - [anti-slop.md](references/anti-slop.md): a frozen rubric (v1.4) of about twenty tells of a default AI-generated page, with severity, fix, exceptions, evidence and counting unit, the five-question "Could this be any site?" test, and checks.
+- [typography.md](references/typography.md): the two-step type scale with floors, the measure, the `--ui-space-*` steps, section padding by role, and a display-and-body pairing row per style.
+- [imagery.md](references/imagery.md): the imagery kind per style, treatment rules (crop, edges, no accent tint, alt decision) and the ban list.
 - [styles-catalog.md](references/styles-catalog.md): card, button and input recipes for six styles.
 - [product-fit.md](references/product-fit.md): product type to style table.
 - [contrast-ledger.md](references/contrast-ledger.md): verified ratios and method.
