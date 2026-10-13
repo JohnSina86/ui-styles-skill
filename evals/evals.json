@@ -113,6 +113,27 @@
         "Because this is a page and not a component, section padding differs by section role (hero, content, band, footer) using the --ui-space-* steps, not one value for every section",
         "Says it did not render the result and leaves the crop, reflow and 200% zoom checks open"
       ]
+    },
+    {
+      "id": 9,
+      "prompt": "Build the hero section of a launch page for a pair of studio headphones in the Editorial style: a brand word, a two-line headline, an eyebrow, the product photo, one paragraph and a Pre-order button. The display font is self-hosted and the client wants a short loading screen before the hero animates in. Plain CSS, no animation library. No browser is available.",
+      "expected_output": "An Editorial hero with a loader and a choreographed reveal that follows references/choreography.md: an opaque loader that exits by transform or clip-path and gates the content, headings and decoration staggered from a --ui-stagger step with the product photo entering last, the paragraph and the button at rest from the first frame, every entrance at full opacity, a static reduced-motion end state, data-ui-motion on every moving element, and a choreography line in the delivery.",
+      "files": [],
+      "expectations": [
+        "Reads references/choreography.md and delivers the order it names: the loader, then a gate that holds the content while the loader is up, then the brand word, headline lines and eyebrow one stagger step apart, and the product photo last",
+        "States the timings in a choreography line and they fit the budget: the stagger step is between 40 and 80 ms and comes from a --ui-stagger custom property, no first-screen element starts later than 600 ms, and the last element is at rest under 1.2 s",
+        "The paragraph and the Pre-order button are not animated: they are at rest from the first frame and no control or body text carries an entrance",
+        "No first-screen text fades from transparent: the headline, brand word and eyebrow enter by transform, clip-path or mask at opacity 1",
+        "Under prefers-reduced-motion the loader is not shown and every choreographed element sits at its end pose with no clip, so the page is fully readable at first paint",
+        "Every choreographed element, the loader included, carries data-ui-reveal beside data-ui-motion, and the data-ui-reveal count matches the elements the choreography line names; a hover or press effect marked data-ui-motion alone is not counted",
+        "The loader exits by transform or clip-path (not by animating its width or height), is hidden until script shows it, and the page is usable with script disabled or blocked",
+        "Saves the previous history.scrollRestoration value and restores it when the gate closes, including when the loader fails or the page is left early; skips the loader and the top scroll on reload, history (back_forward) and fragment navigation, so a reader who reloads a scrolled page keeps their position",
+        "Arms the loader's deadline when the gate is set rather than at DOMContentLoaded, ends the loader through one terminal cleanup that a late readiness callback cannot restart, and runs that cleanup when prefers-reduced-motion changes to reduce while the loader is up",
+        "The product photo has width and height (or aspect-ratio) so its box is reserved, and the loader waits for the image (decode or load) together with the display font inside the same deadline, so the subject does not finish its entrance before the image arrives; a failed or slow image never blocks the page",
+        "With the theme class on a wrapper element rather than on html, the loader shows during the gate, the entrances hold and the scroll is locked, and the loader never appears after the content has been revealed",
+        "Keyboard focus during loading cannot activate an obscured control: focus entering the covered content dismisses the loader through the same cleanup (or the covered content is inert while the gate is set)",
+        "Says it did not render the result and leaves the order, budget and reduced-motion checks open"
+      ]
     }
   ]
 }
