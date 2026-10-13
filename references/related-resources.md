@@ -48,6 +48,7 @@ Also reasonable: Ark UI (https://ark-ui.com) and Zag.js (https://zagjs.com) for 
 | Vengeance UI | https://www.vengenceui.com/docs (source: https://github.com/Ashutoshx7/VengeanceUI) | MIT, shadcn CLI, marketing-style effects | The domain really is spelled `vengenceui`. |
 | Motion Primitives | https://motion-primitives.com | MIT | Describes itself as beta. No reduced-motion code was found. |
 | Animata | https://animata.design | MIT | Reduced-motion support is claimed, not confirmed in code. |
+| Originkit | https://www.originkit.dev (source: https://github.com/vellum-ai/originkit) | MIT (LICENSE file checked 2026-10-13). Free, about 50 named components, many text and background effects. | React only (Next.js, Vite and Framer stacks are fetched too). Source is not in the repo: `originkit_get` fetches it from the owner's server with a free API key, limited to 10 fetches per key per day, shared with the website. Its terms for served code are separate from the MIT repo and unread. The README gives 50 and "over 250" components, and says both that the plugin never writes secrets to disk and that the key is saved automatically. Confirm the key storage before using it. Use the browse tool freely, and fetch only the one effect the user picks. |
 
 ## Icon libraries
 Use **one** family per project. Confirm the licence of the version you install.
@@ -136,7 +137,7 @@ Ideas worth borrowing, in this skill's own words: **the brief wins** (a refineme
 
 ## Do not use without a licence check
 - **Skiper UI**: its public repository has no licence and the site sells paid tiers. Don't copy from it.
-- **Aceternity UI Pro, OriginKit paid tiers, Animmaster Lib**: paid. Animmaster's delivery (a shared drive folder and a chat channel) makes its provenance unclear. OriginKit's free tier is rate-limited and needs a key.
+- **Aceternity UI Pro, Animmaster Lib**: paid. Animmaster's delivery (a shared drive folder and a chat channel) makes its provenance unclear.
 - **21st.dev**: licences vary per component author. Check each one.
 - **React Bits**: MIT plus the Commons Clause, so no redistributing or porting the components.
 - **unDraw and Storyset**: unDraw bans redistribution, packs and AI use, and its wording about use inside an app is ambiguous. Storyset needs attribution on the free tier.
