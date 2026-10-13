@@ -24,8 +24,8 @@ Each view that takes the scale (the first screen, then each section) has **one h
 | Meta | `0.8125rem` to `0.875rem` | labels, captions, timestamps, eyebrows, in `--ui-text-muted` or with weight, case and tracking |
 
 - **Floors:** reading text is never below 16px and labels never below 12px. A pairing note below may raise a floor for a face with a small x-height.
-- **The `vw` term is mandatory** on the display step so the huge element reflows. Add `overflow-wrap: anywhere` and check 320px and 200% zoom.
-- **Rank without size.** A section heading that is not the section's huge element is body-sized in the display face, ranked by weight, case and `--ui-tracking` where the style has it. Heading levels still follow document order (pre-delivery checklist).
+- **The `vw` term is mandatory** on the display step so the huge element reflows, except for `pixel-art`, which uses the stepped sizes in section 5. Add `overflow-wrap: anywhere` and check 320px and 200% zoom.
+- **Rank without size.** A section heading that is not the section's huge element is body-sized, ranked by weight, case and `--ui-tracking` where the style has it. It uses the display face when that face works at the body step; where the pairing row gives the display face a minimum above the body step (`scrapbook`, `maximalism`, `luxury`, `sketch`, `ethereal`, `victorian`), secondary headings use the **body face** instead, as the row says, and the generic heading recipe in SKILL.md (workflow step 3) gets that override. Heading levels still follow document order (pre-delivery checklist).
 - **One huge element per view.** Two compete (`ux-laws` law 7). A section may have none.
 
 ```css
@@ -83,10 +83,10 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 | `claymorphism` | Nunito 800 | Nunito 400 | One family. Meta at 600, not lighter, so it stays soft without going faint. |
 | `cybercore` | JetBrains Mono 700 | JetBrains Mono 400 | One family. Cap the display at `6rem`: mono is wide. Read-outs and coordinates are the meta step. |
 | `neo-brutalism` | Space Grotesk 700 | Space Grotesk 400 | One family. Display at line height 0.95; the border and offset shadow do the rest. |
-| `scrapbook` | Caveat 700 | Lora 400 | Caveat on headings and short notes only, never below 24px. Body never rotated. |
+| `scrapbook` | Caveat 700 | Lora 400 | Caveat on the huge element and short notes only, never below 24px; secondary headings in Lora 700, uppercase or tracked. Body never rotated. |
 | `surrealism` | Syne 800 | Inter 400 | Syne at 800 only; lighter weights lose the shape. Text on solid panels only. |
 | `y2k` | Outfit 800 | Outfit 400 | One family. Display may take `-0.02em` tracking. Text on `--ui-surface`, never on the chrome gradient. |
-| `pixel-art` | Press Start 2P | VT323 | Set Press Start 2P at multiples of 8px (16, 24, 32) so pixels align, display cap `4rem`. VT323 body floor `1.25rem` (20px, which is then the body step): its x-height is small. Headings and labels only in Press Start 2P. |
+| `pixel-art` | Press Start 2P | VT323 | Press Start 2P only at multiples of 8px (16, 24, 32, 48, 64) so pixels align: no `clamp()`, use the stepped sizes below this table. VT323 body floor `1.25rem` (20px, which is then the body step): its x-height is small. Headings and labels only in Press Start 2P. |
 | `synthwave` | Orbitron 700 | Inter 400 | Orbitron on headings only; glow at 24px and above only. Meta in Inter. |
 | `glassmorphism` | Inter 700 | Inter 400 | One family. Display at `-0.02em`; the glass edge, not a second face, separates panels. |
 | `neumorphism` | Inter 600 | Inter 400 | One family. Keep display at 600: the style is low-contrast, so size does the ranking. |
@@ -94,19 +94,27 @@ One row per style ID in the SKILL.md index, in index order. Both faces are the s
 | `editorial` | Playfair Display 700 | Newsreader 400 | Playfair italic for pull quotes. Body `1.125rem` on long reads, measure 65 characters. |
 | `swiss` | Inter 800 | Inter 400 | One family. Display uppercase at `-0.03em`; body sentence case. The grid ranks, not a second face. |
 | `minimalism` | Inter 500 | Inter 400 | One family. Display stays at 500; size does all the work. Meta in `--ui-text-muted`. |
-| `maximalism` | Anton | Inter 400 | Anton uppercase at line height 0.9, display only, never below 24px and never on labels. |
-| `luxury` | Bodoni Moda 400 | Cormorant Garamond 400 | Bodoni hairlines need size: display floor `3rem`, never bold. Cormorant body floor `1.125rem`. Tracking on labels only. |
-| `sketch` | Architects Daughter | Inter 400 | Architects Daughter for headings and annotations at 20px and above; labels and inputs in Inter. |
-| `ethereal` | Cormorant Garamond 500 | Urbanist 400 | Cormorant display floor `2.5rem`. Body weight 400 or more. Meta in Urbanist. |
+| `maximalism` | Anton | Inter 400 | Anton uppercase at line height 0.9, the huge element only, never below 24px and never on labels; secondary headings in Inter 700 uppercase. |
+| `luxury` | Bodoni Moda 400 | Cormorant Garamond 400 | Bodoni hairlines need size: display floor `3rem`, never bold; secondary headings in Cormorant Garamond 600 uppercase. Cormorant body floor `1.125rem`. Tracking on labels only. |
+| `sketch` | Architects Daughter | Inter 400 | Architects Daughter for the huge element and annotations at 20px and above; secondary headings in Inter 700, labels and inputs in Inter. |
+| `ethereal` | Cormorant Garamond 500 | Urbanist 400 | Cormorant display floor `2.5rem`; secondary headings in Urbanist 600. Body weight 400 or more. Meta in Urbanist. |
 | `bohemian` | Fraunces 600 | Lora 400 | Fraunces at optical size for display; labels in Lora, not Fraunces. |
-| `victorian` | Cinzel Decorative | Lora 400 | Cinzel Decorative is capitals only: headings only, never below 24px, never on labels. Lora for labels. |
+| `victorian` | Cinzel Decorative | Lora 400 | Cinzel Decorative is capitals only: the huge element only, never below 24px, never on labels. Secondary headings and labels in Lora 700. |
 | `cyberpunk` | Rajdhani 700 | Chakra Petch 400 | Rajdhani uppercase for display; Chakra Petch body `1rem`, labels 12px and above. No long reading. |
 | `wabi-sabi` | Shippori Mincho 500 | Cormorant Garamond 400 | Body uses `--ui-leading` 1.8 and `--ui-tracking`. Cormorant body floor `1.125rem`. |
 
+**Pixel Art exception.** Press Start 2P is a bitmap face that only looks right at multiples of 8px, so a fluid `clamp()` is wrong for it: it hits 60px at a 500px viewport. `pixel-art` uses stepped sizes instead, and the Scale check accepts them in place of the `vw` term. The steps still reflow: keep `overflow-wrap: anywhere`.
+```css
+.theme-pixel-art .ui-display { font-size: 32px; line-height: 1.25; }
+.theme-pixel-art .ui-display-section { font-size: 24px; line-height: 1.34; }
+@media (min-width: 30rem) { .theme-pixel-art .ui-display { font-size: 48px; } .theme-pixel-art .ui-display-section { font-size: 32px; } }
+@media (min-width: 64rem) { .theme-pixel-art .ui-display { font-size: 64px; } .theme-pixel-art .ui-display-section { font-size: 48px; } }
+```
+
 ## Checks
 Add these to the section 7 checklist when you set the type scale.
-- [ ] **Scale** (on views that take it, per composition.md's table): one huge element per view, set with `clamp()` and a `vw` term, and no third size between the body step and the display step. Everywhere: reading text >= 16px, labels >= 12px, plus any face floor from the pairing table.
+- [ ] **Scale** (on views that take it, per composition.md's table): one huge element per view, set with `clamp()` and a `vw` term (or the stepped sizes for `pixel-art`), and no third size between the body step and the display step. Everywhere: reading text >= 16px, labels >= 12px, plus any face floor from the pairing table.
 - [ ] **Measure:** reading text capped at 45 to 75 characters (`ch`), text not shrunk to fit on phones.
 - [ ] **Spacing:** every padding and gap is a `--ui-space-*` step. On a page, at least two different section paddings; not applicable to a component-only task.
-- [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors. No font added.
+- [ ] **Pairing:** the display and body faces are the row's faces from the style's token block, with the row's weights and floors, and secondary headings in the body face where the row says so. No font added.
 - [ ] **Reflow:** 320px and 200% zoom checked, or left open as "needs a render".
